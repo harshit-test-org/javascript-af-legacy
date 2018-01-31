@@ -7,7 +7,7 @@ import SearchIcon from '@fortawesome/fontawesome-free-solid/faSearch'
 import UserIcon from '@fortawesome/fontawesome-free-solid/faUser'
 import Sidebar from './styles/Sidebar'
 
-export default () => {
+const Sidemenu = () => {
   return (
     <Sidebar>
       <a href="#">
@@ -28,3 +28,5 @@ export default () => {
     </Sidebar>
   )
 }
+
+export default Sidemenu
