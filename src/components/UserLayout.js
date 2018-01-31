@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import Navbar from './styles/Navbar';
-import Sidemenu from './Sidemenu';
+import React, { Component } from 'react'
+import Navbar from './styles/Navbar'
+import Sidemenu from './Sidemenu'
 
-const Fragment = React.Fragment;
+const Fragment = React.Fragment
 
 export default class Layout extends Component {
   renderLinks(links) {
@@ -15,7 +15,8 @@ export default class Layout extends Component {
           </Fragment>
         ))}
       </Fragment>
-    );
+    )
+    w
   }
   render() {
     return (
@@ -24,6 +25,6 @@ export default class Layout extends Component {
         <Sidemenu />
         {this.props.children}
       </Fragment>
-    );
+    )
   }
 }

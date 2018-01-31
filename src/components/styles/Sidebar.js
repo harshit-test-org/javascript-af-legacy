@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Sidebar = styled.div`
   background: #2a2d34;
@@ -46,6 +46,6 @@ const Sidebar = styled.div`
       text-decoration: none;
     }
   }
-`;
+`
 
-export default Sidebar;
+export default Sidebar

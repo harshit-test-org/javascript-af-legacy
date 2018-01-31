@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Navbar = styled.div`
   background: #fff;
@@ -36,6 +36,6 @@ const Navbar = styled.div`
       margin: 0 5vw;
     }
   }
-`;
+`
 
-export default Navbar;
+export default Navbar

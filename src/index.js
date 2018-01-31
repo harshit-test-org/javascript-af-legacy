@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { injectGlobal } from 'styled-components';
-import registerServiceWorker from './registerServiceWorker';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { injectGlobal } from 'styled-components'
+import registerServiceWorker from './registerServiceWorker'
+import App from './App'
 
-import 'typeface-josefin-sans';
+import 'typeface-josefin-sans'
 
 injectGlobal`
 * {
@@ -28,7 +28,7 @@ html, body {
 ::selection {
     background: #fd267d;
 }
-`;
+`
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+ReactDOM.render(<App />, document.getElementById('root'))
+registerServiceWorker()
