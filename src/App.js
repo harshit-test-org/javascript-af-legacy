@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import Sidemenu from './components/Sidemenu';
-import Navbar from './components/styles/Navbar';
-
+import Layout from './components/UserLayout';
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <Navbar>
-          <a href="#">Projects</a> •
-          <a href="#">Feed</a>
-        </Navbar>
-        <Sidemenu />
-      </div>
-    );
+    const links = [
+      {
+        name: 'Projects',
+        href: '/projects'
+      },
+      {
+        name: 'Feed',
+        href: '/feed'
+      }
+    ];
+    return <Layout links={links} />;
   }
 }
 
