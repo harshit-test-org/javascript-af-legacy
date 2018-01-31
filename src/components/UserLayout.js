@@ -5,7 +5,7 @@ import Sidemenu from './Sidemenu'
 const Fragment = React.Fragment
 
 export default class Layout extends Component {
-  renderLinks(links) {
+  renderLinks (links) {
     return (
       <Fragment>
         {links.map((item, i) => (
@@ -16,9 +16,8 @@ export default class Layout extends Component {
         ))}
       </Fragment>
     )
-    w
   }
-  render() {
+  render () {
     return (
       <Fragment>
         <Navbar>{this.renderLinks(this.props.links)}</Navbar>
