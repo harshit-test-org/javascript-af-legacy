@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators, compose } from 'redux'
+import { setUser } from '../redux/actions/user'
 import firebase from '../lib/firebase'
 import Homebar from './styles/Homebar'
 
 const Fragment = React.Fragment
 const Auth = firebase.auth()
 
-export default class Layout extends Component {
+class Layout extends Component {
+  componentWillMount () {
+    Auth.onAuthStateChanged(user => {
+      if (user) {
+        this.props.setUser(user)
+        this.props.history.replace('/user/home')
+      }
+    })
+  }
   handleLogin = async () => {
     const provider = new firebase.auth.GithubAuthProvider()
     try {
@@ -24,3 +36,14 @@ export default class Layout extends Component {
     )
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(
+    {
+      setUser
+    },
+    dispatch
+  )
+}
+
+export default compose(connect(null, mapDispatchToProps), withRouter)(Layout)
