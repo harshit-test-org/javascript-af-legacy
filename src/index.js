@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { injectGlobal } from 'styled-components'
 import registerServiceWorker from './registerServiceWorker'
-import { BrowserRouter } from 'react-router-dom'
-import Router from './routes/router'
+import App from './App'
 
 import 'typeface-josefin-sans'
 
@@ -31,10 +30,5 @@ html, body {
 }
 `
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Router />
-  </BrowserRouter>,
-  document.getElementById('root')
-)
+ReactDOM.render(<App />, document.getElementById('root'))
 registerServiceWorker()
