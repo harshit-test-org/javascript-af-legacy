@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import Layout from './components/UserLayout'
-class App extends Component {
+import Layout from '../components/UserLayout'
+
+class Index extends Component {
   render () {
     const links = [
       {
@@ -24,4 +25,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default Index
