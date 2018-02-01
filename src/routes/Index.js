@@ -58,7 +58,7 @@ class Index extends Component {
       <Layout>
         <Welcome>
           <ul>
-            <h1>By Devs for Devs</h1>
+            <h1>Javascript. Always Fun!</h1>
             <p>
               A social media were developers can view there github repos or
               other people{`'`}s repos and connect with other developers by
