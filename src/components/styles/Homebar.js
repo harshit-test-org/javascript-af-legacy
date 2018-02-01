@@ -36,12 +36,14 @@ const Bar = styled.div`
   }
 `
 
-const HomeBar = () => (
+const HomeBar = ({ handleLogin }) => (
   <Bar>
     <a href="/">
       {'{'}JS.af{'}'}
     </a>
-    <button className="login-btn">Login with Github</button>
+    <button onClick={handleLogin} className="login-btn">
+      Login with Github
+    </button>
   </Bar>
 )
 
