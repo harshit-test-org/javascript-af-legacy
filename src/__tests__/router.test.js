@@ -12,5 +12,12 @@ describe('<Router />', () => {
       </MemoryRouter>
     )
   })
+  it('should render without crashing on user home', () => {
+    render(
+      <MemoryRouter initialEntries={['/user/home']}>
+        <Router />
+      </MemoryRouter>
+    )
+  })
   // TODO: Check navigation
 })

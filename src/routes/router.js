@@ -9,9 +9,15 @@ const Index = Loadable({
   loading: Loading
 })
 
+const UserHome = Loadable({
+  loader: () => import('./UserHome'),
+  loading: Loading
+})
+
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
+    <Route exact path={'/user/home'} component={UserHome} />
   </Switch>
 )
 

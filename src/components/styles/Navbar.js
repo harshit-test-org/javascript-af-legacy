@@ -3,10 +3,6 @@ import styled from 'styled-components'
 const Navbar = styled.div`
   background: #fff;
   box-shadow: 0 5px 5px -5px #000;
-  -webkit-box-shadow: 0 5px 5px -5px #000;
-  -moz-box-shadow: 0 5px 5px -5px #000;
-  -ms-box-shadow: 0 5px 5px -5px #000;
-  -o-box-shadow: 0 5px 5px -5px #000;
   height: 100%;
   padding: 10px;
   text-align: center;
