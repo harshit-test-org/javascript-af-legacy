@@ -1,8 +1,15 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
+import userReducer from './reducers/user'
+
+const initialState = {
+  user: null
+}
+
+const rootReducer = combineReducers({ user: userReducer })
 
 const store = createStore(
-  state => state,
-  42,
+  rootReducer,
+  initialState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
