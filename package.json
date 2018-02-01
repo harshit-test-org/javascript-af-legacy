@@ -20,7 +20,7 @@
     "test":
       "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js",
     "cm": "git-cz",
-    "precommit": "lint-staged",
+    "precommit": "lint-staged && npm run test",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
