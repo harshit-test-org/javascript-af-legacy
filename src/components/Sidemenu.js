@@ -10,19 +10,19 @@ import Sidebar from './styles/Sidebar'
 const Sidemenu = () => {
   return (
     <Sidebar>
-      <a href="#">
+      <a href="/">
         <FontAwesome icon={HomeIcon} />
       </a>
-      <a href="#">
+      <a href="/search">
         <FontAwesome icon={SearchIcon} />
       </a>
-      <a href="#">
+      <a href="/work">
         <FontAwesome icon={BriefCaseIcon} />
       </a>
-      <a href="#">
+      <a href="/social">
         <FontAwesome icon={CommentsIcon} />
       </a>
-      <a href="#">
+      <a href="/profile">
         <FontAwesome icon={UserIcon} />
       </a>
     </Sidebar>
