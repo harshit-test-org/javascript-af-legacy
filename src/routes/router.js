@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from 'react-loadable'
+import PrivateRoute from './PrivateRoute'
 
 const Loading = () => <h1>Loading....</h1>
 
@@ -17,7 +18,7 @@ const UserHome = Loadable({
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
-    <Route exact path={'/user/home'} component={UserHome} />
+    <PrivateRoute exact path={'/user/home'} component={UserHome} />
   </Switch>
 )
 
