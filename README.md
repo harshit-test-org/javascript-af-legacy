@@ -11,6 +11,9 @@ To navigate your way through applications built with Create React App & perform 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
+## Design Repository
+Design by Jvscrptr. Repo https://github.com/jvscrptr/JavaScript.af
+
 ### Learning Git
 Those who are not yet familiar with Git but want to learn more about how to use it, check out these resources to dive into git workflow -
 - [Git - Documentation](https://git-scm.com/doc)
