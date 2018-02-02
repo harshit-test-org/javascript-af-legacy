@@ -12,6 +12,7 @@ const Auth = firebase.auth()
 class Layout extends Component {
   componentWillMount () {
     Auth.onAuthStateChanged(user => {
+      console.log(user, 'h')
       if (user) {
         this.props.setUser(user)
         this.props.history.replace('/user/home')
