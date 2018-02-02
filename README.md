@@ -1,7 +1,7 @@
 # Javascript.af
 
-[![Build Status](https://travis-ci.org/travis-ci/travis-web.svg?branch=master)](https://travis-ci.org/travis-ci/travis-web)
-[![Coverage Status](https://coveralls.io/repos/github/JesseRWeigel/javascript-af/badge.svg?branch=init)](https://coveralls.io/github/JesseRWeigel/javascript-af?branch=init)
+[![Build Status](https://travis-ci.org/JesseRWeigel/javascript-af.svg?branch=master)](https://travis-ci.org/JesseRWeigel/javascript-af)
+[![Coverage Status](https://coveralls.io/repos/github/JesseRWeigel/javascript-af/badge.svg?branch=master)](https://coveralls.io/github/JesseRWeigel/javascript-af?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 Javascript af is a platform for devs to share their great work. 
