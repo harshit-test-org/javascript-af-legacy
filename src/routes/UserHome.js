@@ -11,14 +11,6 @@ class Index extends Component {
       {
         name: 'Feed',
         href: '/feed'
-      },
-      {
-        name: 'Messages',
-        href: '/messages'
-      },
-      {
-        name: 'Profile',
-        href: '/profile'
       }
     ]
     return <Layout links={links} />
