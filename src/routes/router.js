@@ -2,8 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import PrivateRoute from './PrivateRoute'
-
-const Loading = () => <h1>Loading....</h1>
+import Loading from '../components/Loading'
 
 const Index = Loadable({
   loader: () => import('./Index'),
