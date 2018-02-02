@@ -1,11 +1,16 @@
 import { createStore, combineReducers } from 'redux'
 import userReducer from './reducers/user'
+import authLoadingReducer from './reducers/loading'
 
 const initialState = {
-  user: null
+  user: null,
+  authLoading: true
 }
 
-const rootReducer = combineReducers({ user: userReducer })
+const rootReducer = combineReducers({
+  user: userReducer,
+  authLoading: authLoadingReducer
+})
 
 const store = createStore(
   rootReducer,

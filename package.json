@@ -9,6 +9,7 @@
     "firebase": "^4.9.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
     "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
@@ -21,8 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test":
-      "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
+    "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
     "cm": "git-cz",
     "precommit": "lint-staged && npm run test",

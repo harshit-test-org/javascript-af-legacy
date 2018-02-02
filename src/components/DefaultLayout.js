@@ -5,6 +5,7 @@ import { bindActionCreators, compose } from 'redux'
 import { setUser } from '../redux/actions/user'
 import firebase from '../lib/firebase'
 import Homebar from './styles/Homebar'
+import Loading from './Loading'
 
 const Fragment = React.Fragment
 const Auth = firebase.auth()
@@ -12,7 +13,7 @@ const Auth = firebase.auth()
 class Layout extends Component {
   componentWillMount () {
     Auth.onAuthStateChanged(user => {
-      console.log(user, 'h')
+      this.props.dispatch({ type: 'UNSET_LOADING' })
       if (user) {
         this.props.setUser(user)
         this.props.history.replace('/user/home')
@@ -31,20 +32,36 @@ class Layout extends Component {
   render () {
     return (
       <Fragment>
-        <Homebar handleLogin={this.handleLogin} />
-        {this.props.children}
+        {this.props.loading ? (
+          <Loading />
+        ) : (
+          <Fragment>
+            <Homebar handleLogin={this.handleLogin} />
+            {this.props.children}
+          </Fragment>
+        )}
       </Fragment>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    loading: state.authLoading
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators(
     {
-      setUser
+      setUser,
+      dispatch
     },
     dispatch
   )
 }
 
-export default compose(connect(null, mapDispatchToProps), withRouter)(Layout)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(Layout)
