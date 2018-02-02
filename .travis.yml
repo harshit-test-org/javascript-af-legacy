@@ -8,11 +8,3 @@ script:
   - npm test
   - npm run build
 after_success: coveralls < ./coverage/lcov.info
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  keep-history: true
-  local_dir: build/
-  on:
-    branch: master
