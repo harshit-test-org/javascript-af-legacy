@@ -5,6 +5,7 @@ import { bindActionCreators, compose } from 'redux'
 import { setUser } from '../redux/actions/user'
 import firebase from '../lib/firebase'
 import Homebar from './styles/Homebar'
+import Helmet from 'react-helmet'
 import Loading from './Loading'
 
 const Fragment = React.Fragment
@@ -30,8 +31,14 @@ class Layout extends Component {
     }
   }
   render () {
+    const title = this.props.title
+      ? `${this.props.title} | Javascript.af`
+      : 'Javascript.af'
     return (
       <Fragment>
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
         {this.props.loading ? (
           <Loading />
         ) : (

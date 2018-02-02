@@ -13,7 +13,7 @@ class Index extends Component {
         href: '/feed'
       }
     ]
-    return <Layout links={links} />
+    return <Layout title="Home" links={links} />
   }
 }
 
