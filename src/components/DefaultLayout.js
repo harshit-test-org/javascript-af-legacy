@@ -7,6 +7,7 @@ import firebase from '../lib/firebase'
 import Homebar from './styles/Homebar'
 import Helmet from 'react-helmet'
 import Loading from './Loading'
+import Footer from './Footer'
 
 const Fragment = React.Fragment
 const Auth = firebase.auth()
@@ -45,6 +46,7 @@ class Layout extends Component {
           <Fragment>
             <Homebar handleLogin={this.handleLogin} />
             {this.props.children}
+            <Footer />
           </Fragment>
         )}
       </Fragment>
