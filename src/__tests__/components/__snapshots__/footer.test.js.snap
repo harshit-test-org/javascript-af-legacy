@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer /> should render correctly 1`] = `
+<div
+  className="sc-bdVaJa cZKaVR"
+>
+  <p>
+    Made with 
+    <span
+      id="heart"
+    >
+      ♥
+    </span>
+     by
+     
+    <a
+      href="https://www.instagram.com/jesse.weigel/"
+      id="name"
+    >
+      Jesse
+    </a>
+     ,
+    <a
+      href="https://www.instagram.com/jvscrptr/"
+      id="name"
+    >
+      Jvscrpt.r
+    </a>
+     and 
+    <a
+      href="https://www.instagram.com/pantharshit00/"
+      id="name"
+    >
+      Harshit
+    </a>
+    
+  </p>
+  <a
+    href="/about"
+  >
+    About
+  </a>
+  <a
+    href="/jobs"
+  >
+    Jobs
+  </a>
+  <a
+    href="/terms"
+  >
+    Terms
+  </a>
+  <a
+    href="/privacy"
+  >
+    Privacy Policy
+  </a>
+</div>
+`;
