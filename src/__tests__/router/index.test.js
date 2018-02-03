@@ -3,8 +3,8 @@ import React from 'react'
 import { render } from 'enzyme'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
-import Index from '../routes/Index'
-import store from '../redux/store'
+import Index from '../../routes/Index'
+import store from '../../redux/store'
 
 describe('<Index />', () => {
   it('should render without creashing', () => {
