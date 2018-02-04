@@ -6,7 +6,7 @@ class Index extends Component {
     const links = [
       {
         name: "Repo's",
-        href: '/home/repos'
+        href: '/home/prejects'
       },
       {
         name: 'Feed',
