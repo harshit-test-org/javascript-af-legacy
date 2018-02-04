@@ -28,7 +28,7 @@ const Nav = styled.div`
   & a:hover:after {
     transform: scaleX(1);
   }
-  & a.active {
+  & #active {
     color: #fd267d;
   }
 
