@@ -21,18 +21,19 @@ const UserCover = styled.div`
   }
   & img {
     border-radius: 50%;
+    border: 3px solid #fff;
     height: 200px;
     width: 200px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
-& verified {
+  & verified {
     border: 3px solid #fd267d;
-}
+  }
 `
 
 class Profile extends Component {
-  render () {
+  render() {
     const links = [
       {
         name: 'Posts',
