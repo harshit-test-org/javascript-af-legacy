@@ -1,23 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Helmet from 'react-helmet'
 import Navbar from './styles/Navbar'
 import Sidemenu from './Sidemenu'
 
-const Fragment = React.Fragment
-
 export default class Layout extends Component {
-  renderLinks (links) {
-    return (
-      <Fragment>
-        {links.map((item, i) => (
-          <Fragment key={`links-${i}`}>
-            <a href={item.href}>{item.name}</a>
-            {i !== links.length - 1 && '•'}
-          </Fragment>
-        ))}
-      </Fragment>
-    )
-  }
   render () {
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
@@ -27,7 +13,7 @@ export default class Layout extends Component {
         <Helmet>
           <title>{title}</title>
         </Helmet>
-        <Navbar>{this.renderLinks(this.props.links)}</Navbar>
+        {this.props.links && <Navbar links={this.props.links} />}
         <Sidemenu />
         {this.props.children}
       </Fragment>

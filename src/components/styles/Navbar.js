@@ -1,6 +1,7 @@
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 
-const Navbar = styled.div`
+const Nav = styled.div`
   background: #fff;
   box-shadow: 0 5px 5px -5px #000;
   height: 100%;
@@ -33,5 +34,16 @@ const Navbar = styled.div`
     }
   }
 `
+
+const Navbar = ({ links }) => (
+  <Nav>
+    {links.map((item, i) => (
+      <Fragment key={`links-${i}`}>
+        <a href={item.href}>{item.name}</a>
+        {i !== links.length - 1 && '•'}
+      </Fragment>
+    ))}
+  </Nav>
+)
 
 export default Navbar
