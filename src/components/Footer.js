@@ -9,6 +9,10 @@ export default class Foot extends React.Component {
         href: '/about'
       },
       {
+        name: 'Team',
+        href: '/team'
+      },
+      {
         name: 'Jobs',
         href: '/jobs'
       },
@@ -30,10 +34,11 @@ export default class Foot extends React.Component {
         name: 'Jvscrpt.r',
         href: 'https://www.instagram.com/jvscrptr/'
       },
-      {
+      // There is a reason for me doing this just trust me you'll see later on
+      /*{
         name: 'Harshit',
         href: 'https://www.instagram.com/pantharshit00/'
-      }
+      }*/
     ]
     return (
       <Footer>
