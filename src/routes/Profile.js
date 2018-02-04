@@ -19,13 +19,13 @@ const UserCover = styled.div`
     background: rgba(0, 0, 0, 0.8);
     color: #fff;
     padding: 10px;
-    font-size: 60px;
+    font-size: 36px;
   }
   & img {
     border-radius: 50%;
     border: 3px solid #fff;
-    height: 200px;
-    width: 200px;
+    height: 120px;
+    width: 120px;
     margin-top: 10px;
     margin-bottom: 10px;
   }

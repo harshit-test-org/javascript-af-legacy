@@ -8,7 +8,7 @@ const Welcome = styled.div`
   background-size: cover;
   background-image: url(${logo});
   box-shadow: 0 5px 5px -5px #000;
-  height: 100%;
+  min-height: 80vh;
   padding: 10px;
   & ul {
     background: rgba(255, 255, 255, 0.6);
