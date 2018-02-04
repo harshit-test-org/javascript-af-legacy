@@ -26,6 +26,9 @@ const UserCover = styled.div`
     margin-top: 10px;
     margin-bottom: 10px;
   }
+& verified {
+    border: 3px solid #fd267d;
+}
 `
 
 class Profile extends Component {
