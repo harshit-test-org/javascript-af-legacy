@@ -18,7 +18,7 @@ class Layout extends Component {
       this.props.dispatch({ type: 'UNSET_LOADING' })
       if (user) {
         this.props.setUser(user)
-        this.props.history.replace('/user/home')
+        this.props.history.replace('/home')
       }
     })
   }

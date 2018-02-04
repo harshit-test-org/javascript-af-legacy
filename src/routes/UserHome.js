@@ -6,11 +6,11 @@ class Index extends Component {
     const links = [
       {
         name: 'Projects',
-        href: '/projects'
+        href: '/home/projects'
       },
       {
         name: 'Feed',
-        href: '/feed'
+        href: '/home/feed'
       }
     ]
     return <Layout title="Home" links={links} />

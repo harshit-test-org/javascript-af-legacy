@@ -23,6 +23,9 @@ const Sidebar = styled.div`
     color: #fd267d;
     transition: 0.2s;
   }
+  & a.active {
+    color: #fd267d;
+  }
   @media (max-width: 768px) {
     & {
       background: #2a2d34;

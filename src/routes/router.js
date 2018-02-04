@@ -13,11 +13,16 @@ const UserHome = Loadable({
   loader: () => import('./UserHome'),
   loading: Loading
 })
+const UserProfile = Loadable({
+  loader: () => import('./Profile'),
+  loading: Loading
+})
 
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
-    <PrivateRoute exact path={'/user/home'} component={UserHome} />
+    <PrivateRoute exact path={'/home'} component={UserHome} />
+    <PrivateRoute exact path={'/profile'} component={UserProfile} />
   </Switch>
 )
 

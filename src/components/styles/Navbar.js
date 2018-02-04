@@ -1,6 +1,8 @@
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
-const Navbar = styled.div`
+const Nav = styled.div`
   background: #fff;
   box-shadow: 0 5px 5px -5px #000;
   height: 100%;
@@ -26,6 +28,9 @@ const Navbar = styled.div`
   & a:hover:after {
     transform: scaleX(1);
   }
+  & a.active {
+    color: #fd267d;
+  }
 
   @media (max-width: 768px) {
     .navbar a {
@@ -33,5 +38,18 @@ const Navbar = styled.div`
     }
   }
 `
+
+const Navbar = ({ links }) => (
+  <Nav>
+    {links.map((item, i) => (
+      <Fragment key={`links-${i}`}>
+        <NavLink activeClassName="active" to={item.href}>
+          {item.name}
+        </NavLink>
+        {i !== links.length - 1 && '•'}
+      </Fragment>
+    ))}
+  </Nav>
+)
 
 export default Navbar

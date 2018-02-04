@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import FontAwesome from '@fortawesome/react-fontawesome'
 import HomeIcon from '@fortawesome/fontawesome-free-solid/faHome'
 import BriefCaseIcon from '@fortawesome/fontawesome-free-solid/faBriefcase'
@@ -10,21 +11,21 @@ import Sidebar from './styles/Sidebar'
 const Sidemenu = () => {
   return (
     <Sidebar>
-      <a href="/">
+      <NavLink activeClassName="active" to="/home">
         <FontAwesome icon={HomeIcon} />
-      </a>
-      <a href="/search">
+      </NavLink>
+      <NavLink activeClassName="active" to="/search">
         <FontAwesome icon={SearchIcon} />
-      </a>
-      <a href="/work">
+      </NavLink>
+      <NavLink activeClassName="active" to="/work">
         <FontAwesome icon={BriefCaseIcon} />
-      </a>
-      <a href="/social">
+      </NavLink>
+      <NavLink activeClassName="active" to="/social">
         <FontAwesome icon={CommentsIcon} />
-      </a>
-      <a href="/profile">
+      </NavLink>
+      <NavLink activeClassName="active" to="/profile">
         <FontAwesome icon={UserIcon} />
-      </a>
+      </NavLink>
     </Sidebar>
   )
 }

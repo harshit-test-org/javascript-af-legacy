@@ -19,19 +19,12 @@ exports[`<Footer /> should render correctly 1`] = `
     >
       Jesse
     </a>
-     ,
+     and 
     <a
       href="https://www.instagram.com/jvscrptr/"
       id="name"
     >
       Jvscrpt.r
-    </a>
-     and 
-    <a
-      href="https://www.instagram.com/pantharshit00/"
-      id="name"
-    >
-      Harshit
     </a>
     
   </p>
@@ -39,6 +32,11 @@ exports[`<Footer /> should render correctly 1`] = `
     href="/about"
   >
     About
+  </a>
+  <a
+    href="/team"
+  >
+    Team
   </a>
   <a
     href="/jobs"
