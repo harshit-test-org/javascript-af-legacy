@@ -5,10 +5,6 @@ const FooterStyle = styled.div`
   height: auto;
   padding: 10px;
   text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
   & p {
     color: #fff;
     margin-bottom: 10px;

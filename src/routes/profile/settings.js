@@ -18,11 +18,12 @@ const Setting = styled.div`
     border-bottom: 1px solid #eee;
     width: auto;
     margin-bottom: 15px;
+    display: block;
     padding: 10px;
   }
   & p {
     color: #000;
-    font-size: 35px;
+    font-size: 24px;
     text-align: left;
   }
   & ul > select {
@@ -35,16 +36,7 @@ const Setting = styled.div`
     position: relative;
     top: -35px;
   }
-  & ul > select:hover {
-    cursor: pointer;
-    outline: none;
-    border: none;
-    height: 40px;
-    width: 15%;
-    float: right;
-    position: relative;
-    top: -35px;
-  }
+
   & button {
     cursor: pointer;
     outline: none;
@@ -67,6 +59,17 @@ const Setting = styled.div`
     -o-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     -ms-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.2s;
+  }
+  @media (max-width: 480px) {
+    & p {
+      font-size: 16px;
+    }
+    & ul > select {
+      float: none;
+      top: auto;
+      height: auto;
+      margin-top: 4px;
+    }
   }
   @media (max-width: 768px) {
     border-radius: 0;
