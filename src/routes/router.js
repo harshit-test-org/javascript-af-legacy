@@ -22,7 +22,7 @@ const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
     <PrivateRoute exact path={'/home'} component={UserHome} />
-    <PrivateRoute exact path={'/profile'} component={UserProfile} />
+    <PrivateRoute path={'/profile'} component={UserProfile} />
   </Switch>
 )
 

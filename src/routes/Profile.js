@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import Loadable from 'react-loadable'
 import Layout from '../components/UserLayout'
 import Navbar from '../components/styles/Navbar'
 
@@ -31,6 +33,13 @@ const UserCover = styled.div`
     border: 3px solid #fd267d;
   }
 `
+
+const Loading = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>
+
+const SettingsRoute = Loadable({
+  loader: () => import('./profile/settings'),
+  loading: Loading
+})
 
 class Profile extends Component {
   render () {
@@ -67,6 +76,10 @@ class Profile extends Component {
           <img src={photoURL} alt="profile" />
         </UserCover>
         <Navbar links={links} />
+        <Route
+          path={`${this.props.match.url}/settings`}
+          component={SettingsRoute}
+        />
       </Layout>
     )
   }
