@@ -45,8 +45,8 @@ const Setting = styled.div`
     background: #fd267d;
     -webkit-appearance: none;
     color: #fff;
-    width: 10%;
-    margin-top: 5px;
+    width: 15%;
+    margin-top: 15px;
     padding: 10px;
     font-size: 20px;
     position: relative;
