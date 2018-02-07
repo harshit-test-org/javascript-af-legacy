@@ -15,7 +15,7 @@ const Feed = styled.div`
     color: #000;
     height: auto;
     width: 40%;
-    margin: 15px;
+    margin: 10px;
     padding: 10px 0 0 0;
     position: relative;
     left: 29%;
