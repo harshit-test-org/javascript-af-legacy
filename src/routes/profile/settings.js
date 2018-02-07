@@ -96,7 +96,6 @@ const Setting = styled.div`
     }
     @media (max-width: 1366px) {
       & button {
-        width: 80% !important;
         position: relative;
         top: 20px;
         left: 11% !important;
