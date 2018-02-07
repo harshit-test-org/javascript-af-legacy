@@ -8,7 +8,11 @@ const Welcome = styled.div`
   background-size: cover;
   background-image: url(${logo});
   box-shadow: 0 5px 5px -5px #000;
-  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 90vh;
   padding: 10px;
   & ul {
     background: rgba(255, 255, 255, 0.6);
@@ -16,8 +20,6 @@ const Welcome = styled.div`
     margin-top: 50px;
     margin-bottom: 50px;
     padding: 50px;
-    position: relative;
-    left: 16%;
   }
   & ul h1 {
     color: #000;
@@ -58,7 +60,7 @@ class Index extends Component {
       <Layout>
         <Welcome>
           <ul>
-            <h1>Javascript. Always Fun!</h1>
+            <h1>For Devs by Devs</h1>
             <p>
               A platform where developers can share their GitHub repos and
               connect with other developers through sharing projects, messaging,

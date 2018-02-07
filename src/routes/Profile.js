@@ -32,6 +32,15 @@ const UserCover = styled.div`
   & #verified {
     border: 3px solid #fd267d;
   }
+  @media (max-width: 768px) {
+    & p {
+      font-size: 50px;
+    }
+    & img {
+      height: 150px;
+      width: 150px;
+    }
+  }
 `
 
 const Loading = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>

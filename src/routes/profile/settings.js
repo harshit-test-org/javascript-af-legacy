@@ -92,6 +92,10 @@ const Setting = styled.div`
       }
     }
     @media (max-width: 1366px) {
+      & settings {
+        position: relative;
+        left: 11%;
+      }
       & button {
         width: 80% !important;
         position: relative;
@@ -99,7 +103,16 @@ const Setting = styled.div`
         left: 11% !important;
       }
     }
-  }
+    @media (height: 1024px){
+      width: 90% !important;
+      position: relative;
+      left: 4% !important;
+      & button {
+        width: 40% !important;
+        position: relative;
+        left: 30% !important;
+      }
+    }
 `
 
 export default class Settings extends Component {

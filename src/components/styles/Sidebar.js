@@ -43,10 +43,20 @@ const Sidebar = styled.div`
     & a {
       display: inline-block;
       color: #fff;
-      margin: 0 3.4vw auto;
+      margin: 0 4vw auto;
       padding: 0;
       font-size: 35px;
       text-decoration: none;
+    }
+  }
+  @media (height: 1024px) {
+    & a {
+      margin: 0 5vw;
+    }
+  }
+  @media (width: 1366px) {
+    & a {
+      margin: auto;
     }
   }
 `
