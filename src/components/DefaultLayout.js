@@ -25,7 +25,7 @@ class Layout extends Component {
   handleLogin = async () => {
     const provider = new firebase.auth.GithubAuthProvider()
     try {
-      const res = await Auth.signInWithPopup(provider)
+      const res = await Auth.signInWithRedirect(provider)
       console.log(res)
     } catch (err) {
       console.log(err)

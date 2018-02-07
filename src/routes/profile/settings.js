@@ -13,7 +13,6 @@ const Setting = styled.div`
   top: 30px;
   left: 12%;
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
   & ul {
     border-bottom: 1px solid #eee;
     width: auto;
@@ -36,7 +35,6 @@ const Setting = styled.div`
     position: relative;
     top: -35px;
   }
-
   & button {
     cursor: pointer;
     outline: none;
@@ -46,7 +44,6 @@ const Setting = styled.div`
     -webkit-appearance: none;
     color: #fff;
     width: 20%;
-    margin-top: 10px;
     padding: 10px;
     font-size: 20px;
     position: relative;
