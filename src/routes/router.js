@@ -21,7 +21,7 @@ const UserProfile = Loadable({
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
-    <PrivateRoute exact path={'/home'} component={UserHome} />
+    <PrivateRoute path={'/home'} component={UserHome} />
     <PrivateRoute path={'/profile'} component={UserProfile} />
   </Switch>
 )
