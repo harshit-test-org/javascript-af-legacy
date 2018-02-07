@@ -60,13 +60,11 @@ class Index extends Component {
           <ul>
             <h1>Javascript. Always Fun!</h1>
             <p>
-              A social media were developers can view there github repos or
-              other people{`'`}s repos and connect with other developers by
-              shareing projects, messaging, even uploading post on stuff you are
-              working on we also have a job board for thoes developers looking
-              for development jobs and we dont have all the usual social media
-              BS its all code all the time here so why not join in on the fun
-              and best of all no ads
+              A platform where developers can share their GitHub repos and
+              connect with other developers through sharing projects, messaging,
+              and posting. We will also have a job board for dev positions. All
+              this with none of the usual social media drama or ads. It{`'`}s
+              all code all the time here, so why not join in on the fun!
             </p>
           </ul>
         </Welcome>
