@@ -13,7 +13,6 @@ class PrivateRoute extends React.Component {
     auth: true
   }
   componentWillMount () {
-    console.log(this.props)
     Auth.onAuthStateChanged(user => {
       if (user) {
         this.props.setUser(user)
