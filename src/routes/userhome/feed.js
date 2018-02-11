@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { firestore } from '../../lib/firebase'
+import Modal from '../../components/Modal'
+import FabButton from '../../components/FabButton'
 import Container from '../../components/styles/Container'
 
 const Feed = styled.div`
@@ -90,10 +92,41 @@ const CommentBar = styled.div`
   }
 `
 
+const PostArea = styled.textarea`
+  outline: none;
+  resize: none;
+  border: none;
+  border-bottom: 3px solid #fd267d;
+  height: 207px;
+  width: 98%;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-indent: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+`
+
+const PostButton = styled.button`
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+  border-radius: 6px;
+  background: #fd267d;
+  color: #fff;
+  font-size: 20px;
+  width: 40%;
+  padding: 10px;
+`
+
+// Note might use formik for form handling....
+
 class FeedPage extends Component {
   state = {
     feed: [],
-    loading: true
+    loading: true,
+    modelOpen: false,
+    postText: ''
   }
   componentWillMount () {
     const { uid } = this.props.user
@@ -138,6 +171,33 @@ class FeedPage extends Component {
         this.setState({ loading: false })
       })
   }
+  toggleModal = () => {
+    this.setState(state => ({
+      modelOpen: !state.modelOpen
+    }))
+  }
+  handleTextArea = e => {
+    this.setState({
+      postText: e.target.value
+    })
+  }
+  submitPost = e => {
+    // TODO: handle errors
+    e.preventDefault()
+    const { postText } = this.state
+    if (postText) {
+      firestore
+        .collection('posts')
+        .add({
+          authorId: this.props.user.uid,
+          text: postText,
+          timestamp: Date.now()
+        })
+        .then(() => {
+          this.props.history.push('/profile')
+        })
+    }
+  }
   render () {
     return (
       <Container>
@@ -161,6 +221,16 @@ class FeedPage extends Component {
                 </ul>
               </Feed>
             ))}
+            <FabButton onClick={this.toggleModal} />
+            <Modal show={this.state.modelOpen} toggle={this.toggleModal}>
+              <form onSubmit={this.submitPost}>
+                <PostArea
+                  onChange={this.handleTextArea}
+                  placeholder="What is on your mind!"
+                />
+                <PostButton type="submit">Post!</PostButton>
+              </form>
+            </Modal>
           </React.Fragment>
         )}
       </Container>
