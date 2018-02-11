@@ -47,6 +47,8 @@ const Feed = styled.div`
     transition: 0.5s;
   }
   @media (max-width: 768px) {
+    position: relative;
+    top: 0;
     & ul {
       width: auto !important;
       position: relative;

@@ -61,12 +61,6 @@ const Setting = styled.div`
     & p {
       font-size: 16px;
     }
-    & ul > select {
-      float: none;
-      top: auto;
-      height: auto;
-      margin-top: 4px;
-    }
   }
   @media (max-width: 768px) {
     border-radius: 0;
@@ -74,8 +68,7 @@ const Setting = styled.div`
     position: relative;
     top: 20px;
     left: 0;
-    margin-bottom: 90px;
-    padding-bottom: 33px;
+    margin-bottom: 70px;
     & button {
       width: 50% !important;
       position: relative;
@@ -99,7 +92,6 @@ const Setting = styled.div`
       & button {
         width: 80% !important;
         position: relative;
-        top: 20px;
         left: 11% !important;
       }
     }
@@ -123,10 +115,11 @@ export default class Settings extends Component {
     return (
       <Setting>
         <ul>
-          <p>Choose theme</p>
+          <p>Who can add me as a friend?</p>
           <select>
-            <option value="light">Light</option>
-            <option value="dork">Dark</option>
+            <option value="everyone">Everyone</option>
+            <option value="friends">Friends</option>
+            <option value="noone">No one</option>
           </select>
         </ul>
         <ul>
@@ -147,14 +140,6 @@ export default class Settings extends Component {
         </ul>
         <ul>
           <p>Who can comment on my post?</p>
-          <select>
-            <option value="everyone">Everyone</option>
-            <option value="friends">Friends</option>
-            <option value="noone">No one</option>
-          </select>
-        </ul>
-        <ul>
-          <p>Who can message me?</p>
           <select>
             <option value="everyone">Everyone</option>
             <option value="friends">Friends</option>

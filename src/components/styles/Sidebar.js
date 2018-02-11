@@ -43,7 +43,7 @@ const Sidebar = styled.div`
     & a {
       display: inline-block;
       color: #fff;
-      margin: 0 4vw auto;
+      margin: 0 4.3vw auto;
       padding: 0;
       font-size: 35px;
       text-decoration: none;

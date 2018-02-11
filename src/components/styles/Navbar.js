@@ -13,7 +13,7 @@ const Nav = styled.div`
   & a {
     display: inline-block;
     color: #000;
-    margin: 0 1vw;
+    margin: 0 2vw;
     font-size: 25px;
     text-decoration: none;
     transition: 0.2s;

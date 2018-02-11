@@ -32,6 +32,42 @@ const UserCover = styled.div`
   & #verified {
     border: 3px solid #fd267d;
   }
+  & .follow {
+    height: 100%;
+    padding: 5px;
+    padding-top: 10px;
+    text-align: center;
+  }
+  & .follow-me {
+    cursor: pointer;
+    border: none;
+    background: #fd267d;
+    color: #fff;
+    width: 20%;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 20px;
+  }
+  & .followers {
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    height: auto;
+    width: auto;
+    margin: 0 1vw;
+    padding: 10px;
+    font-size: 18px;
+  }
+  & .following {
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    height: auto;
+    width: auto;
+    margin: 0 1vw;
+    padding: 10px;
+    font-size: 18px;
+  }
   @media (max-width: 768px) {
     & p {
       font-size: 50px;
@@ -39,6 +75,19 @@ const UserCover = styled.div`
     & img {
       height: 150px;
       width: 150px;
+    }
+    & follow-me {
+      width: 60% !important;
+    }
+    @media (max-width: 991px) {
+      & follow-me {
+        width: 30%;
+      }
+    }
+    @media (height: 1024px) {
+      & follow-me {
+        width: 30% !important;
+      }
     }
   }
 `
@@ -83,6 +132,12 @@ class Profile extends Component {
         <UserCover>
           <p>{displayName}</p>
           <img src={photoURL} alt="profile" />
+          <div className="follow">
+            <span className="followers">Followers</span>
+            <span className="following">Following</span>
+            <br />
+            <button className="follow-me">Follow</button>
+          </div>
         </UserCover>
         <Navbar links={links} />
         <Route
