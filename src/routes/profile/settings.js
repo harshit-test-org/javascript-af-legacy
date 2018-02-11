@@ -77,34 +77,35 @@ const Setting = styled.div`
     & ul > select {
       width: auto;
     }
-    @media (max-width: 991px) {
-      & button {
-        width: 30% !important;
-        position: relative;
-        left: 33% !important;
-      }
-    }
-    @media (max-width: 1366px) {
-      & settings {
-        position: relative;
-        left: 11%;
-      }
-      & button {
-        width: 80% !important;
-        position: relative;
-        left: 11% !important;
-      }
-    }
-    @media (height: 1024px){
-      width: 90% !important;
+  }
+  @media (max-width: 991px) {
+    & button {
+      width: 30% !important;
       position: relative;
-      left: 4% !important;
-      & button {
-        width: 40% !important;
-        position: relative;
-        left: 30% !important;
-      }
+      left: 33% !important;
     }
+  }
+  @media (max-width: 1366px) {
+    & settings {
+      position: relative;
+      left: 11%;
+    }
+    & button {
+      width: 80% !important;
+      position: relative;
+      left: 11% !important;
+    }
+  }
+  @media (height: 1024px) {
+    width: 90% !important;
+    position: relative;
+    left: 4% !important;
+    & button {
+      width: 40% !important;
+      position: relative;
+      left: 30% !important;
+    }
+  }
 `
 
 export default class Settings extends Component {

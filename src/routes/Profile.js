@@ -79,15 +79,15 @@ const UserCover = styled.div`
     & follow-me {
       width: 60% !important;
     }
-    @media (max-width: 991px) {
-      & follow-me {
-        width: 30%;
-      }
+  }
+  @media (max-width: 991px) {
+    & .follow-me {
+      width: 30%;
     }
-    @media (height: 1024px) {
-      & follow-me {
-        width: 30% !important;
-      }
+  }
+  @media (height: 1024px) {
+    & .follow-me {
+      width: 30% !important;
     }
   }
 `
