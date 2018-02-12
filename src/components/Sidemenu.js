@@ -17,7 +17,7 @@ const Sidemenu = () => {
       <NavLink activeClassName="active" to="/search">
         <FontAwesome icon={SearchIcon} />
       </NavLink>
-      <NavLink activeClassName="active" to="/work">
+      <NavLink activeClassName="active" to="/jobs">
         <FontAwesome icon={BriefCaseIcon} />
       </NavLink>
       <NavLink activeClassName="active" to="/social">

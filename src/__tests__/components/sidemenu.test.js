@@ -21,7 +21,7 @@ describe('<Sidebar />', () => {
       </MemoryRouter>
     )
     const links = result.find('a')
-    const hrefs = ['/home', '/search', '/work', '/social', '/profile']
+    const hrefs = ['/home', '/search', '/jobs', '/social', '/profile']
     for (let i = 0; i < links.length; i++) {
       expect(links[i].attribs.href).toBe(hrefs[i])
     }

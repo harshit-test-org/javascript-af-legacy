@@ -17,10 +17,21 @@ const UserProfile = Loadable({
   loader: () => import('./Profile'),
   loading: Loading
 })
+const Search = Loadable({
+  loader: () => import('./Search'),
+  loading: Loading
+})
+
+const JobsPage = Loadable({
+  loader: () => import('./Jobs'),
+  loading: Loading
+})
 
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
+    <PrivateRoute path={'/jobs'} component={JobsPage} />
+    <PrivateRoute path={'/search'} component={Search} />
     <PrivateRoute path={'/home'} component={UserHome} />
     <PrivateRoute path={'/profile'} component={UserProfile} />
   </Switch>

@@ -12,7 +12,7 @@ injectGlobal`
 }
 html, body {
     background: #e6ecf0;
-    font-family: 'Josefin Sans';
+    font-family: 'Josefin Sans', sans-serif;
 }
 ::-webkit-scrollbar {
     height: 0;
