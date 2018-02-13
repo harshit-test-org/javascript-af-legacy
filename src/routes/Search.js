@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Helmet from 'react-helmet'
 import Container from '../components/styles/Container'
 import { InstantSearch, SearchBox, Highlight } from 'react-instantsearch/dom'
@@ -17,6 +18,10 @@ const SearchInput = styled.div`
     margin-left: 12%;
     margin-right: 12%;
   }
+`
+const CardLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
 `
 
 const Box = () => (
@@ -62,14 +67,16 @@ const ConnectedHits = connectInfiniteHits(CustomHits)
 
 const Hit = ({ item }) => {
   return (
-    <Card>
-      <div className="picture">
-        <img src={item.photoURL} alt={item.displayName} />
-      </div>
-      <div className="title">
-        <Highlight attribute="displayName" hit={item} />
-      </div>
-    </Card>
+    <CardLink to={`/user/${item.objectID}`}>
+      <Card>
+        <div className="picture">
+          <img src={item.photoURL} alt={item.displayName} />
+        </div>
+        <div className="title">
+          <Highlight attribute="displayName" hit={item} />
+        </div>
+      </Card>
+    </CardLink>
   )
 }
 

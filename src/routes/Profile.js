@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import React, { PureComponent } from 'react'
+import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { firestore } from '../lib/firebase'
 import styled from 'styled-components'
 import Loadable from 'react-loadable'
 import Layout from '../components/UserLayout'
+import Loading from '../components/Loading'
 import Navbar from '../components/styles/Navbar'
 
 const UserCover = styled.div`
@@ -12,7 +14,7 @@ const UserCover = styled.div`
   background-position: bottom;
   background-size: cover;
   /* Temporary */
-  background-image: url(http://lorempixel.com/1920/1080/);
+  background-image: url(https://lorempixel.com/1920/1080/);
   height: 100%;
   text-align: center;
   & p {
@@ -92,16 +94,57 @@ const UserCover = styled.div`
   }
 `
 
-const Loading = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>
+const LoadingText = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>
 
 const SettingsRoute = Loadable({
   loader: () => import('./profile/settings'),
-  loading: Loading
+  loading: LoadingText
 })
 
-class Profile extends Component {
+class Profile extends PureComponent {
+  static defaultProps = {
+    otherUser: false
+  }
+  state = {
+    user: null
+  }
+  componentWillMount () {
+    this.fetchUser(this.props.otherUser)
+  }
+  fetchUser = otherUser => {
+    if (otherUser) {
+      // firebase now in action
+      const userId = this.props.match.params.id
+      firestore
+        .collection('users')
+        .doc(userId)
+        .get()
+        .then(doc => {
+          if (!doc.exists) {
+            return this.setState({
+              user: false
+            })
+          }
+          return this.setState({
+            user: {
+              displayName: doc.data().displayName,
+              photoURL: doc.data().photoURL
+            }
+          })
+        })
+    } else {
+      this.setState({
+        user: this.props.user
+      })
+    }
+  }
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.otherUser !== this.props.otherUser) {
+      this.fetchUser(nextProps.otherUser)
+    }
+  }
   render () {
-    const links = [
+    let links = [
       {
         name: 'Posts',
         href: '/profile/projects'
@@ -123,10 +166,21 @@ class Profile extends Component {
         href: '/profile/settings'
       }
     ]
-    if (!this.props.user) {
-      return null
+    if (this.props.otherUser) {
+      links.pop()
+      links = links.map(link => ({
+        name: link.name,
+        href: link.name.replace('profile', `user/${this.props.match.params.id}`)
+      }))
     }
-    const { displayName, photoURL } = this.props.user
+    if (this.state.user === null) {
+      return <Loading />
+    }
+
+    if (this.state.user === false) {
+      return <Redirect to="/404" />
+    }
+    const { displayName, photoURL } = this.state.user
     return (
       <Layout>
         <UserCover>
@@ -140,10 +194,12 @@ class Profile extends Component {
           </div>
         </UserCover>
         <Navbar links={links} />
-        <Route
-          path={`${this.props.match.url}/settings`}
-          component={SettingsRoute}
-        />
+        {!this.props.otherUser && (
+          <Route
+            path={`${this.props.match.url}/settings`}
+            component={SettingsRoute}
+          />
+        )}
       </Layout>
     )
   }
