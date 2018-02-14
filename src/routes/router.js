@@ -13,10 +13,10 @@ const UserHome = Loadable({
   loader: () => import('./UserHome'),
   loading: Loading
 })
-const UserProfile = Loadable({
-  loader: () => import('./Profile'),
-  loading: Loading
-})
+// const UserProfile = Loadable({
+//   loader: () => import('./Profile'),
+//   loading: Loading
+// })
 const Search = Loadable({
   loader: () => import('./Search'),
   loading: Loading
@@ -27,18 +27,18 @@ const JobsPage = Loadable({
   loading: Loading
 })
 
-const Profile = props => {
-  return <UserProfile otherUser={true} {...props} />
-}
+// const Profile = props => {
+//   return <UserProfile otherUser={true} {...props} />
+// }
 
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
-    <PrivateRoute path={'/user/:id'} render={Profile} />
+    {/* <PrivateRoute path={'/user/:id'} render={Profile} /> */}
     <PrivateRoute path={'/jobs'} component={JobsPage} />
     <PrivateRoute path={'/search'} component={Search} />
     <PrivateRoute path={'/home'} component={UserHome} />
-    <PrivateRoute path={'/profile'} component={UserProfile} />
+    {/* <PrivateRoute path={'/profile'} component={UserProfile} /> */}
   </Switch>
 )
 

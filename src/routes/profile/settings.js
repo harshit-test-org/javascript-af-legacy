@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import firebase from '../../lib/firebase'
 
 const Setting = styled.div`
   border-radius: 6px;
@@ -110,7 +109,7 @@ const Setting = styled.div`
 
 export default class Settings extends Component {
   handleLogout () {
-    firebase.auth().signOut()
+    // firebase.auth().signOut()
   }
   render () {
     return (

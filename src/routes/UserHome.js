@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import Loadable from 'react-loadable'
-import { Route } from 'react-router-dom'
+// import Loadable from 'react-loadable'
+// import { Route } from 'react-router-dom'
 import Layout from '../components/UserLayout'
 
-const Loading = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>
+// const Loading = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>
 
-const FeedRoute = Loadable({
-  loader: () => import('./userhome/feed'),
-  loading: Loading
-})
+// const FeedRoute = Loadable({
+//   loader: () => import('./userhome/feed'),
+//   loading: Loading
+// })
 
 class Index extends Component {
   render () {
@@ -24,7 +24,7 @@ class Index extends Component {
     ]
     return (
       <Layout title="Home" links={links}>
-        <Route path={`${this.props.match.url}/feed`} component={FeedRoute} />
+        {/* <Route path={`${this.props.match.url}/feed`} component={FeedRoute} /> */}
       </Layout>
     )
   }

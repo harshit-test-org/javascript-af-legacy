@@ -1,35 +1,39 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators, compose } from 'redux'
-import { setUser } from '../redux/actions/user'
-import firebase from '../lib/firebase'
 import Homebar from './styles/Homebar'
 import Helmet from 'react-helmet'
 import Loading from './Loading'
 import Footer from './Footer'
 
 const Fragment = React.Fragment
-const Auth = firebase.auth()
 
 class Layout extends Component {
+  state = {
+    loading: true
+  }
   componentWillMount () {
-    Auth.onAuthStateChanged(user => {
-      this.props.dispatch({ type: 'UNSET_LOADING' })
-      if (user) {
-        this.props.setUser(user)
-        this.props.history.replace('/home')
-      }
+    fetch(`${process.env.REACT_APP_SERVER_URI}/me`, {
+      credentials: 'include'
     })
+      .then(res => {
+        if (res.status !== 200) {
+          this.setState({
+            loading: false
+          })
+        } else {
+          this.props.history.replace('/home')
+        }
+      })
+      .catch(() => {
+        this.setState({
+          loading: false
+        })
+      })
   }
   handleLogin = async () => {
-    const provider = new firebase.auth.GithubAuthProvider()
-    try {
-      const res = await Auth.signInWithRedirect(provider)
-      console.log(res)
-    } catch (err) {
-      console.log(err)
-    }
+    window.location.href = `${
+      process.env.REACT_APP_SERVER_URI
+    }/auth/github/start`
   }
   render () {
     const title = this.props.title
@@ -40,7 +44,7 @@ class Layout extends Component {
         <Helmet>
           <title>{title}</title>
         </Helmet>
-        {this.props.loading ? (
+        {this.state.loading ? (
           <Loading />
         ) : (
           <Fragment>
@@ -54,23 +58,4 @@ class Layout extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    loading: state.authLoading
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators(
-    {
-      setUser,
-      dispatch
-    },
-    dispatch
-  )
-}
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withRouter
-)(Layout)
+export default withRouter(Layout)

@@ -1,29 +1,39 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { Redirect, Route } from 'react-router-dom'
-import firebase from '../lib/firebase'
-import { setUser } from '../redux/actions/user'
 import Loading from '../components/Loading'
-
-const Auth = firebase.auth()
 
 class PrivateRoute extends React.Component {
   state = {
-    auth: true
+    loading: true,
+    auth: false
   }
   componentWillMount () {
-    Auth.onAuthStateChanged(user => {
-      if (user) {
-        this.props.setUser(user)
-        this.props.dispatch({ type: 'UNSET_LOADING' })
-      } else {
-        this.setState({ auth: false })
-      }
+    fetch(`${process.env.REACT_APP_SERVER_URI}/me`, {
+      credentials: 'include'
     })
+      .then(res => {
+        if (res.status !== 200) {
+          this.setState({
+            auth: false,
+            loading: false
+          })
+        } else {
+          this.setState({
+            auth: true,
+            loading: false
+          })
+        }
+      })
+
+      .catch(() => {
+        this.setState({
+          auth: false,
+          loading: false
+        })
+      })
   }
   render () {
-    if (this.props.loading) {
+    if (this.state.loading) {
       return <Loading />
     }
     return (
@@ -34,17 +44,4 @@ class PrivateRoute extends React.Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators(
-    {
-      setUser,
-      dispatch
-    },
-    dispatch
-  )
-}
-
-export default connect(
-  state => ({ loading: state.authLoading }),
-  mapDispatchToProps
-)(PrivateRoute)
+export default PrivateRoute
