@@ -20,27 +20,25 @@ class PrivateRoute extends React.Component {
             loading: false
           })
         } else {
-          return res.json()
+          res.json().then(res => {
+            this.props
+              .mutate({
+                variables: {
+                  user: {
+                    ...res,
+                    __typename: 'LocalUser'
+                  }
+                }
+              })
+              .then(() => {
+                this.setState({
+                  auth: true,
+                  loading: false
+                })
+              })
+          })
         }
       })
-      .then(res => {
-        this.props
-          .mutate({
-            variables: {
-              user: {
-                ...res,
-                __typename: 'LocalUser'
-              }
-            }
-          })
-          .then(() => {
-            this.setState({
-              auth: true,
-              loading: false
-            })
-          })
-      })
-
       .catch(() => {
         this.setState({
           auth: false,

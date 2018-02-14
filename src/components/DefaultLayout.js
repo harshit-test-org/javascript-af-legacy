@@ -16,35 +16,35 @@ class Layout extends Component {
   componentWillMount () {
     fetch(`${process.env.REACT_APP_SERVER_URI}/me`, {
       credentials: 'include'
-    })
-      .then(res => {
-        if (res.status !== 200) {
-          this.setState({
-            loading: false
-          })
-        } else {
-          return res.json()
-        }
-      })
-      .then(res => {
-        this.props
-          .mutate({
-            variables: {
-              user: {
-                ...res,
-                __typename: 'LocalUser'
-              }
-            }
-          })
-          .then(() => {
-            this.props.history.replace('/home')
-          })
-      })
-      .catch(() => {
+    }).then(res => {
+      if (res.status !== 200) {
         this.setState({
           loading: false
         })
-      })
+      } else {
+        res
+          .json()
+          .then(res => {
+            this.props
+              .mutate({
+                variables: {
+                  user: {
+                    ...res,
+                    __typename: 'LocalUser'
+                  }
+                }
+              })
+              .then(() => {
+                this.props.history.replace('/home')
+              })
+          })
+          .catch(() => {
+            this.setState({
+              loading: false
+            })
+          })
+      }
+    })
   }
   handleLogin = async () => {
     window.location.href = `${
