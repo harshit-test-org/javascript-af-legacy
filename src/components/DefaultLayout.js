@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import gql from 'graphql-tag'
+import { compose, graphql } from 'react-apollo'
 import Homebar from './styles/Homebar'
 import Helmet from 'react-helmet'
 import Loading from './Loading'
@@ -21,8 +23,22 @@ class Layout extends Component {
             loading: false
           })
         } else {
-          this.props.history.replace('/home')
+          return res.json()
         }
+      })
+      .then(res => {
+        this.props
+          .mutate({
+            variables: {
+              user: {
+                ...res,
+                __typename: 'LocalUser'
+              }
+            }
+          })
+          .then(() => {
+            this.props.history.replace('/home')
+          })
       })
       .catch(() => {
         this.setState({
@@ -58,4 +74,10 @@ class Layout extends Component {
   }
 }
 
-export default withRouter(Layout)
+const setUserMutation = gql`
+  mutation setUser($user: User!) {
+    setUser(user: $user) @client
+  }
+`
+
+export default compose(graphql(setUserMutation), withRouter)(Layout)

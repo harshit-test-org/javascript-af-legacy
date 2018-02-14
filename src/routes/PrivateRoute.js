@@ -1,4 +1,6 @@
 import React from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 import { Redirect, Route } from 'react-router-dom'
 import Loading from '../components/Loading'
 
@@ -18,11 +20,25 @@ class PrivateRoute extends React.Component {
             loading: false
           })
         } else {
-          this.setState({
-            auth: true,
-            loading: false
-          })
+          return res.json()
         }
+      })
+      .then(res => {
+        this.props
+          .mutate({
+            variables: {
+              user: {
+                ...res,
+                __typename: 'LocalUser'
+              }
+            }
+          })
+          .then(() => {
+            this.setState({
+              auth: true,
+              loading: false
+            })
+          })
       })
 
       .catch(() => {
@@ -44,4 +60,10 @@ class PrivateRoute extends React.Component {
   }
 }
 
-export default PrivateRoute
+const setUserMutation = gql`
+  mutation setUser($user: User!) {
+    setUser(user: $user) @client
+  }
+`
+
+export default graphql(setUserMutation)(PrivateRoute)

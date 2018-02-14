@@ -25,10 +25,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
+    "test":
+      "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
     "cm": "git-cz",
-    "precommit": "lint-staged && npm run test",
+    "precommit": "lint-staged",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
