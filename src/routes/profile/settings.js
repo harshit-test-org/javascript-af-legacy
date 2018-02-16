@@ -109,7 +109,7 @@ const Setting = styled.div`
 
 export default class Settings extends Component {
   handleLogout () {
-    // firebase.auth().signOut()
+    window.location.href = `${process.env.REACT_APP_SERVER_URI}/logout`
   }
   render () {
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Query } from 'react-apollo'
+import { Query, graphql, compose } from 'react-apollo'
 import styled from 'styled-components'
 import Modal from '../../components/Modal'
 import FabButton from '../../components/FabButton'
@@ -135,6 +135,14 @@ const query = gql`
   }
 `
 
+const LocalUserQuery = gql`
+  query LocalUser {
+    user @client {
+      _id
+    }
+  }
+`
+
 // Note might use formik for form handling....
 
 class FeedPage extends Component {
@@ -155,9 +163,20 @@ class FeedPage extends Component {
   submitPost = e => {
     // TODO: handle errors
     e.preventDefault()
+    console.log(this.props)
     const { postText } = this.state
-    if (postText) {
+    if (postText && this.props.data.user && this.props.data.user._id) {
       // TODO: Add mutation for this
+      this.props
+        .mutate({
+          variables: {
+            authorId: this.props.data.user._id,
+            text: this.state.postText
+          }
+        })
+        .then(() => {
+          this.props.history.replace('/profile')
+        })
     }
   }
   render () {
@@ -207,4 +226,13 @@ class FeedPage extends Component {
   }
 }
 
-export default FeedPage
+const PostMutation = gql`
+  mutation PostMutation($authorId: ID!, $text: String!) {
+    setPost(authorId: $authorId, text: $text) {
+      ok
+      message
+    }
+  }
+`
+
+export default compose(graphql(LocalUserQuery), graphql(PostMutation))(FeedPage)
