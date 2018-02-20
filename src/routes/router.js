@@ -31,10 +31,16 @@ const Profile = props => {
   return <UserProfile otherUser={true} {...props} />
 }
 
+const Messaging = Loadable({
+  loader: () => import('./Messaging'),
+  loading: Loading
+})
+
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
     <PrivateRoute path={'/user/:id'} render={Profile} />
+    <PrivateRoute path={'/social'} component={Messaging} />
     <PrivateRoute path={'/jobs'} component={JobsPage} />
     <PrivateRoute path={'/search'} component={Search} />
     <PrivateRoute path={'/home'} component={UserHome} />
