@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { Query, graphql } from 'react-apollo'
 import Baron from 'react-baron'
 
 import styled from 'styled-components'
+import gql from 'graphql-tag'
 
 const Container = styled.div`
   height: 100vh;
@@ -131,58 +133,73 @@ const Room = ({ image, text }) => (
   </RoomStyle>
 )
 
-export default class Messaging extends Component {
+const RoomsQuery = gql`
+  query RoomsQuery {
+    getUserChannels {
+      dms {
+        _id
+        name
+        imageURL
+      }
+      global {
+        _id
+        name
+        imageURL
+      }
+    }
+  }
+`
+
+class Messaging extends Component {
   render () {
+    const { data: { user } } = this.props
     return (
       <Container>
         <Chats>
           <h2>Messaging</h2>
-          <Global>
-            <Baron>
-              <h4>Global Rooms</h4>
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-            </Baron>
-          </Global>
-          <Dms>
-            <Baron>
-              <h4>Direct Messeges</h4>
-              <Room
-                image="https://www.thetechnotes.com/assets/img/Technology-solutions/js.svg"
-                text="Javascript"
-              />
-            </Baron>
-          </Dms>
+          <Query query={RoomsQuery}>
+            {result => {
+              if (result.loading) return null
+              if (result.error) return null
+
+              const { data: { getUserChannels } } = result
+
+              return (
+                <Fragment>
+                  <Global>
+                    <Baron>
+                      <h4>Global Rooms</h4>
+                      {getUserChannels.global.map(item => (
+                        <Room
+                          key={item._id}
+                          image={item.imageURL}
+                          text={item.name}
+                        />
+                      ))}
+                    </Baron>
+                  </Global>
+                  <Dms>
+                    <Baron>
+                      <h4>Direct Messages</h4>
+                      {getUserChannels.dms.map(item => {
+                        let image = item.imageURL.split('|')
+                        let name = item.name.split('|')
+                        let imageIndex = image.indexOf(user.photoURL)
+                        let nameIndex = name.indexOf(user.name)
+                        return (
+                          <Room
+                            key={item._id}
+                            image={image[imageIndex]}
+                            text={name[nameIndex]}
+                          />
+                        )
+                      })}
+                    </Baron>
+                  </Dms>
+                </Fragment>
+              )
+            }}
+          </Query>
         </Chats>
         <Messages />
         <MessageBar>
@@ -192,3 +209,13 @@ export default class Messaging extends Component {
     )
   }
 }
+
+const LocalUserQuery = gql`
+  query LocalUser {
+    user @client {
+      name
+      photoURL
+    }
+  }
+`
+export default graphql(LocalUserQuery)(Messaging)
