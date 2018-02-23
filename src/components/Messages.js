@@ -96,9 +96,9 @@ class MessagesRoute extends Component {
         })
     }
   }
-  componentDidMount () {
+  componentWillMount () {
     console.log('fired')
-    this.props.subscribeToNewMessages({
+    this.unsubscribe = this.props.subscribeToNewMessages({
       channelId: this.props.match.params.id
     })
   }
@@ -133,7 +133,21 @@ class MessagesRoute extends Component {
       this.scrollToBottom()
     }
   }
-
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      if (this.unsubscribe) {
+        this.unsubscribe()
+      }
+      this.unsubscribe = this.props.subscribeToNewMessages({
+        channelId: nextProps.match.params.id
+      })
+    }
+  }
+  componentWillUnmount () {
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
+  }
   render () {
     const { getMessages, loading } = this.props.getMessages
     if (loading || !getMessages) {
@@ -148,10 +162,10 @@ class MessagesRoute extends Component {
         <div
           id="msgContainer"
           style={{
-            gridRow: 1 / 2,
-            gridColumn: 2 / 3,
             overflow: 'auto',
+            gridRow: '1 / 2',
             display: 'flex',
+            gridColumn: '2 / 3',
             flexDirection: 'column'
           }}
         >
@@ -223,7 +237,8 @@ export default compose(
   graphql(MessageQuery, {
     name: 'getMessages',
     options: ({ match: { params } }) => ({
-      variables: { channelId: params.id, offset: 1 }
+      variables: { channelId: params.id, offset: 1 },
+      fetchPolicy: 'network-only'
     }),
     props: props => {
       return {
