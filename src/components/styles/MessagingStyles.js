@@ -26,14 +26,6 @@ export const Chats = styled.div`
   }
 `
 
-export const Messages = styled.div`
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
-  overflow: auto;
-  display: flex;
-  flex-direction: column-reverse;
-`
-
 export const RoomStyle = styled.div`
   margin: auto 8px;
   padding: 8px;

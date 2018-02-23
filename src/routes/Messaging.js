@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import Helmet from 'react-helmet'
 import { Route } from 'react-router-dom'
 import { Query, graphql, compose } from 'react-apollo'
 import Baron from 'react-baron'
@@ -39,9 +40,10 @@ const RoomsQuery = gql`
 `
 
 class Messaging extends Component {
-  transitionRoute = route => {
-    console.log(route)
-    this.props.history.push(`/social/${route}`)
+  transitionRoute = (route, name) => {
+    this.props.history.push(`/social/${route}`, {
+      name
+    })
   }
   render () {
     const { localuser: { user } } = this.props
@@ -58,12 +60,17 @@ class Messaging extends Component {
 
               return (
                 <Fragment>
+                  <Helmet>
+                    <title>Messaging| Javascript.af</title>
+                  </Helmet>
                   <Global>
                     <Baron>
                       <h4>Global Rooms</h4>
                       {getUserChannels.global.map(item => (
                         <Room
-                          onClick={() => this.transitionRoute(item._id)}
+                          onClick={() =>
+                            this.transitionRoute(item._id, item.name)
+                          }
                           key={item._id}
                           image={item.imageURL}
                           text={item.name}
@@ -81,7 +88,9 @@ class Messaging extends Component {
                         let nameIndex = name.indexOf(user.name)
                         return (
                           <Room
-                            onClick={() => this.transitionRoute(item._id)}
+                            onClick={() =>
+                              this.transitionRoute(item._id, name[nameIndex])
+                            }
                             key={item._id}
                             image={image[imageIndex]}
                             text={name[nameIndex]}

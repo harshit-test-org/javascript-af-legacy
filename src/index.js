@@ -4,7 +4,8 @@ import { injectGlobal } from 'styled-components'
 import registerServiceWorker from './registerServiceWorker'
 import App from './App'
 
-import 'typeface-josefin-sans'
+import 'typeface-rubik'
+import 'typeface-montserrat'
 
 injectGlobal`
 * {
@@ -12,7 +13,10 @@ injectGlobal`
 }
 html, body {
     background: #e6ecf0;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Rubik', sans-serif;
 }
 ::-webkit-scrollbar {
     height: 0;

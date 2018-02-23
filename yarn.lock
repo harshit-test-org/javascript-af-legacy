@@ -7551,9 +7551,13 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typeface-josefin-sans@^0.0.54:
+typeface-montserrat@^0.0.54:
   version "0.0.54"
-  resolved "https://registry.yarnpkg.com/typeface-josefin-sans/-/typeface-josefin-sans-0.0.54.tgz#c7f1c88d9a01605762465139ef9f485b42c306ff"
+  resolved "https://registry.yarnpkg.com/typeface-montserrat/-/typeface-montserrat-0.0.54.tgz#3fc338db6428d73485b75aa7bd2af8c9a55b9ab3"
+
+typeface-rubik@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-rubik/-/typeface-rubik-0.0.54.tgz#301d18b2efe57495beb5ef096632212b23f4faaf"
 
 ua-parser-js@^0.7.9:
   version "0.7.17"

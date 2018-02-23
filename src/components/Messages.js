@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
+import Helmet from 'react-helmet'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import { Messages, MessageBar } from './styles/MessagingStyles'
+import { MessageBar } from './styles/MessagingStyles'
 
 const MsgContainer = styled.div`
   position: relative;
@@ -71,7 +72,6 @@ class MessagesRoute extends Component {
   constructor (props) {
     super()
     this.state = {
-      messages: props.getMessages.getMessages,
       message: ''
     }
   }
@@ -97,9 +97,41 @@ class MessagesRoute extends Component {
     }
   }
   componentDidMount () {
+    console.log('fired')
     this.props.subscribeToNewMessages({
       channelId: this.props.match.params.id
     })
+  }
+
+  scrollToBottom = async () => {
+    let msgContainer = document.getElementById('msgContainer')
+    if (!msgContainer) {
+      await new Promise(resolve => setTimeout(resolve, 200))
+      msgContainer = document.getElementById('msgContainer')
+    }
+    if (this.props.getMessages.getMessages && msgContainer) {
+      const scrollHeight = msgContainer.scrollHeight
+      const height = msgContainer.clientHeight
+      const maxScrollTop = scrollHeight - height
+      msgContainer.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0
+    }
+  }
+  componentDidUpdate (props) {
+    if (!props.getMessages.getMessages && this.props.getMessages.getMessages) {
+      this.scrollToBottom()
+    }
+    if (props.match.url !== this.props.match.url) {
+      this.scrollToBottom()
+    }
+    if (
+      props.getMessages &&
+      props.getMessages.getMessages &&
+      this.props.getMessages.getMessages.length -
+        props.getMessages.getMessages.length ===
+        1
+    ) {
+      this.scrollToBottom()
+    }
   }
 
   render () {
@@ -107,9 +139,22 @@ class MessagesRoute extends Component {
     if (loading || !getMessages) {
       return null
     }
+    const { location: { state: { name = 'Chat' } } } = this.props
     return (
       <Fragment>
-        <Messages>
+        <Helmet>
+          <title>{name} | Javascript.af</title>
+        </Helmet>
+        <div
+          id="msgContainer"
+          style={{
+            gridRow: 1 / 2,
+            gridColumn: 2 / 3,
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
           {getMessages.map(item => (
             <Message
               key={item._id}
@@ -119,7 +164,7 @@ class MessagesRoute extends Component {
               author={item.author.name}
             />
           ))}
-        </Messages>
+        </div>
         <MessageBar>
           <form onSubmit={this.sendMessage}>
             <input
@@ -196,7 +241,7 @@ export default compose(
 
               const newFeedItem = subscriptionData.data.msg
               return Object.assign({}, prev, {
-                getMessages: [newFeedItem, ...prev.getMessages]
+                getMessages: [...prev.getMessages, newFeedItem]
               })
             }
           })
