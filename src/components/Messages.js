@@ -97,7 +97,9 @@ class MessagesRoute extends Component {
     }
   }
   componentWillMount () {
-    console.log('fired')
+    if (this.unsubscribe) {
+      return
+    }
     this.unsubscribe = this.props.subscribeToNewMessages({
       channelId: this.props.match.params.id
     })
