@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp _redirects build/",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
