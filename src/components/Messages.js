@@ -5,6 +5,13 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { MessageBar } from './styles/MessagingStyles'
 
+function isDuplicateMessage (newMessage, existingMessages) {
+  return (
+    newMessage._id !== null &&
+    existingMessages.some(message => newMessage._id === message._id)
+  )
+}
+
 const MsgContainer = styled.div`
   position: relative;
   background: 0 0;
@@ -89,7 +96,42 @@ class MessagesRoute extends Component {
       })
       this.props
         .mutate({
-          variables: { text: message, channelId: this.props.match.params.id }
+          variables: { text: message, channelId: this.props.match.params.id },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            createMessage: {
+              _id: 'kl',
+              text: message,
+              channelId: this.props.match.params.id,
+              createdAt: new Date().toISOString(),
+              author: {
+                name: this.props.user.name,
+                photoURL: this.props.user.photoURL,
+                __typename: 'User'
+              },
+              __typename: 'Message'
+            }
+          },
+          update: (store, { data: { createMessage } }) => {
+            // Read the data from our cache for this query.
+            const data = store.readQuery({
+              query: MessageQuery,
+              variables: {
+                channelId: this.props.match.params.id
+              }
+            })
+            if (isDuplicateMessage(createMessage, data.getMessages)) {
+              return data
+            }
+            data.getMessages.push(createMessage)
+            return store.writeQuery({
+              query: MessageQuery,
+              variables: {
+                channelId: this.props.match.params.id
+              },
+              data
+            })
+          }
         })
         .catch(error => {
           console.log('there was an error sending the query', error)
@@ -230,6 +272,12 @@ const sendMessage = gql`
   mutation sendMessage($text: String!, $channelId: ID!) {
     createMessage(text: $text, channelId: $channelId) {
       _id
+      text
+      channelId
+      author {
+        name
+        photoURL
+      }
       createdAt
     }
   }
@@ -239,8 +287,8 @@ export default compose(
   graphql(MessageQuery, {
     name: 'getMessages',
     options: ({ match: { params } }) => ({
-      variables: { channelId: params.id, offset: 1 },
-      fetchPolicy: 'network-only'
+      variables: { channelId: params.id }
+      // fetchPolicy: 'network-first'
     }),
     props: props => {
       return {
@@ -257,6 +305,9 @@ export default compose(
               }
 
               const newFeedItem = subscriptionData.data.msg
+              if (isDuplicateMessage(newFeedItem, prev.getMessages)) {
+                return prev
+              }
               return Object.assign({}, prev, {
                 getMessages: [...prev.getMessages, newFeedItem]
               })

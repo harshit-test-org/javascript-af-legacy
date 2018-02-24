@@ -11,7 +11,7 @@ import {
   Global,
   Dms
 } from '../components/styles/MessagingStyles'
-import MessagesComponent from '../components/Messages'
+import Messages from '../components/Messages'
 
 const Room = ({ image, text, onClick }) => (
   <RoomStyle onClick={onClick}>
@@ -104,7 +104,12 @@ class Messaging extends Component {
             }}
           </Query>
         </Chats>
-        <Route path="/social/:id" component={MessagesComponent} />
+        <Route
+          path="/social/:id"
+          render={props => (
+            <Messages user={this.props.localuser.user} {...props} />
+          )}
+        />
       </Container>
     )
   }
