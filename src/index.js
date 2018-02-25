@@ -18,6 +18,28 @@ html, body {
 h1, h2, h3, h4, h5, h6{
   font-family: 'Rubik', sans-serif;
 }
+.chat{
+    overflow: auto;
+    grid-row: 1 / 2;
+    display: flex;
+    grid-column: 2 / 3;
+    flex-direction: column;
+}
+.chat--closed{
+    overflow: auto;
+    grid-row: 1 / 2;
+    display: flex;
+    grid-column: 2 / 3;
+    flex-direction: column;
+}
+@media all and (max-width: 550px){
+.chat{
+grid-column: 1 / 3;
+}
+.chat--closed{
+   display: none;
+}
+}
 ::-webkit-scrollbar {
     height: 0;
     width: 6px;

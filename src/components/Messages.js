@@ -148,7 +148,6 @@ class MessagesRoute extends Component {
     }
   }
   componentWillMount () {
-    console.log(uuid())
     if (this.unsubscribe) {
       return
     }
@@ -207,22 +206,13 @@ class MessagesRoute extends Component {
     if (loading || !getMessages) {
       return null
     }
-    const { location: { state: { name = 'Chat' } } } = this.props
+    const { location: { state: { name = 'Chat' } }, chatOpen } = this.props
     return (
       <Fragment>
         <Helmet>
           <title>{name} | Javascript.af</title>
         </Helmet>
-        <div
-          id="msgContainer"
-          style={{
-            overflow: 'auto',
-            gridRow: '1 / 2',
-            display: 'flex',
-            gridColumn: '2 / 3',
-            flexDirection: 'column'
-          }}
-        >
+        <div id="msgContainer" className={chatOpen ? 'chat' : 'chat__closed'}>
           {getMessages.map((item, i) => (
             <Message
               key={`msgindex-${i}`}
@@ -233,7 +223,7 @@ class MessagesRoute extends Component {
             />
           ))}
         </div>
-        <MessageBar>
+        <MessageBar chatOpen={chatOpen}>
           <form onSubmit={this.sendMessage}>
             <input
               value={this.state.message}
@@ -300,8 +290,8 @@ export default compose(
   graphql(MessageQuery, {
     name: 'getMessages',
     options: ({ match: { params } }) => ({
-      variables: { channelId: params.id }
-      // fetchPolicy: 'network-first'
+      variables: { channelId: params.id },
+      fetchPolicy: 'network-first'
     }),
     props: props => {
       return {

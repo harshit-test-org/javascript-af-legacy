@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
   height: 100vh;
@@ -6,6 +6,9 @@ export const Container = styled.div`
   grid-template-columns: minmax(180px, 250px) 4fr;
   grid-template-rows: 1fr 65px;
   grid-gap: 0.5px;
+  @media all and (max-width: 550px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export const Chats = styled.div`
@@ -17,6 +20,16 @@ export const Chats = styled.div`
   grid-row: 1 / -1;
   grid-column: 1 / 2;
   color: #fff;
+  @media all and (max-width: 550px) {
+    ${props =>
+    props.chatOpen
+      ? css`
+            display: none;
+          `
+      : css`
+            display: grid;
+          `};
+  }
   & h2,
   h4 {
     margin: 5px 0 5px 10px;
@@ -106,6 +119,17 @@ export const MessageBar = styled.div`
   background: #2a2d34;
   grid-row: 2 / -1;
   grid-column: 2 / -1;
+  @media all and (max-width: 550px) {
+    ${props =>
+    !props.chatOpen
+      ? css`
+            display: none;
+          `
+      : css`
+            display: flex;
+            grid-column: 1 / -1;
+          `};
+  }
   & input {
     border: none;
     flex: 1;

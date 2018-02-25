@@ -47,9 +47,12 @@ class Messaging extends Component {
   }
   render () {
     const { localuser: { user } } = this.props
+    const pathname = this.props.location.pathname
+    const isChatOpen =
+      pathname.substring(1, pathname.length).split('/')[1] !== undefined
     return (
-      <Container>
-        <Chats>
+      <Container chatOpen={isChatOpen}>
+        <Chats chatOpen={isChatOpen}>
           <h2>Messaging</h2>
           <Query query={RoomsQuery}>
             {result => {
@@ -107,7 +110,11 @@ class Messaging extends Component {
         <Route
           path="/social/:id"
           render={props => (
-            <Messages user={this.props.localuser.user} {...props} />
+            <Messages
+              chatOpen={isChatOpen}
+              user={this.props.localuser.user}
+              {...props}
+            />
           )}
         />
       </Container>
