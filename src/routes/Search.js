@@ -70,10 +70,10 @@ const Hit = ({ item }) => {
     <CardLink to={`/user/${item.objectID}`}>
       <Card>
         <div className="picture">
-          <img src={item.photoURL} alt={item.displayName} />
+          <img src={item.photoURL} alt={item.name} />
         </div>
         <div className="title">
-          <Highlight attribute="displayName" hit={item} />
+          <Highlight attribute="name" hit={item} />
         </div>
       </Card>
     </CardLink>
