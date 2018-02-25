@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import uuid from 'uuid/v4'
 import Helmet from 'react-helmet'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -7,8 +8,10 @@ import { MessageBar } from './styles/MessagingStyles'
 
 function isDuplicateMessage (newMessage, existingMessages) {
   return (
-    newMessage._id !== null &&
-    existingMessages.some(message => newMessage._id === message._id)
+    (newMessage.uid !== null &&
+      existingMessages.some(message => newMessage.uid === message.uid)) ||
+    (newMessage._id !== null &&
+      existingMessages.some(message => newMessage._id === message._id))
   )
 }
 
@@ -94,13 +97,19 @@ class MessagesRoute extends Component {
       this.setState({
         message: ''
       })
+      const uid = uuid()
       this.props
         .mutate({
-          variables: { text: message, channelId: this.props.match.params.id },
+          variables: {
+            text: message,
+            channelId: this.props.match.params.id,
+            uid
+          },
           optimisticResponse: {
             __typename: 'Mutation',
             createMessage: {
-              _id: 'kl',
+              _id: `${Math.floor(Math.random() * -100000)}-oui`,
+              uid: uid,
               text: message,
               channelId: this.props.match.params.id,
               createdAt: new Date().toISOString(),
@@ -124,7 +133,7 @@ class MessagesRoute extends Component {
               return data
             }
             data.getMessages.push(createMessage)
-            return store.writeQuery({
+            store.writeQuery({
               query: MessageQuery,
               variables: {
                 channelId: this.props.match.params.id
@@ -139,6 +148,7 @@ class MessagesRoute extends Component {
     }
   }
   componentWillMount () {
+    console.log(uuid())
     if (this.unsubscribe) {
       return
     }
@@ -213,9 +223,9 @@ class MessagesRoute extends Component {
             flexDirection: 'column'
           }}
         >
-          {getMessages.map(item => (
+          {getMessages.map((item, i) => (
             <Message
-              key={item._id}
+              key={`msgindex-${i}`}
               text={item.text}
               date={item.createdAt}
               image={item.author.photoURL}
@@ -242,6 +252,7 @@ const MsgSubscriptions = gql`
   subscription newMessage($channelId: ID!) {
     msg(channelId: $channelId) {
       _id
+      uid
       text
       channelId
       author {
@@ -257,6 +268,7 @@ const MessageQuery = gql`
   query MessagesQuery($channelId: ID!, $offset: Int) {
     getMessages(channelId: $channelId, offset: $offset) {
       createdAt
+      uid
       author {
         name
         photoURL
@@ -269,10 +281,11 @@ const MessageQuery = gql`
 `
 
 const sendMessage = gql`
-  mutation sendMessage($text: String!, $channelId: ID!) {
-    createMessage(text: $text, channelId: $channelId) {
+  mutation sendMessage($text: String!, $channelId: ID!, $uid: ID!) {
+    createMessage(text: $text, channelId: $channelId, uid: $uid) {
       _id
       text
+      uid
       channelId
       author {
         name
@@ -303,14 +316,14 @@ export default compose(
               if (!subscriptionData.data) {
                 return prev
               }
-
               const newFeedItem = subscriptionData.data.msg
               if (isDuplicateMessage(newFeedItem, prev.getMessages)) {
                 return prev
               }
-              return Object.assign({}, prev, {
+              const data = Object.assign({}, prev, {
                 getMessages: [...prev.getMessages, newFeedItem]
               })
+              return data
             }
           })
         }
