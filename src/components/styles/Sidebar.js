@@ -27,6 +27,7 @@ const Sidebar = styled.div`
     color: #fd267d;
   }
   @media (max-width: 768px) {
+    overflow-y: hidden;
     & {
       background: #2a2d34;
       height: 40px;
@@ -43,15 +44,10 @@ const Sidebar = styled.div`
     & a {
       display: inline-block;
       color: #fff;
-      margin: 0 4.3vw auto;
+      margin: 0 3vw auto;
       padding: 0;
       font-size: 35px;
       text-decoration: none;
-    }
-  }
-  @media (height: 1024px) {
-    & a {
-      margin: 0 5vw;
     }
   }
   @media (width: 1366px) {
