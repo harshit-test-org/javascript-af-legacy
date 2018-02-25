@@ -23,8 +23,8 @@ const Sidebar = styled.div`
     color: #fd267d;
     transition: 0.2s;
   }
-  & a.active {
-    color: #fd267d;
+  & a.active svg {
+    fill: #fd267d;
   }
   @media (max-width: 768px) {
     overflow-y: hidden;

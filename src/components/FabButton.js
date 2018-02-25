@@ -1,8 +1,7 @@
 // TODO: Add tooltip
 import React from 'react'
-import FontAwesome from '@fortawesome/react-fontawesome'
-import Pencil from '@fortawesome/fontawesome-free-solid/faPencilAlt'
 import styled from 'styled-components'
+import PencilIcon from '../assets/icons/pencil'
 
 const FabButton = styled.button`
   outline: none;
@@ -28,7 +27,7 @@ const FabButton = styled.button`
 const Fab = props => {
   return (
     <FabButton className="uploadbtn" {...props}>
-      <FontAwesome size="2x" icon={Pencil} />
+      <PencilIcon />
     </FabButton>
   )
 }
