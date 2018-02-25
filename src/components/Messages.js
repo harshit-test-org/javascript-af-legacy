@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import uuid from 'uuid/v4'
 import Helmet from 'react-helmet'
 import { graphql, compose } from 'react-apollo'
@@ -24,6 +25,14 @@ const MsgContainer = styled.div`
   border-top: none;
   line-height: 1.2;
   margin-left: 0.5rem;
+  & a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.83);
+    transition: all 0.1s ease-in;
+  }
+  & a:hover {
+    color: rgba(0, 0, 0, 0.6);
+  }
   & .img {
     display: block;
     width: 2.5rem;
@@ -61,15 +70,17 @@ const MsgContainer = styled.div`
   }
 `
 
-const Message = ({ text, date, image, author }) => {
+const Message = ({ text, date, image, author, aid }) => {
   return (
     <MsgContainer>
       <div className="img">
-        <img src={image} alt="" />
+        <Link to={`/user/${aid}`}>
+          <img src={image} alt="" />
+        </Link>
       </div>
       <div className="data">
         <div className="author">
-          {author}
+          <Link to={`/user/${aid}`}>{author}</Link>
           <span className="date">{new Date(date).toLocaleString()}</span>
         </div>
         <div className="text">{text}</div>
@@ -114,6 +125,7 @@ class MessagesRoute extends Component {
               channelId: this.props.match.params.id,
               createdAt: new Date().toISOString(),
               author: {
+                _id: this.props.user._id,
                 name: this.props.user.name,
                 photoURL: this.props.user.photoURL,
                 __typename: 'User'
@@ -218,6 +230,7 @@ class MessagesRoute extends Component {
               key={`msgindex-${i}`}
               text={item.text}
               date={item.createdAt}
+              aid={item.author._id}
               image={item.author.photoURL}
               author={item.author.name}
             />
@@ -246,6 +259,7 @@ const MsgSubscriptions = gql`
       text
       channelId
       author {
+        _id
         name
         photoURL
       }
@@ -260,6 +274,7 @@ const MessageQuery = gql`
       createdAt
       uid
       author {
+        _id
         name
         photoURL
       }
@@ -278,6 +293,7 @@ const sendMessage = gql`
       uid
       channelId
       author {
+        _id
         name
         photoURL
       }

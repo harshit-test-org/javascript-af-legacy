@@ -127,6 +127,7 @@ const LocalUserQuery = gql`
     user @client {
       name
       photoURL
+      _id
     }
   }
 `
