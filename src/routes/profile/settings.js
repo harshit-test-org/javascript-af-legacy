@@ -21,7 +21,7 @@ const Setting = styled.div`
   }
   & p {
     color: #000;
-    font-size: 24px;
+    font-size: 20px;
     text-align: left;
   }
   & ul > select {

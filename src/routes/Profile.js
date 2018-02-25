@@ -17,17 +17,18 @@ const UserCover = styled.div`
   background-image: url(https://lorempixel.com/1920/1080/);
   height: 100%;
   text-align: center;
-  & p {
+  & h1 {
     background: rgba(0, 0, 0, 0.8);
     color: #fff;
+    font-weight: 400;
     padding: 10px;
-    font-size: 60px;
+    font-size: 40px;
   }
   & img {
     border-radius: 50%;
     border: 3px solid #fff;
-    height: 200px;
-    width: 200px;
+    height: 160px;
+    width: 160px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -205,7 +206,7 @@ class Profile extends PureComponent {
     return (
       <Layout>
         <UserCover>
-          <p>{displayName}</p>
+          <h1>{displayName}</h1>
           <img src={photoURL} alt="profile" />
           <div className="follow">
             <span className="followers">Followers</span>
