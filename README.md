@@ -12,11 +12,11 @@ To navigate your way through applications built with Create React App & perform 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Team
-[Jesse R Weigel](https://github.com/JesseRWeigel) (Founder / Mobile Dev),
+[Jesse R Weigel](https://github.com/JesseRWeigel) (Founder / Project Manager),
 
 [Jvscrpt.r](https://github.com/jvscrptr) (Co-Founder / Frontend Dev),
 
-[pantharshit00](https://github.com/pantharshit00) (Fullstack Dev / Product Manager)
+[pantharshit00](https://github.com/pantharshit00) (Co-Founder / Fullstack Dev)
 
 ## Design Repository
 Design by Jvscrptr. Repo https://github.com/jvscrptr/JavaScript.af
