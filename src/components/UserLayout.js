@@ -33,7 +33,7 @@ export default class Layout extends Component {
           <title>{title}</title>
         </Helmet>
         <Sidemenu />
-        <Navbar title="Discover" />
+        <Navbar title={this.props.title} />
         <Content>{this.props.children}</Content>
       </LayoutGrid>
     )
