@@ -40,20 +40,6 @@ grid-column: 1 / 3;
    display: none;
 }
 }
-::-webkit-scrollbar {
-    height: 0;
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: #222;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #fd267d;   
-}
-::selection {
-    background: #fd267d;
-}
 `
 
 const theme = {

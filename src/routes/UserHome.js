@@ -23,7 +23,7 @@ const ReposQuery = gql`
 class Index extends Component {
   render () {
     return (
-      <Layout title="Home">
+      <Layout title="Discover">
         <div className="row">
           <Query query={ReposQuery}>
             {result => {
