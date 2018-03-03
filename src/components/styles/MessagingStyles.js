@@ -16,7 +16,7 @@ export const Chats = styled.div`
   overflow: -moz-scrollbars-none;
   grid-gap: 16px;
   grid-template-rows: 24px 1fr 1fr;
-  background: #2a2d34;
+  background: #182e40;
   grid-row: 1 / -1;
   grid-column: 1 / 2;
   color: #fff;
@@ -40,23 +40,31 @@ export const Chats = styled.div`
 `
 
 export const RoomStyle = styled.div`
-  margin: auto 8px;
+  margin: auto 0;
+  cursor: pointer;
   padding: 8px;
   display: flex;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  img {
+  &:hover {
+    background: #fff;
+  }
+  & img {
     height: 24px;
   }
-  .img {
+  & .img {
     flex: 1;
     display: flex;
   }
-  .text {
+  & .text {
     flex: 5;
+    font-family: 'Quicksand', sans-serif;
     font-size: 1rem;
     display: flex;
     align-items: center;
+    font-weight: 500;
     padding-left: 5px;
+  }
+  &:hover .text {
+    color: #000000;
   }
 `
 
@@ -64,7 +72,7 @@ export const ChatsSection = styled.div`
   overflow: auto;
   & h4 {
     margin-top: 1rem;
-    opacity: 0.6;
+    opacity: 0.87;
   }
   & .clipper {
     overflow: auto;
@@ -84,7 +92,7 @@ export const ChatsSection = styled.div`
     top: 0;
     bottom: 0;
     right: 0;
-    background: #222;
+    background: ${props => props.theme.primaryDark};
     width: 4px;
   }
   & ._scrollbar .track {
@@ -95,7 +103,7 @@ export const ChatsSection = styled.div`
     position: absolute;
     width: 100%;
     border-radius: 10px;
-    background: #fd267d;
+    background: #f5f5f5;
   }
   /* hide default chrome scrollbar */
   & .scroller::-webkit-scrollbar {
@@ -116,7 +124,7 @@ export const MessageBar = styled.div`
   display: flex;
   padding: 0.8rem 1.5rem;
   flex-direction: row;
-  background: #2a2d34;
+  background: #182e40;
   grid-row: 2 / -1;
   grid-column: 2 / -1;
   @media all and (max-width: 550px) {
