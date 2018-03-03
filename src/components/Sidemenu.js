@@ -6,10 +6,24 @@ import WorkIcon from '../assets/icons/work'
 import ChatIcon from '../assets/icons/chat'
 import AccountIcon from '../assets/icons/account'
 import AssignmentIcon from '../assets/icons/assignment'
+import styled from 'styled-components'
+
+const Logo = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20% 0 20% 0;
+  & > img {
+    height: 40px;
+    width: 40px;
+  }
+`
 
 const Sidemenu = () => {
   return (
     <Sidebar>
+      <Logo>
+        <img src={require('../assets/logo.png')} alt="" />
+      </Logo>
       <NavIcon activeClassName="active" to="/home">
         <HomeIcon />
       </NavIcon>
