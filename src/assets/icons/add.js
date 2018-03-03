@@ -4,7 +4,7 @@ const AddIcon = () => {
   return (
     <svg
       fill="#ffffff"
-      height="40"
+      height="50"
       viewBox="0 0 24 24"
       width="24"
       xmlns="http://www.w3.org/2000/svg"
