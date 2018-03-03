@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { injectGlobal } from 'styled-components'
+import { injectGlobal, ThemeProvider } from 'styled-components'
 import registerServiceWorker from './registerServiceWorker'
 import App from './App'
 
-import 'typeface-rubik'
-import 'typeface-montserrat'
+import 'typeface-quicksand'
+import 'typeface-roboto'
 
 injectGlobal`
 * {
@@ -13,10 +13,10 @@ injectGlobal`
 }
 html, body {
     background: #e6ecf0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 h1, h2, h3, h4, h5, h6{
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 .chat{
     overflow: auto;
@@ -56,5 +56,17 @@ grid-column: 1 / 3;
 }
 `
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const theme = {
+  primary: '#4243cc',
+  primaryDark: '#3031b4',
+  primaryLight: '#a28aff',
+  secondary: '#e74c3c'
+}
+
+ReactDOM.render(
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root')
+)
 registerServiceWorker()

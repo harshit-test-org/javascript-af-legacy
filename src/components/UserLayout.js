@@ -1,7 +1,26 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import Navbar from './styles/Navbar'
 import Sidemenu from './Sidemenu'
+
+import styled from 'styled-components'
+
+const LayoutGrid = styled.div`
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: 72px 1fr;
+  grid-template-areas:
+    'sidebar navbar'
+    'sidebar content';
+  height: 100vh;
+  overflow: hidden;
+`
+
+const Content = styled.div`
+  grid-area: content;
+  padding: 1rem;
+  overflow: auto;
+`
 
 export default class Layout extends Component {
   render () {
@@ -9,14 +28,14 @@ export default class Layout extends Component {
       ? `${this.props.title} | Javascript.af`
       : 'Javascript.af'
     return (
-      <Fragment>
+      <LayoutGrid>
         <Helmet>
           <title>{title}</title>
         </Helmet>
-        {this.props.links && <Navbar links={this.props.links} />}
         <Sidemenu />
-        {this.props.children}
-      </Fragment>
+        <Navbar title="Discover" />
+        <Content>{this.props.children}</Content>
+      </LayoutGrid>
     )
   }
 }

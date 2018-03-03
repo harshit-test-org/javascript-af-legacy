@@ -15,12 +15,14 @@
     "react-helmet": "^5.2.0",
     "react-instantsearch": "^5.0.0-beta.1",
     "react-loadable": "^5.3.1",
+    "react-masonry-component": "^6.0.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
     "styled-components": "^3.1.4",
     "subscriptions-transport-ws": "^0.9.5",
     "typeface-montserrat": "^0.0.54",
-    "typeface-rubik": "^0.0.54",
+    "typeface-quicksand": "^0.0.54",
+    "typeface-roboto": "^0.0.54",
     "uuid": "^3.2.1"
   },
   "scripts": {

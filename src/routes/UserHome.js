@@ -1,30 +1,53 @@
 import React, { Component } from 'react'
-import Loadable from 'react-loadable'
-import { Route } from 'react-router-dom'
+import Masonry from 'react-masonry-component'
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
+import RepoCard from '../components/PostCard'
 import Layout from '../components/UserLayout'
+import '../components/styles/grid.css'
 
-const Loading = () => <h1 style={{ marginLeft: '25%' }}>Loading....</h1>
-
-const FeedRoute = Loadable({
-  loader: () => import('./userhome/feed'),
-  loading: Loading
-})
+const ReposQuery = gql`
+  {
+    getRepos {
+      _id
+      name
+      imageURL
+      description
+      owner {
+        name
+      }
+    }
+  }
+`
 
 class Index extends Component {
   render () {
-    const links = [
-      {
-        name: "Repo's",
-        href: '/home/prejects'
-      },
-      {
-        name: 'Feed',
-        href: '/home/feed'
-      }
-    ]
     return (
-      <Layout title="Home" links={links}>
-        <Route path={`${this.props.match.url}/feed`} component={FeedRoute} />
+      <Layout title="Home">
+        <div className="row">
+          <Query query={ReposQuery}>
+            {result => {
+              if (result.loading) return <h1>Loading</h1>
+              if (result.error) return <h1>AWWW Error</h1>
+
+              const { data: { getRepos } } = result
+              return (
+                <Masonry>
+                  {getRepos.map(item => (
+                    <div className="col s12 m6 l4 xl3" key={item._id}>
+                      <RepoCard
+                        key={item._id}
+                        title={item.name}
+                        text={item.description}
+                        image={item.imageURL}
+                      />
+                    </div>
+                  ))}
+                </Masonry>
+              )
+            }}
+          </Query>
+        </div>
       </Layout>
     )
   }

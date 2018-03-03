@@ -1,60 +1,33 @@
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 const Sidebar = styled.div`
-  background: #2a2d34;
-  height: 100%;
-  width: auto;
-  padding: 0 0 10px;
-  text-align: center;
-  overflow: auto;
-  z-index: 2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  & a {
-    display: block;
-    color: #fff;
-    margin: 5px;
-    padding: 15px 10px;
-    font-size: 35px;
-    text-decoration: none;
+  grid-area: sidebar;
+  background: ${props => props.theme.primary};
+  box-shadow: 0 6px 10px 6px rgba(0, 0, 0, 0.2);
+`
+export default Sidebar
+
+export const NavIcon = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  padding: 20% 0 20% 0;
+  transition: all 0.2s ease;
+  & > svg {
+    transition: all 0.2s ease;
   }
-  & a:hover {
-    color: #fd267d;
-    transition: 0.2s;
+  &.active {
+    background: #f1f1f1;
   }
-  & a.active svg {
-    fill: #fd267d;
+  &:hover {
+    background: #ffffff;
   }
-  @media (max-width: 768px) {
-    overflow-y: hidden;
-    & {
-      background: #2a2d34;
-      height: 40px;
-      width: auto;
-      padding: 10px;
-      text-align: center;
-      z-index: 2;
-      position: fixed;
-      top: auto;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    & a {
-      display: inline-block;
-      color: #fff;
-      margin: 0 3vw auto;
-      padding: 0;
-      font-size: 35px;
-      text-decoration: none;
-    }
+  &.active > svg,
+  &:hover > svg {
+    fill: ${props => props.theme.primaryDark};
   }
-  @media (width: 1366px) {
-    & a {
-      margin: auto;
-    }
+  &:hover > svg {
+    width: 50px;
+    height: 50px;
   }
 `
-
-export default Sidebar
