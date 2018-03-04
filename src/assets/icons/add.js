@@ -1,8 +1,9 @@
 import React from 'react'
 
-const AddIcon = () => {
+const AddIcon = props => {
   return (
     <svg
+      {...props}
       fill="#ffffff"
       height="40"
       viewBox="0 0 24 24"

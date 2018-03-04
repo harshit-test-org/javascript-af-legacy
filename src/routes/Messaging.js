@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import { Route } from 'react-router-dom'
 import { Query, graphql, compose } from 'react-apollo'
 import Baron from 'react-baron'
+import styled from 'styled-components'
 import gql from 'graphql-tag'
 import {
   Container,
@@ -11,7 +12,9 @@ import {
   Global,
   Dms
 } from '../components/styles/MessagingStyles'
+import AddIcon from '../assets/icons/add'
 import Messages from '../components/Messages'
+import SearchModal from '../components/MessageSearch'
 
 const Room = ({ image, text, onClick }) => (
   <RoomStyle onClick={onClick}>
@@ -21,6 +24,18 @@ const Room = ({ image, text, onClick }) => (
     <div className="text">{text}</div>
   </RoomStyle>
 )
+
+const RoomTitle = styled.div`
+  display: flex;
+  & h4 {
+    flex: 5;
+  }
+  & span {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+`
 
 const RoomsQuery = gql`
   query RoomsQuery {
@@ -40,6 +55,21 @@ const RoomsQuery = gql`
 `
 
 class Messaging extends Component {
+  state = {
+    globalSearch: false,
+    dmSearch: false
+  }
+  toggleModal = globalOne => {
+    if (globalOne) {
+      this.setState(state => ({
+        globalSearch: !state.globalSearch
+      }))
+    } else {
+      this.setState(state => ({
+        globalSearch: !state.dmSearch
+      }))
+    }
+  }
   transitionRoute = (route, name) => {
     this.props.history.push(`/social/${route}`, {
       name
@@ -68,7 +98,15 @@ class Messaging extends Component {
                   </Helmet>
                   <Global>
                     <Baron>
-                      <h4>Global Rooms</h4>
+                      <RoomTitle>
+                        <h4>Global Rooms</h4>
+                        <span>
+                          <AddIcon
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => this.toggleModal(true)}
+                          />
+                        </span>
+                      </RoomTitle>
                       {getUserChannels.global.map(item => (
                         <Room
                           onClick={() =>
@@ -83,7 +121,15 @@ class Messaging extends Component {
                   </Global>
                   <Dms>
                     <Baron>
-                      <h4>Direct Messages</h4>
+                      <RoomTitle>
+                        <h4>Direct Messages</h4>
+                        <span>
+                          <AddIcon
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => this.toggleModal(false)}
+                          />
+                        </span>
+                      </RoomTitle>
                       {getUserChannels.dms.map(item => {
                         let image = item.imageURL.split('|')
                         let name = item.name.split('|')
@@ -107,6 +153,14 @@ class Messaging extends Component {
             }}
           </Query>
         </Chats>
+        <SearchModal
+          toggle={() => this.toggleModal(true)}
+          open={this.state.globalSearch}
+        />
+        <SearchModal
+          toggle={() => this.toggleModal(false)}
+          open={this.state.dmSearch}
+        />
         <Route
           path="/social/:id"
           render={props => (

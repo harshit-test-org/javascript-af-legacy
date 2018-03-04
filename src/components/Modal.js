@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 /* eslint-disable */
 const ModalStyle = styled.div`
-  display: ${props => (props.show ? 'flex' : 'none')};
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -30,23 +30,25 @@ const ModalStyle = styled.div`
   & .postbg {
     border-radius: 6px;
     background: #fff;
-    width: 40%;
+    width: 70%;
     padding: 10px;
     margin: auto;
-    text-align: center;
   }
 `
 /* eslint-enable */
 
 const Modal = ({ children, show = false, toggle, ...others }) => {
-  return (
-    <ModalStyle show={show} {...others}>
-      <span className="closebtn" onClick={toggle}>
-        &times;
-      </span>
-      <div className="postbg">{children}</div>
-    </ModalStyle>
-  )
+  if (show) {
+    return (
+      <ModalStyle {...others}>
+        <span className="closebtn" onClick={toggle}>
+          &times;
+        </span>
+        <div className="postbg">{children}</div>
+      </ModalStyle>
+    )
+  }
+  return null
 }
 
 export default Modal
