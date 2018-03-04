@@ -10,12 +10,12 @@ const Card = styled.div`
 `
 
 const CardThumb = styled.div`
-  height: 300px;
+  height: auto;
   clip-path: polygon(0px 0px, 100% 0px, 98.8889% 84.6667%, 0% 100%);
   & img {
     display: block;
     width: 100%;
-    height: 300px;
+    height: auto;
   }
 `
 

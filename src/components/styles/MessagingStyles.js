@@ -66,6 +66,12 @@ export const RoomStyle = styled.div`
   &:hover .text {
     color: #000000;
   }
+  &.active {
+    background: #f1f1f1;
+  }
+  &.active .text {
+    color: #000;
+  }
 `
 
 export const ChatsSection = styled.div`

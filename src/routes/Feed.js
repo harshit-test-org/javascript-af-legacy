@@ -42,7 +42,7 @@ const FeedAuthor = styled.div`
 
 const FeedImage = styled.img`
   width: 100%;
-  height: 450px;
+  height: auto;
 `
 
 const FeedText = FeedAuthorInfo.extend`

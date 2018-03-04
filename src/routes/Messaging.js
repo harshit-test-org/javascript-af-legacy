@@ -13,8 +13,8 @@ import {
 } from '../components/styles/MessagingStyles'
 import Messages from '../components/Messages'
 
-const Room = ({ image, text, onClick }) => (
-  <RoomStyle onClick={onClick}>
+const Room = ({ image, text, onClick, ...props }) => (
+  <RoomStyle onClick={onClick} {...props}>
     <div className="img">
       <img src={image} alt="" />
     </div>
@@ -73,6 +73,12 @@ class Messaging extends Component {
                         <Room
                           onClick={() =>
                             this.transitionRoute(item._id, item.name)
+                          }
+                          className={
+                            `/social/${item._id}` ===
+                            this.props.location.pathname
+                              ? 'active'
+                              : ''
                           }
                           key={item._id}
                           image={item.imageURL}
