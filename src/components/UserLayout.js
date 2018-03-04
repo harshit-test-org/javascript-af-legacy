@@ -16,7 +16,7 @@ const LayoutGrid = styled.div`
   overflow: hidden;
   @media all and (max-width: 570px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 60px 1fr 70px;
+    grid-template-rows: 60px 1fr 132px;
     grid-template-areas: 'navbar' 'content' 'sidebar';
   }
 `
