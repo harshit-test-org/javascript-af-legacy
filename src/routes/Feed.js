@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import gql from 'graphql-tag'
 import Layout from '../components/UserLayout'
 import styled from 'styled-components'
+import { compose, graphql, Query } from 'react-apollo'
 
 const FeedContainer = styled.div`
   padding: 0 23%;
@@ -78,71 +80,82 @@ const RoundInput = styled.div`
   padding: 8px 15px;
 `
 
-export default class Feed extends Component {
+// Data stuff m TODO: clean this file
+const query = gql`
+  query feed {
+    getFeed {
+      _id
+      text
+      authorId
+      author {
+        name
+        photoURL
+      }
+    }
+  }
+`
+
+const LocalUserQuery = gql`
+  query LocalUser {
+    user @client {
+      _id
+    }
+  }
+`
+
+class Feed extends Component {
   render () {
     return (
       <Layout title="Feed">
         <FeedContainer>
-          <FeedCard>
-            <FeedAuthorInfo>
-              <FeedAuthor>
-                <img
-                  src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?w=950&h=650&auto=compress&cs=tinysrgb"
-                  alt=""
-                />
-                <span className="name"> Harshit Pant</span>
-              </FeedAuthor>
-              <div className="time">1h ago</div>
-            </FeedAuthorInfo>
-            <FeedText>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis
-              ea fugiat et molestiae ratione vitae hic dicta eligendi soluta
-              incidunt rerum dolorem libero provident suscipit obcaecati
-              aspernatur numquam quidem exercitationem maxime quae illum
-              reiciendis aliquid, iure molestias? Aperiam quibusdam aliquam
-              numquam est molestiae adipisci illo.
-            </FeedText>
-            <FeedImage src="https://images.pexels.com/photos/285284/pexels-photo-285284.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" />
-            <FeedAuthorInfo>
-              <Like>+1</Like>
-              <CommentBar>
-                <RoundInput>
-                  <Input type="text" placeholder="Write a response" />
-                </RoundInput>
-              </CommentBar>
-            </FeedAuthorInfo>
-          </FeedCard>
-          <FeedCard>
-            <FeedAuthorInfo>
-              <FeedAuthor>
-                <img
-                  src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?w=950&h=650&auto=compress&cs=tinysrgb"
-                  alt=""
-                />
-                <span className="name"> Harshit Pant</span>
-              </FeedAuthor>
-              <div className="time">1h ago</div>
-            </FeedAuthorInfo>
-            <FeedText>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis
-              ea fugiat et molestiae ratione vitae hic dicta eligendi soluta
-              incidunt rerum dolorem libero provident suscipit obcaecati
-              aspernatur numquam quidem exercitationem maxime quae illum
-              reiciendis aliquid, iure molestias? Aperiam quibusdam aliquam
-              numquam est molestiae adipisci illo.
-            </FeedText>
-            {/* <FeedImage src="https://images.pexels.com/photos/285284/pexels-photo-285284.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" /> */}
-            <FeedAuthorInfo>
-              <Like>+1</Like>
-              <CommentBar>
-                <RoundInput>
-                  <Input type="text" placeholder="Write a response" />
-                </RoundInput>
-              </CommentBar>
-            </FeedAuthorInfo>
-          </FeedCard>
+          <Query query={query}>
+            {({ data, error, loading }) => {
+              if (loading) {
+                return <h1>Loading...</h1>
+              }
+              if (error) {
+                return <h1>Aw, Snap something bad happened</h1>
+              }
+              if (data) {
+                const { getFeed: feed } = data
+                return (
+                  <Fragment>
+                    {feed.map(item => (
+                      <FeedCard key={item._id}>
+                        <FeedAuthorInfo>
+                          <FeedAuthor>
+                            <img
+                              src={item.author.photoURL}
+                              alt={item.author.name}
+                            />
+                            <span className="name"> {item.author.name}</span>
+                          </FeedAuthor>
+                          {/* <div className="time">1h ago</div> */}
+                        </FeedAuthorInfo>
+                        <FeedText>{item.text}</FeedText>
+                        {feed.image && <FeedImage src={feed.image} />}
+                        <FeedAuthorInfo>
+                          <Like>+1</Like>
+                          <CommentBar>
+                            <RoundInput>
+                              <Input
+                                type="text"
+                                placeholder="Write a response"
+                              />
+                            </RoundInput>
+                          </CommentBar>
+                        </FeedAuthorInfo>
+                      </FeedCard>
+                    ))}
+                  </Fragment>
+                )
+              }
+            }}
+          </Query>
         </FeedContainer>
       </Layout>
     )
   }
 }
+
+export default compose(graphql(LocalUserQuery))(Feed)
