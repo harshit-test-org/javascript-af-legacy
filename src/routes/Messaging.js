@@ -16,8 +16,8 @@ import AddIcon from '../assets/icons/add'
 import Messages from '../components/Messages'
 import SearchModal from '../components/MessageSearch'
 
-const Room = ({ image, text, onClick }) => (
-  <RoomStyle onClick={onClick}>
+const Room = ({ image, text, onClick, ...props }) => (
+  <RoomStyle onClick={onClick} {...props}>
     <div className="img">
       <img src={image} alt="" />
     </div>
@@ -111,6 +111,12 @@ class Messaging extends Component {
                         <Room
                           onClick={() =>
                             this.transitionRoute(item._id, item.name)
+                          }
+                          className={
+                            `/social/${item._id}` ===
+                            this.props.location.pathname
+                              ? 'active'
+                              : ''
                           }
                           key={item._id}
                           image={item.imageURL}

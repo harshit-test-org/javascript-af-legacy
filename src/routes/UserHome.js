@@ -34,7 +34,7 @@ class Index extends Component {
               return (
                 <Masonry>
                   {getRepos.map(item => (
-                    <div className="col s12 m6 l4 xl3" key={item._id}>
+                    <div className="col s12 m4 l4 xl3" key={item._id}>
                       <RepoCard
                         key={item._id}
                         title={item.name}
