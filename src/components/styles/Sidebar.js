@@ -9,7 +9,11 @@ const Sidebar = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    position: fixed;
+    bottom: 0;
+    height: 70px;
+    z-index: 5;
+    width: 100%;
   }
 `
 export default Sidebar
@@ -17,7 +21,6 @@ export default Sidebar
 export const NavIcon = styled(NavLink)`
   display: flex;
   justify-content: center;
-  padding: 20% 0 20% 0;
   transition: all 0.2s ease;
   & > svg {
     transition: all 0.2s ease;
@@ -38,5 +41,6 @@ export const NavIcon = styled(NavLink)`
   }
   @media all and (max-width: 570px) {
     flex: 1;
+    align-items: center;
   }
 `

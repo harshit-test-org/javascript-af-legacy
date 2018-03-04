@@ -37,7 +37,6 @@ function SearchBox ({ currentRefinement, refine }) {
     <SearchInput
       value={currentRefinement}
       onChange={e => refine(e.target.value)}
-      autoFocus
       autoComplete="off"
       autoCorrect="off"
       autoCapitalize="off"
@@ -87,7 +86,7 @@ const Hit = ({ item }) => {
 const ResultCard = styled.div`
   height: auto;
   background: #fff;
-  width: 90%;
+  width: 94%;
   padding: 0.5rem 0.7rem;
   display: flex;
   margin-bottom: 1rem;
@@ -115,19 +114,19 @@ const ResultCard = styled.div`
       font-size: 18px;
     }
   }
-   @media all and (max-width:570px){
-    padding: 0 0.3rem;
-     img {
-    height: 50px;
-    width: 50px;
-  }
-    .info {
-    h1 {
-      font-size: 24px;
+  @media all and (max-width: 570px) {
+    img {
+      height: 50px;
+      width: 50px;
     }
-    p {
-      margin-top: 0.5rem;
-      font-size: 14px;
+    .info {
+      h1 {
+        font-size: 24px;
+      }
+      p {
+        margin-top: 0.5rem;
+        font-size: 14px;
+      }
     }
   }
 `
