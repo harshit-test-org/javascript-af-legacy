@@ -16,6 +16,9 @@ const Logo = styled.div`
     height: 40px;
     width: 40px;
   }
+  @media all and (max-width: 570px) {
+    display: none;
+  }
 `
 
 const Sidemenu = () => {

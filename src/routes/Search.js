@@ -10,6 +10,9 @@ import styled from 'styled-components'
 
 const SearchContainer = styled.div`
   padding: 0 15%;
+  @media all and (max-width: 570px) {
+    padding: 0;
+  }
 `
 
 const SearchInput = styled.input`
@@ -23,6 +26,10 @@ const SearchInput = styled.input`
   outline: 0;
   border: 1px solid rgba(0, 0, 0, 0.37);
   font-size: 20px;
+  @media all and (max-width: 570px) {
+    width: 90%;
+    font-size: 1rem;
+  }
 `
 
 function SearchBox ({ currentRefinement, refine }) {
@@ -80,7 +87,7 @@ const Hit = ({ item }) => {
 const ResultCard = styled.div`
   height: auto;
   background: #fff;
-  width: 100%;
+  width: 90%;
   padding: 0.5rem 0.7rem;
   display: flex;
   margin-bottom: 1rem;
@@ -106,6 +113,21 @@ const ResultCard = styled.div`
     p {
       margin-top: 0.5rem;
       font-size: 18px;
+    }
+  }
+   @media all and (max-width:570px){
+    padding: 0 0.3rem;
+     img {
+    height: 50px;
+    width: 50px;
+  }
+    .info {
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      margin-top: 0.5rem;
+      font-size: 14px;
     }
   }
 `

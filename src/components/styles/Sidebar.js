@@ -5,6 +5,12 @@ const Sidebar = styled.div`
   grid-area: sidebar;
   background: ${props => props.theme.primary};
   box-shadow: 0 6px 10px 6px rgba(0, 0, 0, 0.2);
+  @media all and (max-width: 570px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
 `
 export default Sidebar
 
@@ -29,5 +35,8 @@ export const NavIcon = styled(NavLink)`
   &:hover > svg {
     width: 50px;
     height: 50px;
+  }
+  @media all and (max-width: 570px) {
+    flex: 1;
   }
 `

@@ -14,6 +14,11 @@ const LayoutGrid = styled.div`
     'sidebar content';
   height: 100vh;
   overflow: hidden;
+  @media all and (max-width: 570px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 1fr 70px;
+    grid-template-areas: 'navbar' 'content' 'sidebar';
+  }
 `
 
 const Content = styled.div`

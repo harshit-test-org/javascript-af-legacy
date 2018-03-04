@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 const FeedContainer = styled.div`
   padding: 0 23%;
+  @media all and (max-width: 570px) {
+    padding: 0 0.3rem;
+  }
 `
 const FeedCard = styled.div`
   width: 100%;
