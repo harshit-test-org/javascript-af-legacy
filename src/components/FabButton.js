@@ -14,6 +14,7 @@ const FabButton = styled.button`
   font-size: inhernt;
   position: fixed;
   bottom: 15px;
+  z-index: 60;
   right: 15px;
   &:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
