@@ -9,8 +9,7 @@ import {
   Container,
   RoomStyle,
   Chats,
-  Global,
-  Dms
+  Global
 } from '../components/styles/MessagingStyles'
 import AddIcon from '../assets/icons/add'
 import Messages from '../components/Messages'
@@ -76,7 +75,6 @@ class Messaging extends Component {
     })
   }
   render () {
-    const { localuser: { user } } = this.props
     const pathname = this.props.location.pathname
     const isChatOpen =
       pathname.substring(1, pathname.length).split('/')[1] !== undefined
@@ -99,7 +97,7 @@ class Messaging extends Component {
                   <Global>
                     <Baron>
                       <RoomTitle>
-                        <h4>Global Rooms</h4>
+                        <h4>Rooms</h4>
                         <span>
                           <AddIcon
                             style={{ cursor: 'pointer' }}
@@ -125,35 +123,6 @@ class Messaging extends Component {
                       ))}
                     </Baron>
                   </Global>
-                  <Dms>
-                    <Baron>
-                      <RoomTitle>
-                        <h4>Direct Messages</h4>
-                        <span>
-                          <AddIcon
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => this.toggleModal(false)}
-                          />
-                        </span>
-                      </RoomTitle>
-                      {getUserChannels.dms.map(item => {
-                        let image = item.imageURL.split('|')
-                        let name = item.name.split('|')
-                        let imageIndex = image.indexOf(user.photoURL)
-                        let nameIndex = name.indexOf(user.name)
-                        return (
-                          <Room
-                            onClick={() =>
-                              this.transitionRoute(item._id, name[nameIndex])
-                            }
-                            key={item._id}
-                            image={image[imageIndex]}
-                            text={name[nameIndex]}
-                          />
-                        )
-                      })}
-                    </Baron>
-                  </Dms>
                 </Fragment>
               )
             }}

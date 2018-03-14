@@ -3,6 +3,7 @@ import Masonry from 'react-masonry-component'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import RepoCard from '../components/PostCard'
+import FabButton from '../components/FabButton'
 import Layout from '../components/UserLayout'
 import '../components/styles/grid.css'
 
@@ -24,6 +25,7 @@ class Index extends Component {
   render () {
     return (
       <Layout title="Discover">
+        <FabButton />
         <div className="row">
           <Query query={ReposQuery}>
             {result => {
