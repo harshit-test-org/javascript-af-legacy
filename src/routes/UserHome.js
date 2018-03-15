@@ -15,6 +15,7 @@ const ReposQuery = gql`
       imageURL
       description
       owner {
+        _id
         name
       }
     }
@@ -31,17 +32,16 @@ class Index extends Component {
             {result => {
               if (result.loading) return <h1>Loading</h1>
               if (result.error) return <h1>AWWW Error</h1>
-
               const { data: { getRepos } } = result
               return (
                 <Masonry>
                   {getRepos.map(item => (
                     <div className="col s12 m4 l4 xl3" key={item._id}>
                       <RepoCard
-                        key={item._id}
                         title={item.name}
                         text={item.description}
                         image={item.imageURL}
+                        userId={item.owner._id}
                       />
                     </div>
                   ))}

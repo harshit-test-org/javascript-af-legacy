@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
 
 const Card = styled.div`
   position: relative;
@@ -7,6 +8,7 @@ const Card = styled.div`
   display: block;
   background: #ffffff;
   margin-bottom: 15px;
+  cursor: pointer;
 `
 
 const CardThumb = styled.div`
@@ -37,11 +39,14 @@ const CardContent = styled.div`
     font-weight: 400;
   }
 `
-export default class RepoCard extends Component {
+class RepoCard extends Component {
+  handleCardClick = id => {
+    this.props.history.push(`/user/${id}`)
+  }
   render () {
     return (
-      <div>
-        <Card>
+      <Fragment>
+        <Card onClick={() => this.handleCardClick(this.props.userId)}>
           <CardThumb>
             <img src={this.props.image} alt="" />
           </CardThumb>
@@ -50,7 +55,9 @@ export default class RepoCard extends Component {
             <p>{this.props.text}</p>
           </CardContent>
         </Card>
-      </div>
+      </Fragment>
     )
   }
 }
+
+export default withRouter(RepoCard)
