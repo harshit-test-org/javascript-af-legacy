@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import Navbar from './styles/Navbar'
 import Sidemenu from './Sidemenu'
-import SnackBar from '../components/SnackBar'
 
 import styled from 'styled-components'
 
@@ -43,15 +42,7 @@ export default class Layout extends Component {
         </Helmet>
         <Sidemenu />
         <Navbar title={this.props.title} />
-        <Content>
-          {this.props.children}
-          <SnackBar
-            show={this.state.isSnackBarOpen}
-            actionClick={() => {
-              this.setState({ isSnackBarOpen: false })
-            }}
-          />
-        </Content>
+        <Content>{this.props.children}</Content>
       </LayoutGrid>
     )
   }
