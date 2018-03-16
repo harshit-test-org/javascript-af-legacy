@@ -51,7 +51,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
-const link = ApolloLink.from([stateLink, networkLink, errorLink])
+const link = ApolloLink.from([errorLink, stateLink, networkLink])
 
 const client = new ApolloClient({
   link,
