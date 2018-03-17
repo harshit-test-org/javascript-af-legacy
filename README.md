@@ -18,6 +18,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 [pantharshit00](https://github.com/pantharshit00) (Co-Founder / Fullstack Dev)
 
+[Nicky Meuleman](https://github.com/NickyMeuleman) (Fullstack Dev)
+
 ## Backend Repository
 Backend by pantharshit00. Repo https://github.com/JesseRWeigel/javascript-af-api
 
