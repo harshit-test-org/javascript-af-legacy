@@ -28,6 +28,9 @@ const Content = styled.div`
 `
 
 export default class Layout extends Component {
+  state = {
+    isSnackBarOpen: true
+  }
   render () {
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
