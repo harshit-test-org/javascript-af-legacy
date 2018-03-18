@@ -40,12 +40,17 @@ const Feed = Loadable({
   loader: () => import('./Feed'),
   loading: Loading
 })
+const PostRepo = Loadable({
+  loader: () => import('./PostRepo'),
+  loading: Loading
+})
 
 const Router = () => (
   <Switch>
     <Route exact path={'/'} component={Index} />
     <Route exact path={'/feed'} component={Feed} />
     <PrivateRoute path={'/social'} component={Messaging} />
+    <PrivateRoute path={'/post'} component={PostRepo} />
     <PrivateRoute path={'/user/:id'} render={Profile} />
     <PrivateRoute path={'/jobs'} component={JobsPage} />
     <PrivateRoute path={'/search'} component={Search} />

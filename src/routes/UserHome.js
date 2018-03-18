@@ -26,7 +26,11 @@ class Index extends Component {
   render () {
     return (
       <Layout title="Discover">
-        <FabButton />
+        <FabButton
+          onClick={() => {
+            this.props.history.push('/post')
+          }}
+        />
         <div className="row">
           <Query query={ReposQuery}>
             {result => {

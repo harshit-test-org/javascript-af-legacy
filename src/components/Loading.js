@@ -22,7 +22,7 @@ const Arc = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 60px;
-  border: 7px solid #fd267d;
+  border: 7px solid ${props => props.theme.primaryDark};
   position: absolute;
   top: 45%;
   z-index: 5;
@@ -32,17 +32,7 @@ const Arc = styled.div`
 
 const Loader = () => (
   <Background>
-    <Helmet
-      style={[
-        {
-          cssText: `
-            html,body {
-              background-color: rgb(42,45,52);;
-            }
-        `
-        }
-      ]}
-    >
+    <Helmet>
       <title>Loading...</title>
     </Helmet>
     <Arc />
