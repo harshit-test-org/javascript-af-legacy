@@ -12,7 +12,7 @@ const Sidebar = styled.div`
     position: fixed;
     bottom: 0;
     height: 70px;
-    z-index: 5;
+    z-index: 60;
     width: 100%;
   }
 `
