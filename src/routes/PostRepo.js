@@ -3,6 +3,7 @@ import Layout from '../components/UserLayout'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import Button from '../components/Button'
 
 const Container = styled.div`
   background: #ffffff;
@@ -13,7 +14,7 @@ const RepoCard = styled.div`
   width: 100%;
   display: grid;
   padding: 0.5rem 0;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
   grid-gap: 6px;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: 'link select' 'desc select';
@@ -28,6 +29,28 @@ const RepoCard = styled.div`
   }
   p {
     grid-area: desc;
+  }
+  @media all and (max-width: 570px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 'link' 'desc' 'select';
+    a{
+      font-size: 1.2rem;
+      word-break: break-all;
+    }
+}
+  }
+
+`
+
+const RepoCardActions = styled.div`
+  grid-area: select;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media all and (max-width: 570px) {
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 `
 
@@ -61,6 +84,9 @@ class PostRepo extends Component {
                       <i>(No description provided on Github)</i>
                     )}
                   </p>
+                  <RepoCardActions>
+                    <Button>Select</Button>
+                  </RepoCardActions>
                 </RepoCard>
               ))
             }}

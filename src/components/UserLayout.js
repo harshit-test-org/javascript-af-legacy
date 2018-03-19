@@ -16,7 +16,7 @@ const LayoutGrid = styled.div`
   overflow: hidden;
   @media all and (max-width: 570px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 60px 1fr 132px;
+    grid-template-rows: 60px 1fr;
     grid-template-areas: 'navbar' 'content' 'sidebar';
   }
 `
@@ -25,6 +25,9 @@ const Content = styled.div`
   grid-area: content;
   padding: 1rem;
   overflow: auto;
+  @media all and (max-width: 500px) {
+    margin-bottom: 73px;
+  }
 `
 
 export default class Layout extends Component {
