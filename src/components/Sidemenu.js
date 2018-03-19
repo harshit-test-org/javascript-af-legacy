@@ -10,7 +10,6 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   padding: 20% 0 20% 0;
-  z-index: 60;
   & > img {
     height: 40px;
     width: 40px;

@@ -11,16 +11,6 @@ const Card = styled.div`
   cursor: pointer;
 `
 
-const CardThumb = styled.div`
-  height: auto;
-  clip-path: polygon(0px 0px, 100% 0px, 98.8889% 84.6667%, 0% 100%);
-  & img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-`
-
 const CardContent = styled.div`
   background: white;
   padding: 16px;
@@ -47,9 +37,6 @@ class RepoCard extends Component {
     return (
       <Fragment>
         <Card onClick={() => this.handleCardClick(this.props.userId)}>
-          <CardThumb>
-            <img src={this.props.image} alt="" />
-          </CardThumb>
           <CardContent>
             <h2>{this.props.title}</h2>
             <p>{this.props.text}</p>
