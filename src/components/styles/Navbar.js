@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Nav = styled.div`
-  z-index: 2;
+  z-index: 120;
   grid-area: navbar;
   background: #ffffff;
   display: flex;

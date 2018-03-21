@@ -67,6 +67,11 @@ const UserReposQuery = gql`
 `
 
 class PostRepo extends Component {
+  handleNavigation = repo => {
+    this.props.history.push('/post/new', {
+      repo
+    })
+  }
   render () {
     return (
       <Layout title="Post a Repo">
@@ -85,7 +90,9 @@ class PostRepo extends Component {
                     )}
                   </p>
                   <RepoCardActions>
-                    <Button>Select</Button>
+                    <Button onClick={() => this.handleNavigation(repo)}>
+                      Select
+                    </Button>
                   </RepoCardActions>
                 </RepoCard>
               ))
