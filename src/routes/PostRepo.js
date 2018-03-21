@@ -59,6 +59,7 @@ const UserReposQuery = gql`
     getUserGithubRepos {
       _id
       name
+      url
       nameWithOwner
       starCount
       description

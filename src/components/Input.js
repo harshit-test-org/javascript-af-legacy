@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Input = styled.input`
   border: 1px solid #dfdfdf;
@@ -13,7 +13,13 @@ const Input = styled.input`
   outline: 0;
   display: inline-block;
   margin-bottom: 1rem;
-  text-align: left;
+  width: ${props => (props.full ? '90%' : 'auto')};
+  ${props =>
+    props.disabled
+      ? css`
+          cursor: not-allowed;
+        `
+      : ''} text-align: left;
   &:focus {
     border-color: ${props => props.theme.primary};
   }
@@ -22,5 +28,15 @@ const Input = styled.input`
 const InputElement = props => {
   return <Input {...props} />
 }
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 20px;
+    margin-bottom: 0.4rem;
+    font-family: 'Quicksand', sans-serif;
+  }
+`
 
 export default InputElement
