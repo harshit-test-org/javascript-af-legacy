@@ -10,7 +10,7 @@
     "graphql": "^0.13.0",
     "graphql-tag": "^2.7.3",
     "react": "^16.2.0",
-    "react-apollo": "2.1.0-beta.0",
+    "react-apollo": "^2.1.0",
     "react-baron": "^2.0.0",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
