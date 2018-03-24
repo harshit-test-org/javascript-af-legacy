@@ -11,15 +11,14 @@ const Container = styled.div`
 
 const InputSubmit = styled.input`
   outline: none;
-  border: none;
-  text-align: center;
   background-color: ${props => props.theme.primaryDark};
   color: #fff;
   font-family: 'Quicksand', Segoe UI, Tahoma, Geneva, sans-serif;
   font-weight: 600;
-  font-size: 16px;
-  padding: 0.8rem 0;
+  font-size: 18px;
+  padding: 0.8rem;
   border-radius: 50px;
+  border: none;
   cursor: pointer;
 `
 
@@ -30,28 +29,45 @@ export default class NewRepo extends Component {
       ...props.location.state.repo
     }
   }
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
   render () {
-    const { location: { state: { repo } } } = this.props
     return (
       <Layout title="New Repository">
         <Container>
           <InputGroup>
             <label>Repo Name</label>
-            <Input full value={repo.name} placeholder="Repo name goes here" />
+            <Input
+              onChange={this.handleChange}
+              name="name"
+              full
+              value={this.state.name}
+              placeholder="Repo name goes here"
+            />
           </InputGroup>
           <InputGroup>
             <label>Description</label>
             <Input
               full
-              value={repo.description}
+              onChange={this.handleChange}
+              name="description"
+              value={this.state.description}
               placeholder="Description name goes here"
             />
           </InputGroup>
           <InputGroup>
             <label>Github URL</label>
-            <Input full disabled value={repo.url} />
+            <Input
+              onChange={this.handleChange}
+              full
+              disabled
+              value={this.state.url}
+            />
           </InputGroup>
-          <InputSubmit value="SUBMIT" />
+          <InputSubmit type="submit" value="SUBMIT" />
         </Container>
       </Layout>
     )
