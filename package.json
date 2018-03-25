@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "next start",
+    "dev":"next",
     "build": "next build",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
