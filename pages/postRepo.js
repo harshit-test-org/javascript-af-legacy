@@ -4,6 +4,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Button from '../components/Button'
+import withData from '../apollo/wihData'
 
 const Container = styled.div`
   background: #ffffff;
@@ -78,26 +79,26 @@ class PostRepo extends Component {
       <Layout title="Post a Repo">
         <Container>
           <h1>Your Repositories</h1>
-          <Query query={UserReposQuery}>
-            {({ loading, error, data }) => {
+          <Query query={ UserReposQuery }>
+            { ({ loading, error, data }) => {
               if (loading) return <h4>Loading...</h4>
               if (error) return null
               return data.getUserGithubRepos.map(repo => (
-                <RepoCard key={repo._id}>
-                  <a href="">{repo.nameWithOwner}</a>
+                <RepoCard key={ repo._id }>
+                  <a href="">{ repo.nameWithOwner }</a>
                   <p>
-                    {repo.description || (
+                    { repo.description || (
                       <i>(No description provided on Github)</i>
-                    )}
+                    ) }
                   </p>
                   <RepoCardActions>
-                    <Button onClick={() => this.handleNavigation(repo)}>
+                    <Button onClick={ () => this.handleNavigation(repo) }>
                       Select
                     </Button>
                   </RepoCardActions>
                 </RepoCard>
               ))
-            }}
+            } }
           </Query>
         </Container>
       </Layout>
@@ -105,4 +106,4 @@ class PostRepo extends Component {
   }
 }
 
-export default PostRepo
+export default withData(PostRepo)

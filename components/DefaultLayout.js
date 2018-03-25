@@ -1,19 +1,55 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import Router from 'next/router'
 import gql from 'graphql-tag'
-import { compose, graphql } from 'react-apollo'
+import { injectGlobal, ThemeProvider } from 'styled-components'
+import { graphql } from 'react-apollo'
 import Homebar from './styles/Homebar'
-import Helmet from 'react-helmet'
+import Head from 'next/head'
 import Loading from './Loading'
 import Footer from './Footer'
 
 const Fragment = React.Fragment
 
+injectGlobal`
+* {
+    margin: 0;
+}
+html, body {
+    background: #e6ecf0;
+    font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Quicksand', Segoe UI, Tahoma,Verdana, sans-serif;
+}
+.chat{
+    overflow: auto;
+    grid-row: 1 / 2;
+    display: flex;
+    grid-column: 2 / 3;
+    flex-direction: column;
+}
+.chat--closed{
+    overflow: auto;
+    grid-row: 1 / 2;
+    display: flex;
+    grid-column: 2 / 3;
+    flex-direction: column;
+}
+@media all and (max-width: 550px){
+.chat{
+grid-column: 1 / 3;
+}
+.chat--closed{
+   display: none;
+}
+}
+`
+
 class Layout extends Component {
   state = {
     loading: true
   }
-  componentWillMount () {
+  componentDidMount () {
     fetch(`${process.env.REACT_APP_SERVER_URI}/me`, {
       credentials: 'include'
     }).then(res => {
@@ -35,7 +71,7 @@ class Layout extends Component {
                 }
               })
               .then(() => {
-                this.props.history.replace('/home')
+                Router.replace('/home')
               })
           })
           .catch(() => {
@@ -56,19 +92,19 @@ class Layout extends Component {
       ? `${this.props.title} | Javascript.af`
       : 'Javascript.af'
     return (
-      <Fragment>
-        <Helmet>
-          <title>{title}</title>
-        </Helmet>
-        {this.state.loading ? (
+      <Fragment >
+        <Head>
+          <title>{ title }</title>
+        </Head>
+        { this.state.loading ? (
           <Loading />
         ) : (
           <Fragment>
-            <Homebar handleLogin={this.handleLogin} />
-            {this.props.children}
+            <Homebar handleLogin={ this.handleLogin } />
+            { this.props.children }
             <Footer />
           </Fragment>
-        )}
+        ) }
       </Fragment>
     )
   }
@@ -80,4 +116,4 @@ const setUserMutation = gql`
   }
 `
 
-export default compose(graphql(setUserMutation), withRouter)(Layout)
+export default graphql(setUserMutation)(Layout)

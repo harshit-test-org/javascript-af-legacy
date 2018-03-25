@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import uuid from 'uuid/v4'
-import Helmet from 'react-helmet'
+import Head from 'next/head'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -74,16 +74,16 @@ const Message = ({ text, date, image, author, aid }) => {
   return (
     <MsgContainer>
       <div className="img">
-        <Link to={`/user/${aid}`}>
-          <img src={image} alt="" />
+        <Link href={ `/user/${aid}` }>
+          <img src={ image } alt="" />
         </Link>
       </div>
       <div className="data">
         <div className="author">
-          <Link to={`/user/${aid}`}>{author}</Link>
-          <span className="date">{new Date(date).toLocaleString()}</span>
+          <Link href={ `/user/${aid}` }>{ author }</Link>
+          <span className="date">{ new Date(date).toLocaleString() }</span>
         </div>
-        <div className="text">{text}</div>
+        <div className="text">{ text }</div>
       </div>
     </MsgContainer>
   )
@@ -192,8 +192,8 @@ class MessagesRoute extends Component {
       props.getMessages &&
       props.getMessages.getMessages &&
       this.props.getMessages.getMessages.length -
-        props.getMessages.getMessages.length ===
-        1
+      props.getMessages.getMessages.length ===
+      1
     ) {
       this.scrollToBottom()
     }
@@ -221,26 +221,26 @@ class MessagesRoute extends Component {
     const { location: { state: { name = 'Chat' } }, chatOpen } = this.props
     return (
       <Fragment>
-        <Helmet>
-          <title>{name} | Javascript.af</title>
-        </Helmet>
-        <div id="msgContainer" className={chatOpen ? 'chat' : 'chat__closed'}>
-          {getMessages.map((item, i) => (
+        <Head>
+          <title>{ name } | Javascript.af</title>
+        </Head>
+        <div id="msgContainer" className={ chatOpen ? 'chat' : 'chat__closed' }>
+          { getMessages.map((item, i) => (
             <Message
-              key={`msgindex-${i}`}
-              text={item.text}
-              date={item.createdAt}
-              aid={item.author._id}
-              image={item.author.photoURL}
-              author={item.author.name}
+              key={ `msgindex-${i}` }
+              text={ item.text }
+              date={ item.createdAt }
+              aid={ item.author._id }
+              image={ item.author.photoURL }
+              author={ item.author.name }
             />
-          ))}
+          )) }
         </div>
-        <MessageBar chatOpen={chatOpen}>
-          <form onSubmit={this.sendMessage}>
+        <MessageBar chatOpen={ chatOpen }>
+          <form onSubmit={ this.sendMessage }>
             <input
-              value={this.state.message}
-              onChange={this.handleChange}
+              value={ this.state.message }
+              onChange={ this.handleChange }
               type="text"
               placeholder="Whats in your mind..."
             />

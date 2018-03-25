@@ -1,5 +1,6 @@
+import React from 'react'
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import Link from 'next/link'
 
 const Sidebar = styled.div`
   grid-area: sidebar;
@@ -18,7 +19,7 @@ const Sidebar = styled.div`
 `
 export default Sidebar
 
-export const NavIcon = styled(NavLink)`
+const NavA = styled.a`
   display: flex;
   padding: 20% 0 20% 0;
   justify-content: center;
@@ -46,3 +47,11 @@ export const NavIcon = styled(NavLink)`
     align-items: center;
   }
 `
+
+export const NavIcon = ({ children, active, ...props }) => (
+  <Link { ...props } passHref>
+    <NavA className={ active ? 'active' : '' }>
+      { children }
+    </NavA>
+  </Link>
+)

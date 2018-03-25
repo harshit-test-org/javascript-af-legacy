@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import Helmet from 'react-helmet'
-import { Route } from 'react-router-dom'
+import Helmet from 'next/head'
 import { Query, graphql, compose } from 'react-apollo'
 import Baron from 'react-baron'
 import styled from 'styled-components'
@@ -12,15 +11,15 @@ import {
   Global
 } from '../components/styles/MessagingStyles'
 import AddIcon from '../assets/icons/add'
-import Messages from '../components/Messages'
+// import Messages from '../components/Messages'
 import SearchModal from '../components/MessageSearch'
 
 const Room = ({ image, text, onClick, ...props }) => (
-  <RoomStyle onClick={onClick} {...props}>
+  <RoomStyle onClick={ onClick } { ...props }>
     <div className="img">
-      <img src={image} alt="" />
+      <img src={ image } alt="" />
     </div>
-    <div className="text">{text}</div>
+    <div className="text">{ text }</div>
   </RoomStyle>
 )
 
@@ -74,16 +73,16 @@ class Messaging extends Component {
       name
     })
   }
-  render () {
+  render() {
     const pathname = this.props.location.pathname
     const isChatOpen =
       pathname.substring(1, pathname.length).split('/')[1] !== undefined
     return (
-      <Container chatOpen={isChatOpen}>
-        <Chats chatOpen={isChatOpen}>
+      <Container chatOpen={ isChatOpen }>
+        <Chats chatOpen={ isChatOpen }>
           <h2>Messaging</h2>
-          <Query query={RoomsQuery}>
-            {result => {
+          <Query query={ RoomsQuery }>
+            { result => {
               if (result.loading) return null
               if (result.error) return null
 
@@ -100,52 +99,52 @@ class Messaging extends Component {
                         <h4>Rooms</h4>
                         <span>
                           <AddIcon
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => this.toggleModal(true)}
+                            style={ { cursor: 'pointer' } }
+                            onClick={ () => this.toggleModal(true) }
                           />
                         </span>
                       </RoomTitle>
-                      {getUserChannels.global.map(item => (
+                      { getUserChannels.global.map(item => (
                         <Room
-                          onClick={() =>
+                          onClick={ () =>
                             this.transitionRoute(item._id, item.name)
                           }
                           className={
                             `/social/${item._id}` ===
-                            this.props.location.pathname
+                              this.props.location.pathname
                               ? 'active'
                               : ''
                           }
-                          key={item._id}
-                          image={item.imageURL}
-                          text={item.name}
+                          key={ item._id }
+                          image={ item.imageURL }
+                          text={ item.name }
                         />
-                      ))}
+                      )) }
                     </Baron>
                   </Global>
                 </Fragment>
               )
-            }}
+            } }
           </Query>
         </Chats>
         <SearchModal
-          toggle={() => this.toggleModal(true)}
-          open={this.state.globalSearch}
+          toggle={ () => this.toggleModal(true) }
+          open={ this.state.globalSearch }
         />
         <SearchModal
-          toggle={() => this.toggleModal(false)}
-          open={this.state.dmSearch}
+          toggle={ () => this.toggleModal(false) }
+          open={ this.state.dmSearch }
         />
-        <Route
+        {/* <Route
           path="/social/:id"
-          render={props => (
+          render={ props => (
             <Messages
-              chatOpen={isChatOpen}
-              user={this.props.localuser.user}
-              {...props}
+              chatOpen={ isChatOpen }
+              user={ this.props.localuser.user }
+              { ...props }
             />
-          )}
-        />
+          ) }
+        /> */}
       </Container>
     )
   }

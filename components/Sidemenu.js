@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar, { NavIcon } from './styles/Sidebar'
+import { withRouter } from 'next/router'
 import HomeIcon from '../assets/icons/home'
 import SearchIcon from '../assets/icons/search'
 import ChatIcon from '../assets/icons/chat'
@@ -19,26 +20,26 @@ const Logo = styled.div`
   }
 `
 
-const Sidemenu = () => {
+const Sidemenu = (props) => {
   return (
     <Sidebar>
       <Logo>
-        <img src={require('../assets/logo.png')} alt="" />
+        <img src="/static/logo.png" alt="" />
       </Logo>
-      <NavIcon activeClassName="active" to="/home">
+      <NavIcon href="/home" active={ props.router.pathname === '/home' }>
         <HomeIcon />
       </NavIcon>
-      <NavIcon activeClassName="active" to="/search">
+      <NavIcon href="/search" active={ props.router.pathname === '/search' }>
         <SearchIcon />
       </NavIcon>
-      <NavIcon activeClassName="active" to="/social">
+      <NavIcon href="/social" active={ props.router.pathname === '/social' }>
         <ChatIcon />
       </NavIcon>
-      <NavIcon activeClassName="active" to="/profile">
+      <NavIcon href="/profile" active={ props.router.pathname === '/profile' }>
         <AccountIcon />
       </NavIcon>
     </Sidebar>
   )
 }
 
-export default Sidemenu
+export default withRouter(Sidemenu)

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { InstantSearch, PoweredBy, Highlight } from 'react-instantsearch/dom'
 import {
   connectSearchBox,
@@ -32,11 +32,11 @@ const SearchInput = styled.input`
   }
 `
 
-function SearchBox ({ currentRefinement, refine }) {
+function SearchBox({ currentRefinement, refine }) {
   return (
     <SearchInput
-      value={currentRefinement}
-      onChange={e => refine(e.target.value)}
+      value={ currentRefinement }
+      onChange={ e => refine(e.target.value) }
       autoComplete="off"
       autoCorrect="off"
       autoCapitalize="off"
@@ -49,16 +49,16 @@ function SearchBox ({ currentRefinement, refine }) {
 
 const ConnectedSearch = connectSearchBox(SearchBox)
 
-function CustomHits ({ hits, hasMore, refine }) {
+function CustomHits({ hits, hasMore, refine }) {
   return (
     <Fragment>
-      {hits.map(hit => <Hit item={hit} key={hit.objectID} />)}
-      {hasMore && <button onClick={() => refine()}>Load More</button>}
+      { hits.map(hit => <Hit item={ hit } key={ hit.objectID } />) }
+      { hasMore && <button onClick={ () => refine() }>Load More</button> }
     </Fragment>
   )
 }
 
-const SearchLink = styled(Link)`
+const SearchLink = styled.a`
   color: #000;
   text-decoration: none;
 `
@@ -67,19 +67,21 @@ const ConnectedHits = connectInfiniteHits(CustomHits)
 
 const Hit = ({ item }) => {
   return (
-    <SearchLink to={`/user/${item.objectID}`}>
-      <ResultCard>
-        <div className="image">
-          <img src={item.photoURL} alt={item.name} />
-        </div>
-        <div className="info">
-          <h1>
-            <Highlight attribute="name" hit={item} />
-          </h1>
-          <p>{item.bio}</p>
-        </div>
-      </ResultCard>
-    </SearchLink>
+    <Link passHref href={ `/user/${item.objectID}` }>
+      <SearchLink>
+        <ResultCard>
+          <div className="image">
+            <img src={ item.photoURL } alt={ item.name } />
+          </div>
+          <div className="info">
+            <h1>
+              <Highlight attribute="name" hit={ item } />
+            </h1>
+            <p>{ item.bio }</p>
+          </div>
+        </ResultCard>
+      </SearchLink>
+    </Link>
   )
 }
 
@@ -132,14 +134,14 @@ const ResultCard = styled.div`
 `
 
 export default class Search extends Component {
-  render () {
+  render() {
     return (
       <Layout title="Search">
         <SearchContainer>
           <InstantSearch
-            appId={process.env.REACT_APP_ALGOLIA_APP_ID}
-            apiKey={process.env.REACT_APP_ALGOLIA_API_KEY}
-            indexName={process.env.REACT_APP_ALGOLIA_INDEX_NAME}
+            appId={ process.env.REACT_APP_ALGOLIA_APP_ID }
+            apiKey={ process.env.REACT_APP_ALGOLIA_API_KEY }
+            indexName={ process.env.REACT_APP_ALGOLIA_INDEX_NAME }
           >
             <ConnectedSearch />
             <ConnectedHits />

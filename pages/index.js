@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Layout from '../components/DefaultLayout'
-import styled from 'styled-components'
-import logo from '../assets/loginimg.jpg'
+import styled, { ThemeProvider } from 'styled-components'
+import withData from '../apollo/wihData'
+import theme from '../lib/theme'
 
 const Welcome = styled.div`
   background-position: center;
   background-size: cover;
-  background-image: url(${logo});
+  background-image: url("/static/loginimg.jpg");
   box-shadow: 0 5px 5px -5px #000;
   display: flex;
   align-items: center;
@@ -57,22 +58,25 @@ const Welcome = styled.div`
 class Index extends Component {
   render () {
     return (
-      <Layout>
-        <Welcome>
-          <ul>
-            <h1>For Devs by Devs</h1>
-            <p>
-              A platform where developers can share their GitHub repos and
-              connect with other developers through sharing projects, messaging,
-              and posting. We will also have a job board for dev positions. All
-              this with none of the usual social media drama or ads. It{`'`}s
-              all code all the time here, so why not join in on the fun!
-            </p>
-          </ul>
-        </Welcome>
-      </Layout>
+      <ThemeProvider theme={ theme }>
+        <Layout>
+          <Welcome>
+            <ul>
+              <h1>For Devs by Devs</h1>
+              <p>
+                A platform where developers can share their GitHub repos and
+                connect with other developers through sharing projects, messaging,
+                and posting. We will also have a job board for dev positions. All
+              this with none of the usual social media drama or ads. It{ `'` }s
+                all code all the time here, so why not join in on the fun!
+              </p>
+            </ul>
+          </Welcome>
+        </Layout>
+      </ThemeProvider>
+
     )
   }
 }
 
-export default Index
+export default withData(Index)

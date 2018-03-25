@@ -60,24 +60,24 @@ export default class NewRepo extends Component {
   render () {
     return (
       <Layout title="New Repository">
-        <Mutation mutation={RepoMutation}>
-          {(mutate, { loading, error }) => {
+        <Mutation mutation={ RepoMutation }>
+          { (mutate, { loading, error }) => {
             return (
               <Container
-                onSubmit={e => {
+                onSubmit={ e => {
                   e.preventDefault()
                   mutate({
                     variables: this.state
                   })
-                }}
+                } }
               >
                 <InputGroup>
                   <label>Repo Name</label>
                   <Input
-                    onChange={this.handleChange}
+                    onChange={ this.handleChange }
                     name="name"
                     full
-                    value={this.state.name}
+                    value={ this.state.name }
                     placeholder="Repo name goes here"
                   />
                 </InputGroup>
@@ -85,27 +85,27 @@ export default class NewRepo extends Component {
                   <label>Description</label>
                   <Input
                     full
-                    onChange={this.handleChange}
+                    onChange={ this.handleChange }
                     name="description"
-                    value={this.state.description || ''}
+                    value={ this.state.description || '' }
                     placeholder="Description name goes here"
                   />
                 </InputGroup>
                 <InputGroup>
                   <label>Github URL</label>
                   <Input
-                    onChange={this.handleChange}
+                    onChange={ this.handleChange }
                     full
                     disabled
-                    value={this.state.url}
+                    value={ this.state.url }
                   />
                 </InputGroup>
                 <InputSubmit type="submit" value="SUBMIT" />
-                {loading && <p>Loading...</p>}
-                {error && <p>Error :( Please try again</p>}
+                { loading && <p>Loading...</p> }
+                { error && <p>Error :( Please try again</p> }
               </Container>
             )
-          }}
+          } }
         </Mutation>
       </Layout>
     )

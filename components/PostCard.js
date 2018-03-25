@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
-import { withRouter } from 'react-router-dom'
+import Router, { withRouter } from 'next/router'
 
 const Card = styled.div`
   position: relative;
@@ -31,15 +31,15 @@ const CardContent = styled.div`
 `
 class RepoCard extends Component {
   handleCardClick = id => {
-    this.props.history.push(`/user/${id}`)
+    Router.push(`/user/${id}`)
   }
   render () {
     return (
       <Fragment>
-        <Card onClick={() => this.handleCardClick(this.props.userId)}>
+        <Card onClick={ () => this.handleCardClick(this.props.userId) }>
           <CardContent>
-            <h2>{this.props.title}</h2>
-            <p>{this.props.text}</p>
+            <h2>{ this.props.title }</h2>
+            <p>{ this.props.text }</p>
           </CardContent>
         </Card>
       </Fragment>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Helmet from 'react-helmet'
+import Head from 'next/head'
 import styled, { keyframes } from 'styled-components'
 
 const Background = styled.div`
@@ -32,9 +32,9 @@ const Arc = styled.div`
 
 const Loader = () => (
   <Background>
-    <Helmet>
+    <Head>
       <title>Loading...</title>
-    </Helmet>
+    </Head>
     <Arc />
   </Background>
 )
