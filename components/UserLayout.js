@@ -120,6 +120,7 @@ grid-column: 1 / 3;
 }
 }
 `
+
 const LayoutGrid = styled.div`
   display: grid;
   grid-template-columns: 80px 1fr;
@@ -146,9 +147,6 @@ const Content = styled.div`
 `
 
 class Layout extends Component {
-  state = {
-    isSnackBarOpen: true
-  }
   render () {
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
