@@ -67,7 +67,6 @@ if (!process.browser) {
 
 function create (initialState, cookie = null) {
   const authLink = setContext((_, { headers }) => {
-    console.log(headers)
     return {
       headers: {
         ...headers,

@@ -1,6 +1,5 @@
 import React from 'react'
 import Sidebar, { NavIcon } from './styles/Sidebar'
-import { withRouter } from 'next/router'
 import HomeIcon from '../assets/icons/home'
 import SearchIcon from '../assets/icons/search'
 import ChatIcon from '../assets/icons/chat'
@@ -20,26 +19,31 @@ const Logo = styled.div`
   }
 `
 
-const Sidemenu = (props) => {
-  return (
-    <Sidebar>
-      <Logo>
-        <img src="/static/logo.png" alt="" />
-      </Logo>
-      <NavIcon href="/home" active={ props.router.pathname === '/home' }>
-        <HomeIcon />
-      </NavIcon>
-      <NavIcon href="/search" active={ props.router.pathname === '/search' }>
-        <SearchIcon />
-      </NavIcon>
-      <NavIcon href="/social" active={ props.router.pathname === '/social' }>
-        <ChatIcon />
-      </NavIcon>
-      <NavIcon href="/profile" active={ props.router.pathname === '/profile' }>
-        <AccountIcon />
-      </NavIcon>
-    </Sidebar>
-  )
+class Sidemenu extends React.Component {
+  static getInitialProps ({ pathname, req }) {
+    return { pathname: (req && req.url) || pathname }
+  }
+  render () {
+    return (
+      <Sidebar>
+        <Logo>
+          <img src="/static/logo.png" alt="" />
+        </Logo>
+        <NavIcon href="/home" active={this.props.pathname === '/home'}>
+          <HomeIcon />
+        </NavIcon>
+        <NavIcon href="/search" active={this.props.pathname === '/search'}>
+          <SearchIcon />
+        </NavIcon>
+        <NavIcon href="/social" active={this.props.pathname === '/social'}>
+          <ChatIcon />
+        </NavIcon>
+        <NavIcon href="/profile" active={this.props.pathname === '/profile'}>
+          <AccountIcon />
+        </NavIcon>
+      </Sidebar>
+    )
+  }
 }
 
-export default withRouter(Sidemenu)
+export default Sidemenu
