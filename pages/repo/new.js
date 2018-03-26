@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import withData from '../../apollo/wihData'
 import { Mutation } from 'react-apollo'
 import styled from 'styled-components'
-import Layout from '../components/UserLayout'
-import Input, { InputGroup } from '../components/Input'
+import Layout from '../../components/UserLayout'
+import Input, { InputGroup } from '../../components/Input'
 import gql from 'graphql-tag'
 
 const Container = styled.form`
@@ -45,11 +46,15 @@ const RepoMutation = gql`
   }
 `
 
-export default class NewRepo extends Component {
+export default withData(class NewRepo extends Component {
+  static getInitialProps ({ query: { ...repo } }) {
+    console.log(repo)
+    return { repo }
+  }
   constructor (props) {
     super(props)
     this.state = {
-      ...props.location.state.repo
+      ...props.repo
     }
   }
   handleChange = e => {
@@ -110,4 +115,4 @@ export default class NewRepo extends Component {
       </Layout>
     )
   }
-}
+})

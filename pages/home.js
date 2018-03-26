@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Masonry from 'react-masonry-component'
+import Router from 'next/router'
 import Head from 'next/head'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -33,7 +34,7 @@ class Index extends Component {
         </Head>
         <FabButton
           onClick={() => {
-            this.props.history.push('/post')
+            Router.push('/repo/post')
           }}
         />
         <div className="row">

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import Layout from '../components/UserLayout'
+import Router from 'next/router'
+import Layout from '../../components/UserLayout'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import Button from '../components/Button'
-import withData from '../apollo/wihData'
+import Button from '../../components/Button'
+import withData from '../../apollo/wihData'
 
 const Container = styled.div`
   background: #ffffff;
@@ -70,9 +71,12 @@ const UserReposQuery = gql`
 
 class PostRepo extends Component {
   handleNavigation = repo => {
-    this.props.history.push('/post/new', {
-      repo
-    })
+    Router.push({
+      pathname: '/repo/new',
+      query: {
+        ...repo
+      }
+    }, '/repo/new')
   }
   render () {
     return (

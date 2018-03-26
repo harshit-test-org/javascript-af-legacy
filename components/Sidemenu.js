@@ -20,9 +20,6 @@ const Logo = styled.div`
 `
 
 class Sidemenu extends React.Component {
-  static getInitialProps ({ pathname, req }) {
-    return { pathname: (req && req.url) || pathname }
-  }
   render () {
     return (
       <Sidebar>
