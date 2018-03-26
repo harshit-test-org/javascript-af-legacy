@@ -146,8 +146,17 @@ const Content = styled.div`
   }
 `
 
+const LoadTrigger = styled.p`
+  color: #ff0000;
+`
+
 class Layout extends Component {
+  componentWillMount () {
+    console.log(this.loadTrigger)
+  }
+
   render () {
+    console.log('in render:', this.loadTrigger)
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
       : 'Javascript.af'
@@ -159,7 +168,16 @@ class Layout extends Component {
           </Head>
           <Sidemenu pathname={this.props.router.pathname} />
           <Navbar title={this.props.title} />
-          <Content>{this.props.children}</Content>
+          <Content>
+            {this.props.children}
+            <LoadTrigger
+              innerRef={el => {
+                this.loadTrigger = el
+              }}
+            >
+              Replace with spinner that is not centered vertically
+            </LoadTrigger>
+          </Content>
         </LayoutGrid>
       </ThemeProvider>
     )
