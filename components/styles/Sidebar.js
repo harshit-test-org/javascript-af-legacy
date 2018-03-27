@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Children } from 'react'
+import { withRouter } from 'next/router'
 import styled from 'styled-components'
 import Link from 'next/link'
 
@@ -49,9 +50,19 @@ const NavA = styled.a`
 `
 
 export const NavIcon = ({ children, active, ...props }) => (
-  <Link { ...props } passHref>
-    <NavA className={ active ? 'active' : '' }>
-      { children }
-    </NavA>
-  </Link>
+  <ActiveLink {...props} passHref activeClassName>
+    <NavA>{children}</NavA>
+  </ActiveLink>
 )
+
+const ActiveLink = withRouter(({ router, children, ...props }) => {
+  const child = Children.only(children)
+  let className = child.props.className || null
+  if (router.pathname === props.href && props.activeClassName) {
+    className = `${className !== null ? className : ''} active`.trim()
+  }
+
+  delete props.activeClassName
+
+  return <Link {...props}>{React.cloneElement(child, { className })}</Link>
+})

@@ -40,18 +40,31 @@ export default ComposedComponent =>
             <ApolloProvider client={apollo}>
               <ComposedComponent url={url} {...composedInitialProps} />
               {/* eslint-disable*/}
-            </ApolloProvider>
+            </ApolloProvider>,
+            {
+              router: {
+                asPath: ctx.asPath,
+                pathname: ctx.pathname,
+                query: ctx.query
+              },
+              client: apollo
+            }
           )
           // eslint-enable
         } catch (error) {
+          console.log(error)
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
           // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
         }
+        if (!process.browser) {
+          // getDataFromTree does not call componentWillUnmount
+          // head side effect therefore need to be cleared manually
+          Head.rewind()
+        }
+
         // getDataFromTree does not call componentWillUnmount
         // head side effect therefore need to be cleared manually
-        Head.rewind()
-
         // Extract query data from the Apollo store
         serverState = {
           apollo: {

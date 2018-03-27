@@ -6,7 +6,7 @@ import theme from '../lib/theme'
 
 import styled, { injectGlobal, ThemeProvider } from 'styled-components'
 import NProgress from 'nprogress'
-import Router, { withRouter } from 'next/router'
+import Router from 'next/router'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -159,7 +159,7 @@ class Layout extends Component {
           <Head>
             <title>{title}</title>
           </Head>
-          <Sidemenu pathname={this.props.router.pathname} />
+          <Sidemenu />
           <Navbar title={this.props.title} />
           <Content>{this.props.children}</Content>
         </LayoutGrid>
@@ -168,4 +168,4 @@ class Layout extends Component {
   }
 }
 
-export default withRouter(Layout)
+export default Layout
