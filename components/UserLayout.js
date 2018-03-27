@@ -3,10 +3,11 @@ import Head from 'next/head'
 import Navbar from './styles/Navbar'
 import Sidemenu from './Sidemenu'
 import theme from '../lib/theme'
-
 import styled, { injectGlobal, ThemeProvider } from 'styled-components'
 import NProgress from 'nprogress'
 import Router, { withRouter } from 'next/router'
+
+import Spinner from './Spinner'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -146,15 +147,22 @@ const Content = styled.div`
   }
 `
 
-const LoadTrigger = styled.p`
-  color: #ff0000;
-  margin: 90px;
-  text-align: center;
+// const LoadTrigger = styled.div`
+//   text-align: center;
+// `
+
+const SpinContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 9750;
 `
 
 class Layout extends Component {
   state = {
-    prevY: 0
+    prevY: 0,
+    loading: false
   }
 
   componentDidMount () {
@@ -176,6 +184,11 @@ class Layout extends Component {
     const y = entities[0].boundingClientRect.y
     if (this.state.prevY > y) {
       console.log('observer callback run')
+      this.setState({ loading: true })
+      // running callback takes some time
+      setTimeout(() => {
+        this.setState({ loading: false })
+      }, 2000)
     }
     this.setState({ prevY: y })
   }
@@ -195,13 +208,18 @@ class Layout extends Component {
           <Content>
             {/* <div style={{ marginBottom: '1000px' }}>blaaaaaaaaaaaaaaa</div> */}
             {this.props.children}
-            <LoadTrigger
+            {/* <LoadTrigger
+              innerRef={el => {
+                this.loadTrigger = el
+              }}
+            /> */}
+            <SpinContainer
               innerRef={el => {
                 this.loadTrigger = el
               }}
             >
-              Replace with spinner that is not centered vertically
-            </LoadTrigger>
+              <Spinner bottom={'2%'} hidden={!this.state.loading} />
+            </SpinContainer>
           </Content>
         </LayoutGrid>
       </ThemeProvider>
