@@ -148,15 +148,39 @@ const Content = styled.div`
 
 const LoadTrigger = styled.p`
   color: #ff0000;
+  margin: 90px;
+  text-align: center;
 `
 
 class Layout extends Component {
-  componentWillMount () {
+  state = {
+    prevY: 0
+  }
+
+  componentDidMount () {
     console.log(this.loadTrigger)
+    // Set up intersection observer
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    this.observer = new IntersectionObserver(this.handleObserver, options)
+    this.observer.observe(this.loadTrigger)
+  }
+
+  handleObserver = (entities, observer) => {
+    console.log('handleObserver-entities:', entities)
+    console.log('handleObserver-observer:', observer)
+    // only run code in if-block when scrolling down, not up
+    const y = entities[0].boundingClientRect.y
+    if (this.state.prevY > y) {
+      console.log('observer callback run')
+    }
+    this.setState({ prevY: y })
   }
 
   render () {
-    console.log('in render:', this.loadTrigger)
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
       : 'Javascript.af'
@@ -169,6 +193,7 @@ class Layout extends Component {
           <Sidemenu pathname={this.props.router.pathname} />
           <Navbar title={this.props.title} />
           <Content>
+            {/* <div style={{ marginBottom: '1000px' }}>blaaaaaaaaaaaaaaa</div> */}
             {this.props.children}
             <LoadTrigger
               innerRef={el => {
