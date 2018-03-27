@@ -25,7 +25,7 @@ const Arc = styled.div`
   border: 7px solid ${props => props.theme.primaryDark};
   position: absolute;
   top: 45%;
-  z-index: 5;
+  z-index: 50;
   clip: rect(0px 66px 66px 0px);
   animation: ${rotate} 1.5s linear infinite 0s;
 `

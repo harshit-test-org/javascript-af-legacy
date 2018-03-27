@@ -146,7 +146,40 @@ const Content = styled.div`
   }
 `
 
+const LoadTrigger = styled.p`
+  color: #ff0000;
+  margin: 90px;
+  text-align: center;
+`
+
 class Layout extends Component {
+  state = {
+    prevY: 0
+  }
+
+  componentDidMount () {
+    console.log(this.loadTrigger)
+    // Set up intersection observer
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0
+    }
+    this.observer = new IntersectionObserver(this.handleObserver, options)
+    this.observer.observe(this.loadTrigger)
+  }
+
+  handleObserver = (entities, observer) => {
+    console.log('handleObserver-entities:', entities)
+    console.log('handleObserver-observer:', observer)
+    // only run code in if-block when scrolling down, not up
+    const y = entities[0].boundingClientRect.y
+    if (this.state.prevY > y) {
+      console.log('observer callback run')
+    }
+    this.setState({ prevY: y })
+  }
+
   render () {
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
@@ -159,7 +192,17 @@ class Layout extends Component {
           </Head>
           <Sidemenu />
           <Navbar title={this.props.title} />
-          <Content>{this.props.children}</Content>
+          <Content>
+            {/* <div style={{ marginBottom: '1000px' }}>blaaaaaaaaaaaaaaa</div> */}
+            {this.props.children}
+            <LoadTrigger
+              innerRef={el => {
+                this.loadTrigger = el
+              }}
+            >
+              Replace with spinner that is not centered vertically
+            </LoadTrigger>
+          </Content>
         </LayoutGrid>
       </ThemeProvider>
     )
