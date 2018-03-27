@@ -37,14 +37,34 @@ const Action = styled.a`
 `
 
 class SnackBar extends Component {
+  state = {
+    show: false
+  }
+
+  componentDidMount () {
+    this.setState({ show: true }, () => {
+      if (this.props.actionText) return
+      setTimeout(() => {
+        this.setState({ show: false })
+      }, this.props.timeout || 2750)
+    })
+  }
+
+  clickHandler = () => {
+    this.props.actionClick && this.props.actionClick()
+    this.setState({ show: false })
+  }
+
   render () {
+    const { message, actionText } = this.props
+    const { show } = this.state
     return (
-      <Container show={this.props.show}>
+      <Container show={show}>
         <Toast>
-          <Message>{this.props.message}</Message>
-          <Action onClick={this.props.actionClick}>
-            {this.props.actionText}
-          </Action>
+          <Message>{message}</Message>
+          {actionText && (
+            <Action onClick={this.clickHandler}>{actionText}</Action>
+          )}
         </Toast>
       </Container>
     )
