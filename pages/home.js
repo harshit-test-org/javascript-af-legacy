@@ -26,6 +26,10 @@ const ReposQuery = gql`
 `
 
 class Index extends Component {
+  componentDidMount () {
+    Router.prefetch('/repo/post')
+  }
+
   render () {
     return (
       <Layout title="Discover">

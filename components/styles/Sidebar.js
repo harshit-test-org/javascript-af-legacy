@@ -50,7 +50,7 @@ const NavA = styled.a`
 `
 
 export const NavIcon = ({ children, active, ...props }) => (
-  <ActiveLink {...props} passHref activeClassName>
+  <ActiveLink prefetch {...props} passHref activeClassName>
     <NavA>{children}</NavA>
   </ActiveLink>
 )
