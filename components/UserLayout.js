@@ -7,8 +7,6 @@ import styled, { injectGlobal, ThemeProvider } from 'styled-components'
 import NProgress from 'nprogress'
 import Router from 'next/router'
 
-import Spinner from './Spinner'
-
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
@@ -147,52 +145,7 @@ const Content = styled.div`
   }
 `
 
-// const LoadTrigger = styled.div`
-//   text-align: center;
-// `
-
-const SpinContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  z-index: 9750;
-`
-
 class Layout extends Component {
-  state = {
-    prevY: 0,
-    loading: false
-  }
-
-  componentDidMount () {
-    console.log(this.loadTrigger)
-    // Set up intersection observer
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 1.0
-    }
-    this.observer = new IntersectionObserver(this.handleObserver, options)
-    this.observer.observe(this.loadTrigger)
-  }
-
-  handleObserver = (entities, observer) => {
-    console.log('handleObserver-entities:', entities)
-    console.log('handleObserver-observer:', observer)
-    // only run code in if-block when scrolling down, not up
-    const y = entities[0].boundingClientRect.y
-    if (this.state.prevY > y) {
-      console.log('observer callback run')
-      this.setState({ loading: true })
-      // running callback takes some time
-      setTimeout(() => {
-        this.setState({ loading: false })
-      }, 2000)
-    }
-    this.setState({ prevY: y })
-  }
-
   render () {
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`
@@ -205,22 +158,7 @@ class Layout extends Component {
           </Head>
           <Sidemenu />
           <Navbar title={this.props.title} />
-          <Content>
-            {/* <div style={{ marginBottom: '1000px' }}>blaaaaaaaaaaaaaaa</div> */}
-            {this.props.children}
-            {/* <LoadTrigger
-              innerRef={el => {
-                this.loadTrigger = el
-              }}
-            /> */}
-            <SpinContainer
-              innerRef={el => {
-                this.loadTrigger = el
-              }}
-            >
-              <Spinner bottom={'2%'} hidden={!this.state.loading} />
-            </SpinContainer>
-          </Content>
+          <Content>{this.props.children}</Content>
         </LayoutGrid>
       </ThemeProvider>
     )

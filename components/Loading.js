@@ -8,13 +8,14 @@ const Background = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 `
 const Loader = () => (
   <Background>
     <Head>
       <title>Loading...</title>
     </Head>
-    <Spinner />
+    <Spinner className="la-3x" />
   </Background>
 )
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import gql from 'graphql-tag'
-import { injectGlobal, ThemeProvider } from 'styled-components'
+import { injectGlobal } from 'styled-components'
 import { graphql } from 'react-apollo'
 import Homebar from './styles/Homebar'
 import Head from 'next/head'
@@ -92,19 +92,19 @@ class Layout extends Component {
       ? `${this.props.title} | Javascript.af`
       : 'Javascript.af'
     return (
-      <Fragment >
+      <Fragment>
         <Head>
-          <title>{ title }</title>
+          <title>{title}</title>
         </Head>
-        { this.state.loading ? (
+        {this.state.loading ? (
           <Loading />
         ) : (
           <Fragment>
-            <Homebar handleLogin={ this.handleLogin } />
-            { this.props.children }
+            <Homebar handleLogin={this.handleLogin} />
+            {this.props.children}
             <Footer />
           </Fragment>
-        ) }
+        )}
       </Fragment>
     )
   }
