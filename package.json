@@ -2,7 +2,25 @@
   "name": "javascript-af",
   "version": "0.2.0",
   "private": true,
+  "now": {
+    "files": [
+      ".env.js",
+      ".env.prod.js",
+      "pages",
+      "apollo",
+      "assets",
+      "client",
+      "components",
+      "lib",
+      "static",
+      ".babelrc",
+      "next.config.js",
+      "env-config.js",
+      "yarn.lock"
+    ]
+  },
   "dependencies": {
+    "@zeit/next-source-maps": "^0.0.2",
     "apollo-client-preset": "^1.0.8",
     "apollo-link-context": "^1.0.7",
     "apollo-link-error": "^1.0.7",
@@ -30,7 +48,7 @@
   "scripts": {
     "start": "next start",
     "dev": "next",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
