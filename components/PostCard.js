@@ -9,13 +9,13 @@ const Card = styled.div`
   display: block;
   background: #ffffff;
   margin-bottom: 15px;
-  cursor: pointer;
+  padding: 16px;
 `
 
-const CardContent = styled.div`
-  background: white;
-  padding: 16px;
+const CardTop = styled.div`
   h2 {
+    color: rgba(0, 0, 0, 0.84);
+    cursor: pointer;
     margin: 0;
     padding: 0 0 10px;
     font-size: 26px;
@@ -33,8 +33,22 @@ const CardContent = styled.div`
 const CardBottom = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
 `
+const Info = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  & .icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+  }
+  p {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.52);
+  }
+`
+
 const Author = styled.div`
   display: flex;
   align-items: center;
@@ -48,44 +62,45 @@ const Author = styled.div`
     margin-left: 8px;
     padding: 0;
     font-size: 14px;
+    color: ${props => props.theme.secondary};
   }
-`
-
-const Actions = styled.div`
-  height: 24px;
-  width: 24px;
 `
 
 class RepoCard extends Component {
   handleCardClick = id => {
     Router.push(`/repo/${id}`)
   }
-  handleAuthorClick = (e, id) => {
-    e.stopPropagation()
+  handleAuthorClick = id => {
     Router.push(`/user/${id}`)
   }
-  handleIconClick = (e, url) => {
-    e.stopPropagation()
-    Router.push(url)
+  handleIconClick = url => {
+    window.location.href = url
   }
   render () {
-    const { repoId, userId, title, text, author, image, url } = this.props
+    const { repoId, userId, title, text, author, image } = this.props
+    const url = 'https://www.google.be'
+    const lastPush = '2 days ago'
     return (
       <Fragment>
-        <Card onClick={() => this.handleCardClick(repoId)}>
-          <CardContent>
-            <h2>{title}</h2>
+        <Card>
+          <CardTop>
+            <h2 onClick={() => this.handleCardClick(repoId)}>{title}</h2>
             <p>{text}</p>
-            <CardBottom>
-              <Actions>
-                <GitHubIcon onClick={() => this.handleIconClick(url)} />
-              </Actions>
-              <Author onClick={e => this.handleAuthorClick(e, userId)}>
-                <img src={image} />
-                <p>{author}</p>
-              </Author>
-            </CardBottom>
-          </CardContent>
+          </CardTop>
+          <CardBottom>
+            <Info>
+              <GitHubIcon
+                className={'icon'}
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.handleIconClick(url)}
+              />
+              <p>{lastPush}</p>
+            </Info>
+            <Author onClick={() => this.handleAuthorClick(userId)}>
+              <img src={image} />
+              <p>{author}</p>
+            </Author>
+          </CardBottom>
         </Card>
       </Fragment>
     )

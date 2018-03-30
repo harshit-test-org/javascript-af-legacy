@@ -1,8 +1,8 @@
 import React from 'react'
 
-const GitHubIcon = () => {
+const GitHubIcon = props => {
   return (
-    <svg viewBox="0 0 128 128">
+    <svg viewBox="0 0 128 128" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
