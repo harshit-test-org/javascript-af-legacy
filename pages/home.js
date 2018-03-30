@@ -90,10 +90,12 @@ class Index extends Component {
                   {getRepos.map(item => (
                     <div className="col s12 m4 l4 xl3" key={item._id}>
                       <RepoCard
+                        repoId={item._id}
                         title={item.name}
                         text={item.description}
                         image={item.imageURL}
                         userId={item.owner._id}
+                        author={item.owner.name}
                       />
                     </div>
                   ))}
