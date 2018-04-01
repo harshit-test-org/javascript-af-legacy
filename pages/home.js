@@ -16,8 +16,9 @@ const ReposQuery = gql`
   {
     getRepos {
       _id
+      posted
       name
-      imageURL
+      image
       description
       owner {
         _id
@@ -29,10 +30,8 @@ const ReposQuery = gql`
 
 const SpinContainer = styled.div`
   display: flex;
-  height: 45px;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
   z-index: 9750;
 `
 
@@ -48,7 +47,7 @@ class Index extends Component {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 1.0
+      threshold: 0.5
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)
@@ -66,6 +65,9 @@ class Index extends Component {
       }, 3000)
     }
     this.setState({ prevY: y })
+  }
+  componentWillUnmount () {
+    this.observer.disconnect()
   }
 
   render () {
@@ -93,9 +95,10 @@ class Index extends Component {
                         repoId={item._id}
                         title={item.name}
                         text={item.description}
-                        image={item.imageURL}
+                        image={item.image}
                         userId={item.owner._id}
                         author={item.owner.name}
+                        posted={item.posted}
                       />
                     </div>
                   ))}

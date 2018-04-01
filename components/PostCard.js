@@ -77,9 +77,8 @@ class RepoCard extends Component {
     window.location.href = url
   }
   render () {
-    const { repoId, userId, title, text, author, image } = this.props
-    const url = 'https://www.google.be'
-    const lastPush = '2 days ago'
+    const { repoId, userId, title, text, author, image, posted } = this.props
+    const url = 'https://www.google.com'
     return (
       <Fragment>
         <Card>
@@ -94,7 +93,7 @@ class RepoCard extends Component {
                 style={{ cursor: 'pointer' }}
                 onClick={() => this.handleIconClick(url)}
               />
-              <p>{lastPush}</p>
+              <p>{posted}</p>
             </Info>
             <Author onClick={() => this.handleAuthorClick(userId)}>
               <img src={image} />
