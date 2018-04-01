@@ -10,11 +10,10 @@ import FabButton from '../components/FabButton'
 import withData from '../apollo/wihData'
 
 import Layout from '../components/UserLayout'
-import Spinner from '../components/Spinner'
 
 const ReposQuery = gql`
-  {
-    getRepos {
+  query getRepos($page: Int) {
+    getRepos(page: $page) {
       _id
       posted
       name
@@ -33,12 +32,14 @@ const SpinContainer = styled.div`
   flex-direction: column;
   align-items: center;
   z-index: 9750;
+  height: 90px;
 `
 
 class Index extends Component {
   state = {
     prevY: 0,
-    loading: false
+    loading: false,
+    page: 1
   }
 
   componentDidMount () {
@@ -51,20 +52,42 @@ class Index extends Component {
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)
+    if (window.innerHeight > this.loadTrigger.offsetTop) {
+      this.fetchMoreData()
+    }
   }
 
   handleObserver = (entities, observer) => {
     // only run code in if-block when scrolling down, not up
     const y = entities[0].boundingClientRect.y
     if (this.state.prevY > y) {
-      console.log('observer callback run')
-      this.setState({ loading: true })
-      // running callback takes some time
-      setTimeout(() => {
-        this.setState({ loading: false })
-      }, 3000)
+      this.fetchMoreData()
     }
     this.setState({ prevY: y })
+  }
+  fetchMoreData = () => {
+    console.log('observer callback run')
+    this.setState({ loading: true })
+    // running callback takes some time
+    if (this.fetchMore) {
+      this.fetchMore({
+        variables: {
+          page: this.state.page + 1
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev
+          return {
+            ...prev,
+            getRepos: [...prev.getRepos, ...fetchMoreResult.getRepos]
+          }
+        }
+      }).then(() => {
+        this.setState(state => ({
+          page: state.page + 1,
+          loading: false
+        }))
+      })
+    }
   }
   componentWillUnmount () {
     this.observer.disconnect()
@@ -87,6 +110,7 @@ class Index extends Component {
               if (result.loading) return <h1>Loading</h1>
               if (result.error) return <h1>AWWW Error</h1>
               const { data: { getRepos } } = result
+              this.fetchMore = result.fetchMore
               return (
                 <Masonry>
                   {getRepos.map(item => (
@@ -112,7 +136,13 @@ class Index extends Component {
             this.loadTrigger = el
           }}
         >
-          <Spinner className="la-2x" hidden={!this.state.loading} />
+          <h3
+            style={
+              this.state.loading ? { display: 'block' } : { display: 'none' }
+            }
+          >
+            Loading more awesome repos 😎...
+          </h3>
         </SpinContainer>
       </Layout>
     )

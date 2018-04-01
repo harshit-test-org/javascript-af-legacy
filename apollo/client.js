@@ -2,11 +2,11 @@ import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { withClientState } from 'apollo-link-state'
 import { HttpLink } from 'apollo-link-http'
-import { ApolloLink, split } from 'apollo-link'
+import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { setContext } from 'apollo-link-context'
-import { WebSocketLink } from 'apollo-link-ws'
-import { getMainDefinition } from 'apollo-utilities'
+// import { WebSocketLink } from 'apollo-link-ws'
+// import { getMainDefinition } from 'apollo-utilities'
 import resolvers from './resolvers'
 import fetch from 'isomorphic-unfetch'
 
@@ -19,22 +19,22 @@ const cache = new InMemoryCache()
 let link = null
 
 if (process.browser) {
-  const wsLink = new WebSocketLink({
-    uri: `${process.env.REACT_APP_WS_URI}/subscriptions`,
-    options: {
-      reconnect: true
-    }
-  })
-
-  const networkLink = split(
-    // split based on operation type
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query)
-      return kind === 'OperationDefinition' && operation === 'subscription'
-    },
-    wsLink,
-    httpLink
-  )
+  // const wsLink = new WebSocketLink({
+  //   uri: `${process.env.REACT_APP_WS_URI}/subscriptions`,
+  //   options: {
+  //     reconnect: true
+  //   }
+  // })
+  // Commenting this as we are no longer doing messages
+  // const networkLink = split(
+  //   // split based on operation type
+  //   ({ query }) => {
+  //     const { kind, operation } = getMainDefinition(query)
+  //     return kind === 'OperationDefinition' && operation === 'subscription'
+  //   },
+  //   // wsLink,
+  //   httpLink
+  // )
 
   const stateLink = withClientState({
     cache,
@@ -55,7 +55,7 @@ if (process.browser) {
     if (networkError) console.log(`[Network error]: ${networkError}`)
   })
 
-  link = ApolloLink.from([errorLink, stateLink, networkLink])
+  link = ApolloLink.from([errorLink, stateLink, httpLink])
 }
 
 let apolloClient = null
