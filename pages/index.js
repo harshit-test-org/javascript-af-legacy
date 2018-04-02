@@ -7,7 +7,7 @@ import theme from '../lib/theme'
 const Welcome = styled.div`
   background-position: center;
   background-size: cover;
-  background-image: url("/static/loginimg.jpg");
+  background-image: url('/static/loginimg.jpg');
   box-shadow: 0 5px 5px -5px #000;
   display: flex;
   align-items: center;
@@ -58,23 +58,19 @@ const Welcome = styled.div`
 class Index extends Component {
   render () {
     return (
-      <ThemeProvider theme={ theme }>
+      <ThemeProvider theme={theme}>
         <Layout>
           <Welcome>
             <ul>
-              <h1>For Devs by Devs</h1>
+              <h1>JavaScript...always fun</h1>
               <p>
-                A platform where developers can share their GitHub repos and
-                connect with other developers through sharing projects, messaging,
-                and posting. We will also have a job board for dev positions. All
-              this with none of the usual social media drama or ads. It{ `'` }s
-                all code all the time here, so why not join in on the fun!
+                Showcasing unique and interesting JavaScript projects. Login
+                with GitHub to add or browse repositories.
               </p>
             </ul>
           </Welcome>
         </Layout>
       </ThemeProvider>
-
     )
   }
 }
