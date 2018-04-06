@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
-import Masonry from 'react-masonry-component'
+import React, { Component, Fragment } from 'react'
 import Router from 'next/router'
-import Head from 'next/head'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
 import gql from 'graphql-tag'
@@ -35,6 +33,12 @@ const SpinContainer = styled.div`
   height: 90px;
 `
 
+const RepoCardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-gap: 1rem;
+`
+
 class Index extends Component {
   state = {
     prevY: 0,
@@ -52,9 +56,6 @@ class Index extends Component {
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)
-    if (window.innerHeight > this.loadTrigger.offsetTop) {
-      this.fetchMoreData()
-    }
   }
 
   handleObserver = (entities, observer) => {
@@ -96,15 +97,12 @@ class Index extends Component {
   render () {
     return (
       <Layout title="Discover">
-        <Head>
-          <link rel="stylesheet" href="/static/grid.css" />
-        </Head>
         <FabButton
           onClick={() => {
             Router.push('/repo/post')
           }}
         />
-        <div className="row">
+        <RepoCardContainer>
           <Query query={ReposQuery}>
             {result => {
               if (result.loading) return <h1>Loading</h1>
@@ -112,25 +110,24 @@ class Index extends Component {
               const { data: { getRepos } } = result
               this.fetchMore = result.fetchMore
               return (
-                <Masonry>
+                <Fragment>
                   {getRepos.map(item => (
-                    <div className="col s12 m4 l4 xl3" key={item._id}>
-                      <RepoCard
-                        repoId={item._id}
-                        title={item.name}
-                        text={item.description}
-                        image={item.image}
-                        userId={item.owner._id}
-                        author={item.owner.name}
-                        posted={item.posted}
-                      />
-                    </div>
+                    <RepoCard
+                      key={item._id}
+                      repoId={item._id}
+                      title={item.name}
+                      text={item.description}
+                      image={item.image}
+                      userId={item.owner._id}
+                      author={item.owner.name}
+                      posted={item.posted}
+                    />
                   ))}
-                </Masonry>
+                </Fragment>
               )
             }}
           </Query>
-        </div>
+        </RepoCardContainer>
         <SpinContainer
           innerRef={el => {
             this.loadTrigger = el
