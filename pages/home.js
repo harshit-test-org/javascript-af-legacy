@@ -59,6 +59,7 @@ class Index extends Component {
   }
 
   handleObserver = (entities, observer) => {
+    if (this.state.loading) return null
     // only run code in if-block when scrolling down, not up
     const y = entities[0].boundingClientRect.y
     if (this.state.prevY > y) {
