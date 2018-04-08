@@ -1,0 +1,6 @@
+{
+  "rules": [
+    { "pathname": "/api/**", "method": ["GET", "POST"], "dest": "jsapi.now.sh" },
+    { "dest": "jsui.now.sh" }
+  ]
+}
