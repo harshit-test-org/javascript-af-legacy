@@ -15,7 +15,6 @@
       "static",
       ".babelrc",
       "next.config.js",
-      "env-config.js",
       "yarn.lock"
     ]
   },
@@ -28,6 +27,7 @@
     "apollo-link-ws": "^1.0.5",
     "babel-plugin-styled-components": "^1.5.1",
     "cookie": "^0.3.1",
+    "express": "^4.16.3",
     "graphql": "^0.13.0",
     "graphql-tag": "^2.7.3",
     "isomorphic-unfetch": "^2.0.0",
@@ -45,9 +45,9 @@
     "uuid": "^3.2.1"
   },
   "scripts": {
-    "start": "next start",
-    "dev": "next",
+    "dev": "node server.js",
     "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production node server.js",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
