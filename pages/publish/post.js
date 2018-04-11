@@ -71,38 +71,41 @@ const UserReposQuery = gql`
 
 class PostRepo extends Component {
   handleNavigation = repo => {
-    Router.push({
-      pathname: '/repo/new',
-      query: {
-        ...repo
-      }
-    }, '/repo/new')
+    Router.push(
+      {
+        pathname: '/publish/new',
+        query: {
+          ...repo
+        }
+      },
+      '/publish/new'
+    )
   }
   render () {
     return (
       <Layout title="Post a Repo">
         <Container>
           <h1>Your Repositories</h1>
-          <Query query={ UserReposQuery }>
-            { ({ loading, error, data }) => {
+          <Query query={UserReposQuery}>
+            {({ loading, error, data }) => {
               if (loading) return <h4>Loading...</h4>
               if (error) return null
               return data.getUserGithubRepos.map(repo => (
-                <RepoCard key={ repo._id }>
-                  <a href="">{ repo.nameWithOwner }</a>
+                <RepoCard key={repo._id}>
+                  <a href="">{repo.nameWithOwner}</a>
                   <p>
-                    { repo.description || (
+                    {repo.description || (
                       <i>(No description provided on Github)</i>
-                    ) }
+                    )}
                   </p>
                   <RepoCardActions>
-                    <Button onClick={ () => this.handleNavigation(repo) }>
+                    <Button onClick={() => this.handleNavigation(repo)}>
                       Select
                     </Button>
                   </RepoCardActions>
                 </RepoCard>
               ))
-            } }
+            }}
           </Query>
         </Container>
       </Layout>

@@ -29,6 +29,7 @@ const SpinContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   z-index: 9750;
   height: 90px;
 `
@@ -47,7 +48,7 @@ class Index extends Component {
   }
 
   componentDidMount () {
-    Router.prefetch('/repo/post')
+    Router.prefetch('/publish/post')
     // Set up intersection observer
     const options = {
       root: null,
@@ -100,7 +101,7 @@ class Index extends Component {
       <Layout title="Discover">
         <FabButton
           onClick={() => {
-            Router.push('/repo/post')
+            Router.push('/publish/post')
           }}
         />
         <RepoCardContainer>
@@ -136,7 +137,9 @@ class Index extends Component {
         >
           <h3
             style={
-              this.state.loading ? { display: 'block' } : { display: 'none' }
+              this.state.loading
+                ? { visibility: 'shown' }
+                : { visibility: 'visible' }
             }
           >
             Loading more awesome repos 😎...
