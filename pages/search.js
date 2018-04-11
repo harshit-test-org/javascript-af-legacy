@@ -7,6 +7,10 @@ import {
 } from 'react-instantsearch/connectors'
 import Layout from '../components/UserLayout'
 import styled from 'styled-components'
+import getConfig from 'next/config'
+const {
+  publicRuntimeConfig: { ALGOLIA_API_KEY, ALGOLIA_APP_ID, ALGOLIA_INDEX_NAME }
+} = getConfig()
 
 const SearchContainer = styled.div`
   padding: 0 15%;
@@ -32,11 +36,11 @@ const SearchInput = styled.input`
   }
 `
 
-function SearchBox({ currentRefinement, refine }) {
+function SearchBox ({ currentRefinement, refine }) {
   return (
     <SearchInput
-      value={ currentRefinement }
-      onChange={ e => refine(e.target.value) }
+      value={currentRefinement}
+      onChange={e => refine(e.target.value)}
       autoComplete="off"
       autoCorrect="off"
       autoCapitalize="off"
@@ -49,11 +53,11 @@ function SearchBox({ currentRefinement, refine }) {
 
 const ConnectedSearch = connectSearchBox(SearchBox)
 
-function CustomHits({ hits, hasMore, refine }) {
+function CustomHits ({ hits, hasMore, refine }) {
   return (
     <Fragment>
-      { hits.map(hit => <Hit item={ hit } key={ hit.objectID } />) }
-      { hasMore && <button onClick={ () => refine() }>Load More</button> }
+      {hits.map(hit => <Hit item={hit} key={hit.objectID} />)}
+      {hasMore && <button onClick={() => refine()}>Load More</button>}
     </Fragment>
   )
 }
@@ -67,17 +71,17 @@ const ConnectedHits = connectInfiniteHits(CustomHits)
 
 const Hit = ({ item }) => {
   return (
-    <Link passHref href={ `/user/${item.objectID}` }>
+    <Link passHref href={`/user/${item.objectID}`}>
       <SearchLink>
         <ResultCard>
           <div className="image">
-            <img src={ item.photoURL } alt={ item.name } />
+            <img src={item.photoURL} alt={item.name} />
           </div>
           <div className="info">
             <h1>
-              <Highlight attribute="name" hit={ item } />
+              <Highlight attribute="name" hit={item} />
             </h1>
-            <p>{ item.bio }</p>
+            <p>{item.bio}</p>
           </div>
         </ResultCard>
       </SearchLink>
@@ -134,14 +138,14 @@ const ResultCard = styled.div`
 `
 
 export default class Search extends Component {
-  render() {
+  render () {
     return (
       <Layout title="Search">
         <SearchContainer>
           <InstantSearch
-            appId={ process.env.REACT_APP_ALGOLIA_APP_ID }
-            apiKey={ process.env.REACT_APP_ALGOLIA_API_KEY }
-            indexName={ process.env.REACT_APP_ALGOLIA_INDEX_NAME }
+            appId={ALGOLIA_APP_ID}
+            apiKey={ALGOLIA_API_KEY}
+            indexName={ALGOLIA_INDEX_NAME}
           >
             <ConnectedSearch />
             <ConnectedHits />

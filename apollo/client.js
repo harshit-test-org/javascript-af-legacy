@@ -5,13 +5,16 @@ import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { setContext } from 'apollo-link-context'
+import getConfig from 'next/config'
+import fetch from 'isomorphic-unfetch'
+import resolvers from './resolvers'
+const { publicRuntimeConfig: { BACKEND } } = getConfig()
+
 // import { WebSocketLink } from 'apollo-link-ws'
 // import { getMainDefinition } from 'apollo-utilities'
-import resolvers from './resolvers'
-import fetch from 'isomorphic-unfetch'
 
 const httpLink = new HttpLink({
-  uri: `${process.env.REACT_APP_SERVER_URI}/graphql`,
+  uri: `${BACKEND}/graphql`,
   credentials: 'include'
 })
 const cache = new InMemoryCache()

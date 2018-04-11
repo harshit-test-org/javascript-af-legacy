@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import gql from 'graphql-tag'
 import { injectGlobal } from 'styled-components'
+import getConfig from 'next/config'
 import { graphql } from 'react-apollo'
 import Homebar from './styles/Homebar'
 import Head from 'next/head'
 import Loading from './Loading'
 import Footer from './Footer'
 
+const { publicRuntimeConfig: { BACKEND } } = getConfig()
 const Fragment = React.Fragment
 
 injectGlobal`
@@ -50,7 +52,7 @@ class Layout extends Component {
     loading: true
   }
   componentDidMount () {
-    fetch(`${process.env.REACT_APP_SERVER_URI}/me`, {
+    fetch(`${BACKEND}/me`, {
       credentials: 'include'
     }).then(res => {
       if (res.status !== 200) {
@@ -83,9 +85,7 @@ class Layout extends Component {
     })
   }
   handleLogin = async () => {
-    window.location.href = `${
-      process.env.REACT_APP_SERVER_URI
-    }/auth/github/start`
+    window.location.href = `${BACKEND}/auth/github/start`
   }
   render () {
     const title = this.props.title

@@ -4,10 +4,6 @@
   ],
   "plugins": [
     [
-      "transform-define",
-      "./env-config.js"
-    ],
-    [
       "styled-components",
       {
         "ssr": true,

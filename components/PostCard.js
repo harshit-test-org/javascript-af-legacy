@@ -72,7 +72,7 @@ const Author = styled.div`
 
 class RepoCard extends Component {
   handleCardClick = id => {
-    Router.push(`/repo/${id}`)
+    Router.push(`/repo/template`) // temp
   }
   handleAuthorClick = id => {
     Router.push(`/user/${id}`)
