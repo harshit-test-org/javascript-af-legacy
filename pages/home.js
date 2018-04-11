@@ -138,8 +138,8 @@ class Index extends Component {
           <h3
             style={
               this.state.loading
-                ? { visibility: 'shown' }
-                : { visibility: 'visible' }
+                ? { visibility: 'visible' }
+                : { visibility: 'hidden' }
             }
           >
             Loading more awesome repos 😎...
