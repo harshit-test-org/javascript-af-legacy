@@ -4,10 +4,10 @@ import gql from 'graphql-tag'
 import { injectGlobal } from 'styled-components'
 import getConfig from 'next/config'
 import { graphql } from 'react-apollo'
-import Homebar from './styles/Homebar'
+// import Homebar from './styles/Homebar'
 import Head from 'next/head'
 import Loading from './Loading'
-import Footer from './Footer'
+// import Footer from './Footer'
 
 const { publicRuntimeConfig: { BACKEND } } = getConfig()
 const Fragment = React.Fragment
@@ -15,6 +15,7 @@ const Fragment = React.Fragment
 injectGlobal`
 * {
     margin: 0;
+    box-sizing:border-box;
 }
 html, body {
     background: #e6ecf0;
@@ -99,11 +100,7 @@ class Layout extends Component {
         {this.state.loading ? (
           <Loading />
         ) : (
-          <Fragment>
-            <Homebar handleLogin={this.handleLogin} />
-            {this.props.children}
-            <Footer />
-          </Fragment>
+          <Fragment>{this.props.children}</Fragment>
         )}
       </Fragment>
     )
