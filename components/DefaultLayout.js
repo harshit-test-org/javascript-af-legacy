@@ -4,10 +4,8 @@ import gql from 'graphql-tag'
 import { injectGlobal } from 'styled-components'
 import getConfig from 'next/config'
 import { graphql } from 'react-apollo'
-// import Homebar from './styles/Homebar'
 import Head from 'next/head'
 import Loading from './Loading'
-// import Footer from './Footer'
 
 const { publicRuntimeConfig: { BACKEND } } = getConfig()
 const Fragment = React.Fragment
@@ -85,9 +83,7 @@ class Layout extends Component {
       }
     })
   }
-  handleLogin = async () => {
-    window.location.href = `${BACKEND}/auth/github/start`
-  }
+
   render () {
     const title = this.props.title
       ? `${this.props.title} | Javascript.af`

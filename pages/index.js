@@ -3,6 +3,7 @@ import Layout from '../components/DefaultLayout'
 import styled, { ThemeProvider } from 'styled-components'
 import withData from '../apollo/wihData'
 import theme from '../lib/theme'
+import getConfig from 'next/config'
 
 const Welcome = styled.div`
 grid-column:1/5;
@@ -74,70 +75,12 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 2fr 2fr 1fr;
   grid-template-rows: 1fr;
 `
-// const Welcome = styled.div`
-// display:grid;
-// align-items: center;
-// grid-template-columns: 1fr 2fr 2fr 1fr;
-// grid-template-rows: 1fr;
-//   background-image: ${props =>
-//     'linear-gradient(141deg,' +
-//     theme.primary +
-//     ',' +
-//     theme.secondary +
-//     ' 71%,' +
-//     theme.primaryDark +
-//     ')'};
-//   height: 100vh;
-//   clip-path: polygon(0 0, 100% 0, 100% 70%, 0 90%);
-//   &:before {
-//     background-color: green;
-//     z-index: 10;
-//     background-image: url('/static/loginimg.jpg');
-//     background-size: cover;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     height: 100%;
-//     width: 100%;
-//     display: block;
-//     z-index: 0;
-//     content: '';
-//     opacity: 0.2;
-//     pointer-events: none;
-//   }
-//     &>.left{
-//       grid-column:2/3;
-//       grid-row:1/2;
-//       h1{
-//         margin-bottom:1rem;
-//       }
-//       p{
-//         margin-bottom:2rem;
-
-//       }
-//     }
-// `
-// const Button = styled.div`
-// display:inline-block;
-//   outline: none;
-//   background-color: ${props => props.theme.primaryDark};
-//   color: #fff;
-//   font-family: 'Quicksand', Segoe UI, Tahoma, Geneva, sans-serif;
-//   font-weight: 600;
-//   font-size: 18px;
-//   padding: 0.8rem;
-//   border-radius: 50px;
-//   cursor: pointer;
-// `
-// const Right = styled.div`
-// grid-column:3/4;
-// grid-row:1/2;
-// background: rebeccapurple;
-// height:60%;
-// z-index:2000;
-// `
+const { publicRuntimeConfig: { BACKEND } } = getConfig()
 
 class Index extends Component {
+  handleLogin = async () => {
+    window.location.href = `${BACKEND}/auth/github/start`
+  }
   render () {
     return (
       <ThemeProvider theme={theme}>
@@ -149,7 +92,7 @@ class Index extends Component {
                 Showcasing unique and interesting JavaScript projects. Login
                 with GitHub to add or browse repositories.
               </p>
-              <Button>Login with Github</Button>
+              <Button onClick={this.handleLogin()}>Login with Github</Button>
             </Left>
             <Right>put an image with a transparent background here</Right>
             <Welcome />
