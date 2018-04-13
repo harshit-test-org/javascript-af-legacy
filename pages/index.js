@@ -13,7 +13,7 @@ import Spinner from '../components/Spinner'
 
 const Welcome = styled.div`
 grid-column:1/5;
-grid-row:1/4;
+grid-row:1/3;
   background-image: ${props =>
     'linear-gradient(141deg,' +
     theme.primary +
@@ -22,8 +22,8 @@ grid-row:1/4;
     ' 71%,' +
     theme.primaryDark +
     ')'};
-  height: 100vh;
-  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 90%);
+height:100%;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
   z-index:5;
   &:before {
     grid-column:1/5;
@@ -79,6 +79,7 @@ const Right = styled.div`
   }
 `
 const Wrapper = styled.div`
+  height: 100vh;
   display: grid;
   align-items: center;
   grid-template-columns: 1fr 2fr 2fr 1fr;
