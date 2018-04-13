@@ -75,7 +75,6 @@ const Right = styled.div`
   img {
     max-width: 100%;
     border-radius: 0.5rem;
-    box-shadow: 2px 3px 20px 2px #000;
   }
 `
 const Wrapper = styled.div`
@@ -84,7 +83,7 @@ const Wrapper = styled.div`
   align-items: center;
   grid-template-columns: 1fr 2fr 2fr 1fr;
   grid-template-rows: 5rem 1fr 5rem;
-  filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(2px 1px 20px rgba(0, 0, 0, 0.5));
 `
 const Top = styled.div`
   display: flex;
