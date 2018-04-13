@@ -8,6 +8,8 @@ import Head from 'next/head'
 import Loading from '../components/Loading'
 import Router from 'next/router'
 import gql from 'graphql-tag'
+import GitHubIcon from '../assets/icons/github'
+import Spinner from '../components/Spinner'
 
 const Welcome = styled.div`
 grid-column:1/5;
@@ -127,7 +129,8 @@ const { publicRuntimeConfig: { BACKEND } } = getConfig()
 
 class Index extends Component {
   state = {
-    loading: true
+    loading: true,
+    loggingIn: false
   }
 
   componentDidMount () {
@@ -164,7 +167,8 @@ class Index extends Component {
     })
   }
 
-  handleLogin = async () => {
+  handleLogin = () => {
+    this.setState({ loggingIn: true })
     window.location.href = `${BACKEND}/auth/github/start`
   }
 
@@ -205,8 +209,34 @@ class Index extends Component {
                 <a href="/">
                   {'{'}JS.af{'}'}
                 </a>
-                <HeaderButton onClick={this.handleLogin}>
-                  Login with Github
+                <HeaderButton
+                  onClick={this.handleLogin}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    justifyItems: 'flex-end',
+                    padding: '0.4rem 0.8rem'
+                  }}
+                >
+                  <span
+                    style={{ display: 'inline-block', paddingRight: '8px' }}
+                  >
+                    Login with Github
+                  </span>
+                  {this.state.loggingIn ? (
+                    <Spinner style={{ color: '#f1f1f1' }} />
+                  ) : (
+                    <span
+                      style={{
+                        fill: '#f1f1f1',
+                        height: 'auto',
+                        width: '1.8rem'
+                      }}
+                    >
+                      <GitHubIcon />
+                    </span>
+                  )}
                 </HeaderButton>
               </Top>
               <Left>
