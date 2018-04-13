@@ -11,7 +11,7 @@ import gql from 'graphql-tag'
 import GitHubIcon from '../assets/icons/github'
 import Spinner from '../components/Spinner'
 
-const Welcome = styled.div`
+const Hero = styled.div`
 grid-column:1/5;
 grid-row:1/3;
   background-image: ${props =>
@@ -66,6 +66,10 @@ const Left = styled.div`
     margin-bottom: 2rem;
     font-size: 1.25rem;
   }
+  @media (max-width: 700px) {
+    grid-column: 2/4;
+    grid-row: 1/4;
+  }
 `
 const Right = styled.div`
   grid-column: 3/4;
@@ -76,52 +80,81 @@ const Right = styled.div`
     max-width: 100%;
     border-radius: 0.5rem;
   }
+  @media (max-width: 700px) {
+    display: none;
+  }
 `
 const Wrapper = styled.div`
   height: 100vh;
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
   grid-template-rows: 5rem 1fr 5rem;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
   filter: drop-shadow(2px 1px 20px rgba(0, 0, 0, 0.5));
+  @media (max-width: 700px) {
+    grid-template-columns: 2rem 2fr 2fr 2rem;
+  }
 `
 const Top = styled.div`
-  display: flex;
+  display: contents;
   justify-content: space-between;
   align-items: center;
   grid-column: 1/5;
   grid-row: 1/2;
   z-index: 30;
   height: 100%;
-  margin: 3rem;
-  a {
-    color: #fff;
-    font-size: 45px;
-    text-decoration: none;
-  }
-  a:hover {
-    color: ${props => props.theme.secondary};
-    transition: 0.5s;
+  margin: 0 1rem;
+  @media (max-width: 550px) {
+    margin: 0;
+    grid-column: 2/4;
+    grid-row: 1/2;
   }
 `
 
-const HeaderButton = Button.extend``
+const HeaderButton = Button.extend`
+  grid-column: 2/5;
+  grid-row: 1/2;
+  z-index: 50;
+  justify-self: end;
+  margin: 0 16px;
+`
 
-const Footer = styled.div`
-  grid-column: 2/3;
+const Links = styled.div`
+  grid-column: 2/4;
   grid-row: 1/2;
   z-index: 30;
   height: auto;
   & a {
     color: #fff;
     display: inline-block;
-    margin: 0 1vw;
+    margin-right: 1rem;
     font-size: 18px;
     text-decoration: none;
   }
   & a:hover {
     color: ${props => props.theme.secondary};
     transition: 0.2s;
+  }
+  @media (max-width: 700px) {
+    display: none;
+  }
+`
+
+const Brand = styled.div`
+  display: contents;
+  a {
+    margin: 0 16px;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    z-index: 50;
+    color: #fff;
+    font-size: 2em;
+    text-decoration: none;
+    letter-spacing: 3px;
+  }
+  a:hover {
+    color: ${props => props.theme.secondary};
+    transition: 0.5s;
   }
 `
 
@@ -204,11 +237,13 @@ class Index extends Component {
             <Loading />
           ) : (
             <Wrapper>
+              <Hero />
               <Top>
-                {' '}
-                <a href="/">
-                  {'{'}JS.af{'}'}
-                </a>
+                <Brand>
+                  <a href="/">
+                    {'{'}JS.af{'}'}
+                  </a>
+                </Brand>
                 <HeaderButton
                   onClick={this.handleLogin}
                   style={{
@@ -240,7 +275,7 @@ class Index extends Component {
                 </HeaderButton>
               </Top>
               <Left>
-                <h1>JavaScript...always fun</h1>
+                <h1>JavaScript... always fun</h1>
                 <p>
                   Showcasing unique and interesting JavaScript projects. Login
                   with GitHub to add or browse repositories.
@@ -253,14 +288,13 @@ class Index extends Component {
                   alt="JavaScript... always fun"
                 />
               </Right>
-              <Welcome />
-              <Footer>
+              <Links>
                 {links.map(item => (
                   <a href={item.href} key={`footer-link-${item.name}`}>
                     {item.name}
                   </a>
                 ))}
-              </Footer>
+              </Links>
             </Wrapper>
           )}
         </ThemeProvider>
@@ -270,9 +304,12 @@ class Index extends Component {
 }
 
 injectGlobal`
+html {
+  box-sizing:border-box
+}
 * {
     margin: 0;
-    box-sizing:border-box;
+    box-sizing:inherit;
 }
 html, body {
     background: #e6ecf0;
