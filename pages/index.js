@@ -11,6 +11,18 @@ import gql from 'graphql-tag'
 import GitHubIcon from '../assets/icons/github'
 import Spinner from '../components/Spinner'
 
+const Wrapper = styled.div`
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-columns: 2rem 2fr 2fr 2rem;
+  filter: drop-shadow(2px 1px 20px rgba(0, 0, 0, 0.5));
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+  }
+`
+
 const Hero = styled.div`
 grid-column:1/5;
 grid-row:1/3;
@@ -40,20 +52,25 @@ height:100%;
   }
     }
 `
-const Button = styled.div`
-  display: inline-block;
-  outline: none;
-  background-color: ${props => props.theme.primaryDark};
-  color: #fff;
-  font-family: 'Quicksand', Segoe UI, Tahoma, Geneva, sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 0.8rem 1rem;
-  border-radius: 50px;
-  cursor: pointer;
+
+const Top = styled.div`
+  display: contents;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 30;
+  height: 100%;
+  margin: 0;
+  grid-column: 2/4;
+  grid-row: 1/2;
+  @media (min-width: 700px) {
+    margin: 0 1rem;
+    grid-column: 1/5;
+    grid-row: 1/2;
+  }
 `
+
 const Left = styled.div`
-  grid-column: 2/3;
+  grid-column: 2/4;
   grid-row: 1/4;
   z-index: 50;
   color: #fff;
@@ -66,78 +83,38 @@ const Left = styled.div`
     margin-bottom: 2rem;
     font-size: 1.25rem;
   }
-  @media (max-width: 700px) {
-    grid-column: 2/4;
+  @media (min-width: 700px) {
+    grid-column: 2/3;
     grid-row: 1/4;
   }
 `
+
 const Right = styled.div`
   grid-column: 3/4;
   grid-row: 2/3;
   align-self: end;
   z-index: 50;
+  display: none;
   img {
     max-width: 100%;
     border-radius: 0.5rem;
   }
-  @media (max-width: 700px) {
-    display: none;
-  }
-`
-const Wrapper = styled.div`
-  height: 100vh;
-  display: grid;
-  align-items: center;
-  grid-template-rows: 5rem 1fr 5rem;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
-  filter: drop-shadow(2px 1px 20px rgba(0, 0, 0, 0.5));
-  @media (max-width: 700px) {
-    grid-template-columns: 2rem 2fr 2fr 2rem;
-  }
-`
-const Top = styled.div`
-  display: contents;
-  justify-content: space-between;
-  align-items: center;
-  grid-column: 1/5;
-  grid-row: 1/2;
-  z-index: 30;
-  height: 100%;
-  margin: 0 1rem;
-  @media (max-width: 550px) {
-    margin: 0;
-    grid-column: 2/4;
-    grid-row: 1/2;
+  @media (min-width: 700px) {
+    display: block;
   }
 `
 
-const HeaderButton = Button.extend`
-  grid-column: 2/5;
-  grid-row: 1/2;
-  z-index: 50;
-  justify-self: end;
-  margin: 0 16px;
-`
-
-const Links = styled.div`
-  grid-column: 2/4;
-  grid-row: 1/2;
-  z-index: 30;
-  height: auto;
-  & a {
-    color: #fff;
-    display: inline-block;
-    margin-right: 1rem;
-    font-size: 18px;
-    text-decoration: none;
-  }
-  & a:hover {
-    color: ${props => props.theme.secondary};
-    transition: 0.2s;
-  }
-  @media (max-width: 700px) {
-    display: none;
-  }
+const Button = styled.div`
+  display: inline-block;
+  outline: none;
+  background-color: ${props => props.theme.primaryDark};
+  color: #fff;
+  font-family: 'Quicksand', Segoe UI, Tahoma, Geneva, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0.8rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
 `
 
 const Brand = styled.div`
@@ -155,6 +132,48 @@ const Brand = styled.div`
   a:hover {
     color: ${props => props.theme.secondary};
     transition: 0.5s;
+  }
+`
+
+const Links = styled.div`
+  display: none;
+  @media (min-width: 700px) {
+    display: block;
+    grid-column: 2/4;
+    grid-row: 1/2;
+    z-index: 30;
+    height: auto;
+    & a {
+      color: #fff;
+      display: inline-block;
+      margin-right: 1rem;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    & a:hover {
+      color: ${props => props.theme.secondary};
+      transition: 0.2s;
+    }
+  }
+`
+
+const HeaderButton = Button.extend`
+  display: none;
+  @media (min-width: 400px) {
+    grid-column: 2/5;
+    grid-row: 1/2;
+    z-index: 50;
+    justify-self: end;
+    margin: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    justify-items: flex-end;
+    padding: 0.4rem 0.8rem;
+    & > span {
+      display: 'inline-block';
+      padding-right: 8px;
+    }
   }
 `
 
@@ -244,23 +263,16 @@ class Index extends Component {
                     {'{'}JS.af{'}'}
                   </a>
                 </Brand>
-                <HeaderButton
-                  onClick={this.handleLogin}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    justifyItems: 'flex-end',
-                    padding: '0.4rem 0.8rem'
-                  }}
-                >
-                  <span
-                    style={{ display: 'inline-block', paddingRight: '8px' }}
-                  >
-                    Login with Github
-                  </span>
+                <HeaderButton onClick={this.handleLogin}>
+                  <span>Login with Github</span>
                   {this.state.loggingIn ? (
-                    <Spinner style={{ color: '#f1f1f1' }} />
+                    <Spinner
+                      style={{
+                        color: '#f1f1f1',
+                        height: 'auto',
+                        width: '1.8rem'
+                      }}
+                    />
                   ) : (
                     <span
                       style={{
