@@ -15,11 +15,11 @@ const ReposQuery = gql`
       _id
       posted
       name
-      image
       description
       owner {
         _id
         name
+        photoURL
       }
     }
   }
@@ -119,7 +119,7 @@ class Index extends Component {
                       repoId={item._id}
                       title={item.name}
                       text={item.description}
-                      image={item.image}
+                      image={item.owner.photoURL + '&s=50'}
                       userId={item.owner._id}
                       author={item.owner.name}
                       posted={item.posted}
