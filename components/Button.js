@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
-const Button = styled.div`
+const styles = `
   outline: none;
-  background-color: ${props => props.theme.primaryDark};
   color: #fff;
   font-family: 'Quicksand', Segoe UI, Tahoma, Geneva, sans-serif;
   font-weight: 600;
@@ -11,4 +10,33 @@ const Button = styled.div`
   border-radius: 50px;
   cursor: pointer;
 `
+
+const Button = styled.div`
+  ${styles};
+  background-color: ${props => props.theme.primary};
+`
 export default Button
+
+export const LinkBtn = styled.a`
+  ${styles};
+  background-color: ${props => props.theme.primary};
+  text-decoration: none;
+`
+export const InvertedButton = styled.a`
+  outline: none;
+  color: ${props => props.theme.primaryDark};
+  font-family: 'Quicksand', Segoe UI, Tahoma, Geneva, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.25s ease all;
+  padding: 0.8rem;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: white;
+  border: 2px solid ${props => props.theme.primaryDark};
+  text-decoration: none;
+  &:hover {
+    color: white;
+    background-color: ${props => props.theme.primary};
+  }
+`
