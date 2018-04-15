@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Head from 'next/head'
 import Navbar from './styles/Navbar'
 import Sidemenu from './Sidemenu'
@@ -120,28 +120,12 @@ grid-column: 1 / 3;
 }
 `
 
-const LayoutGrid = styled.div`
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  grid-template-rows: 72px 1fr;
-  grid-template-areas:
-    'sidebar navbar'
-    'sidebar content';
-  height: 100vh;
-  overflow: hidden;
-  @media all and (max-width: 570px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 1fr;
-    grid-template-areas: 'navbar' 'content' 'sidebar';
-  }
-`
-
 const Content = styled.div`
-  grid-area: content;
   padding: 1rem;
-  overflow: auto;
-  @media all and (max-width: 500px) {
-    margin-bottom: 73px;
+  margin-top: 72px;
+  margin-left: 80px;
+  @media all and (max-width: 570px) {
+    margin-left: auto;
   }
 `
 
@@ -152,14 +136,14 @@ class Layout extends Component {
       : 'Javascript.af'
     return (
       <ThemeProvider theme={theme}>
-        <LayoutGrid>
+        <Fragment>
           <Head>
             <title>{title}</title>
           </Head>
           <Sidemenu />
           <Navbar title={this.props.title} />
           <Content>{this.props.children}</Content>
-        </LayoutGrid>
+        </Fragment>
       </ThemeProvider>
     )
   }

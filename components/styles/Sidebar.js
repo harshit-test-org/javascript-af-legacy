@@ -4,15 +4,20 @@ import styled from 'styled-components'
 import Link from 'next/link'
 
 const Sidebar = styled.div`
-  grid-area: sidebar;
   background: ${props => props.theme.primary};
   box-shadow: 0 6px 10px 6px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  left: 0;
+  width: 80px;
+  height: 100%;
+  top: 0;
   @media all and (max-width: 570px) {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    position: fixed;
     bottom: 0;
+    top: auto;
+    left: auto;
     height: 70px;
     z-index: 60;
     width: 100%;

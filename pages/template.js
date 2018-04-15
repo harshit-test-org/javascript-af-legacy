@@ -18,12 +18,11 @@ const query = gql`
 
 const Card = styled.div`
   padding: 1rem;
-  width: 95%;
   background: #fff;
   display: grid;
   grid-gap: 0.5rem;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: 30px 1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     'heading heading'
     'readme extras';
@@ -64,7 +63,12 @@ export default withData(
               if (error) {
                 return <Layout title="Error">Error...</Layout>
               }
-              const { getRepo: { description, readme, name } } = data
+              let { getRepo: { description, readme, name } } = data
+              if (!readme) {
+                readme = `
+                <i>(No readme found on github. Add one on github)</i>
+              `
+              }
               return (
                 <Layout title={name}>
                   <Card>
