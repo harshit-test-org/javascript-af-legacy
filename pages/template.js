@@ -30,6 +30,13 @@ const Card = styled.div`
   grid-template-areas:
     'heading heading'
     'readme extras';
+  @media all and (max-width: 1024px) {
+    grid-template-columns: 65% 1fr;
+  }
+  @media all and (max-width: 790px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 const Description = styled.p`
@@ -47,6 +54,12 @@ const ExtrasArea = styled.div`
   grid-area: extras;
   padding: 1.5rem 0.7rem 0.7rem 0.7rem;
   border-left: 1px solid #cbcbcb;
+  @media all and (max-width: 790px) {
+    border-left: none;
+    border-top: 1px solid #cbcbcb;
+    padding: 0.7rem;
+    margin-top: 0.7rem;
+  }
 `
 
 const GitBtn = LinkBtn.extend`
