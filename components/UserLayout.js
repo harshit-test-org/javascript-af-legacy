@@ -96,6 +96,11 @@ html, body {
 h1, h2, h3, h4, h5, h6{
   font-family: 'Quicksand', Segoe UI, Tahoma,Verdana, sans-serif;
 }
+@media all and (max-width: 570px){
+  body, html{
+    font-size: 14px;
+  }
+}
 .chat{
     overflow: auto;
     grid-row: 1 / 2;

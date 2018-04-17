@@ -17,7 +17,10 @@
       "next.config.js",
       "yarn.lock",
       "server.js"
-    ]
+    ],
+    "name": "jsui",
+    "alias": "jsui",
+    "public": true
   },
   "dependencies": {
     "@zeit/next-source-maps": "^0.0.2",
@@ -54,6 +57,7 @@
       "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
     "cm": "git-cz",
+    "deploy": "now && now alias",
     "precommit": "lint-staged"
   },
   "devDependencies": {

@@ -15,6 +15,7 @@ const Nav = styled.div`
   box-shadow: 17px 0px 10px 9px rgba(0, 0, 0, 0.2);
   @media all and (max-width: 570px) {
     margin-left: auto;
+    height: 50px;
   }
 `
 
