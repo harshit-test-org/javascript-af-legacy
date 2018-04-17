@@ -6,36 +6,36 @@ class Jobs extends Component {
     const links = [
       {
         name: 'Front-end',
-        href: '/jobs/front-end',
+        href: '/jobs/front-end'
       },
       {
         name: 'Back-end',
-        href: '/jobs/back-end',
+        href: '/jobs/back-end'
       },
       {
         name: 'JavaScript',
-        href: '/jobs/javascript',
+        href: '/jobs/javascript'
       },
       {
         name: 'ReactJS',
-        href: '/jobs/reactjs',
+        href: '/jobs/reactjs'
       },
       {
         name: 'Angular',
-        href: '/jobs/angular',
+        href: '/jobs/angular'
       },
       {
         name: 'PHP',
-        href: '/jobs/php',
+        href: '/jobs/php'
       },
       {
         name: 'Ruby',
-        href: '/jobs/ruby',
+        href: '/jobs/ruby'
       },
       {
         name: 'C/C++',
-        href: '/jobs/c',
-      },
+        href: '/jobs/c'
+      }
     ]
     return <Layout title="Home" links={links} />
   }

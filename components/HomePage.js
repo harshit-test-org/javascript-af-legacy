@@ -43,7 +43,7 @@ class Index extends Component {
   state = {
     prevY: 0,
     loading: false,
-    page: 1,
+    page: 1
   }
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class Index extends Component {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5,
+      threshold: 0.5
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)
@@ -74,19 +74,19 @@ class Index extends Component {
     if (this.fetchMore) {
       this.fetchMore({
         variables: {
-          page: this.state.page + 1,
+          page: this.state.page + 1
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev
           return {
             ...prev,
-            getRepos: [...prev.getRepos, ...fetchMoreResult.getRepos],
+            getRepos: [...prev.getRepos, ...fetchMoreResult.getRepos]
           }
-        },
+        }
       }).then(() => {
         this.setState(state => ({
           page: state.page + 1,
-          loading: false,
+          loading: false
         }))
       })
     }
@@ -109,7 +109,7 @@ class Index extends Component {
               if (result.loading) return <h1>Loading</h1>
               if (result.error) return <h1>AWWW Error</h1>
               const {
-                data: { getRepos },
+                data: { getRepos }
               } = result
               this.fetchMore = result.fetchMore
               return (

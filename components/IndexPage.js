@@ -169,12 +169,12 @@ const HeaderButton = Button.extend`
 `
 
 const {
-  publicRuntimeConfig: { BACKEND },
+  publicRuntimeConfig: { BACKEND }
 } = getConfig()
 
 class Index extends Component {
   state = {
-    loggingIn: false,
+    loggingIn: false
   }
 
   handleLogin = () => {
@@ -187,20 +187,20 @@ class Index extends Component {
     const links = [
       {
         name: 'About',
-        href: '/about',
+        href: '/about'
       },
       {
         name: 'Team',
-        href: '/team',
+        href: '/team'
       },
       {
         name: 'Terms',
-        href: '/terms',
+        href: '/terms'
       },
       {
         name: 'Privacy Policy',
-        href: '/privacy',
-      },
+        href: '/privacy'
+      }
     ]
     return (
       <Fragment>
@@ -223,7 +223,7 @@ class Index extends Component {
                     style={{
                       color: '#f1f1f1',
                       height: 'auto',
-                      width: '1.8rem',
+                      width: '1.8rem'
                     }}
                   />
                 ) : (
@@ -231,7 +231,7 @@ class Index extends Component {
                     style={{
                       fill: '#f1f1f1',
                       height: 'auto',
-                      width: '1.8rem',
+                      width: '1.8rem'
                     }}
                   >
                     <GitHubIcon />
