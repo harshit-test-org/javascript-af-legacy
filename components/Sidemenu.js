@@ -40,7 +40,10 @@ class Sidemenu extends React.Component {
         <NavIcon href="/search" active={this.props.pathname === '/search'}>
           <SearchIcon />
         </NavIcon>
-        <NavIcon href="/profile" active={this.props.pathname === '/profile'}>
+        <NavIcon
+          href="/user/pantharshit00"
+          active={this.props.pathname === '/profile'}
+        >
           <AccountIcon />
         </NavIcon>
       </Sidebar>
