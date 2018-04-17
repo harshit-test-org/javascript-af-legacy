@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import gql from 'graphql-tag'
 import Head from 'next/head'
 import withData from '../apollo/wihData'
+import withAuth from '../components/withAuth'
 
 const query = gql`
   query getRepo($id: ID!) {
@@ -81,70 +82,72 @@ const BtnContainer = styled.div`
 `
 
 export default withData(
-  class RepoDetailsTemplate extends Component {
-    static getInitialProps = ({ query }) => {
-      return { query }
-    }
-    render () {
-      return (
-        <Fragment>
-          <Head>
-            <link rel="stylesheet" href="/static/gfm.css" />
-          </Head>
-          <Query
-            query={query}
-            variables={{
-              id: this.props.query.id
-            }}
-          >
-            {({ data, loading, error }) => {
-              if (loading) {
-                return <Layout title="Loading">Loading...</Layout>
-              }
-              if (error) {
-                return <Layout title="Error">Error...</Layout>
-              }
-              let {
-                getRepo: { description, readme, name, url, nameWithOwner }
-              } = data
-              if (!readme) {
-                readme = `
+  withAuth(
+    class RepoDetailsTemplate extends Component {
+      static getInitialProps = ({ query }) => {
+        return { query }
+      }
+      render () {
+        return (
+          <Fragment>
+            <Head>
+              <link rel="stylesheet" href="/static/gfm.css" />
+            </Head>
+            <Query
+              query={query}
+              variables={{
+                id: this.props.query.id
+              }}
+            >
+              {({ data, loading, error }) => {
+                if (loading) {
+                  return <Layout title="Loading">Loading...</Layout>
+                }
+                if (error) {
+                  return <Layout title="Error">Error...</Layout>
+                }
+                let {
+                  getRepo: { description, readme, name, url, nameWithOwner }
+                } = data
+                if (!readme) {
+                  readme = `
                 <i>(No readme found on github. Add one on github)</i>
               `
-              }
-              return (
-                <Layout title={name}>
-                  <Card>
-                    <Description>{description}</Description>
-                    <ReadmeArea
-                      className="markdown-body"
-                      dangerouslySetInnerHTML={{ __html: readme }}
-                    />
-                    <ExtrasArea>
-                      <BtnContainer>
-                        <GitBtn href={url} target="_blank" rel="noopener">
-                          <GitIcon
-                            style={{
-                              fill: '#fff',
-                              height: 'auto',
-                              width: '1.7rem'
-                            }}
-                          />&nbsp; {nameWithOwner}
-                        </GitBtn>
-                      </BtnContainer>
-                      <BtnContainer>
-                        <InvBtn href={url} target="_blank" rel="noopener">
-                          Visit
-                        </InvBtn>
-                      </BtnContainer>
-                    </ExtrasArea>
-                  </Card>
-                </Layout>
-              )
-            }}
-          </Query>
-        </Fragment>
-      )
+                }
+                return (
+                  <Layout title={name}>
+                    <Card>
+                      <Description>{description}</Description>
+                      <ReadmeArea
+                        className="markdown-body"
+                        dangerouslySetInnerHTML={{ __html: readme }}
+                      />
+                      <ExtrasArea>
+                        <BtnContainer>
+                          <GitBtn href={url} target="_blank" rel="noopener">
+                            <GitIcon
+                              style={{
+                                fill: '#fff',
+                                height: 'auto',
+                                width: '1.7rem'
+                              }}
+                            />&nbsp; {nameWithOwner}
+                          </GitBtn>
+                        </BtnContainer>
+                        <BtnContainer>
+                          <InvBtn href={url} target="_blank" rel="noopener">
+                            Visit
+                          </InvBtn>
+                        </BtnContainer>
+                      </ExtrasArea>
+                    </Card>
+                  </Layout>
+                )
+              }}
+            </Query>
+          </Fragment>
+        )
+      }
     }
-  }
+  )
 )

@@ -18,7 +18,7 @@ const Sidebar = styled.div`
     bottom: 0;
     top: auto;
     left: auto;
-    height: 70px;
+    height: 50px;
     z-index: 60;
     width: 100%;
   }
@@ -51,6 +51,9 @@ const NavA = styled.a`
     padding: 0;
     flex: 1;
     align-items: center;
+    & > svg {
+      height: 30px;
+    }
   }
 `
 

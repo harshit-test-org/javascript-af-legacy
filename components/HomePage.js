@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import gql from 'graphql-tag'
 import RepoCard from '../components/PostCard'
 import FabButton from '../components/FabButton'
-import withData from '../apollo/wihData'
 
 import Layout from '../components/UserLayout'
 
@@ -150,4 +149,4 @@ class Index extends Component {
   }
 }
 
-export default withData(Index)
+export default Index
