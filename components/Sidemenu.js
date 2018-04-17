@@ -28,7 +28,7 @@ class Sidemenu extends React.Component {
         <Logo>
           <img src="/static/logo.png" alt="" />
         </Logo>
-        <NavIcon href="/home" active={this.props.pathname === '/home'}>
+        <NavIcon href="/" active={this.props.pathname === '/'}>
           <HomeIcon />
         </NavIcon>
         <NavIcon href="/social" active={this.props.pathname === '/social'}>
