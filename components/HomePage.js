@@ -43,16 +43,16 @@ class Index extends Component {
   state = {
     prevY: 0,
     loading: false,
-    page: 1
+    page: 1,
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Router.prefetch('/publish/post')
     // Set up intersection observer
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5
+      threshold: 0.5,
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)
@@ -74,28 +74,28 @@ class Index extends Component {
     if (this.fetchMore) {
       this.fetchMore({
         variables: {
-          page: this.state.page + 1
+          page: this.state.page + 1,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev
           return {
             ...prev,
-            getRepos: [...prev.getRepos, ...fetchMoreResult.getRepos]
+            getRepos: [...prev.getRepos, ...fetchMoreResult.getRepos],
           }
-        }
+        },
       }).then(() => {
         this.setState(state => ({
           page: state.page + 1,
-          loading: false
+          loading: false,
         }))
       })
     }
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.observer.disconnect()
   }
 
-  render () {
+  render() {
     return (
       <Layout title="Discover">
         <FabButton
@@ -108,7 +108,9 @@ class Index extends Component {
             {result => {
               if (result.loading) return <h1>Loading</h1>
               if (result.error) return <h1>AWWW Error</h1>
-              const { data: { getRepos } } = result
+              const {
+                data: { getRepos },
+              } = result
               this.fetchMore = result.fetchMore
               return (
                 <Fragment>
@@ -134,13 +136,7 @@ class Index extends Component {
             this.loadTrigger = el
           }}
         >
-          <h3
-            style={
-              this.state.loading
-                ? { visibility: 'visible' }
-                : { visibility: 'hidden' }
-            }
-          >
+          <h3 style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }}>
             Loading more awesome repos 😎...
           </h3>
         </SpinContainer>
