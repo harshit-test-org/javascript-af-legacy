@@ -79,69 +79,69 @@ const InfoContainer = styled.div`
   margin: 1rem 0rem;
 `
 
-export default withData(
-  class ProfilePage extends Component {
-    static getInitialProps = ({ query }) => {
-      return { query }
-    }
-    render () {
-      return (
-        <Fragment>
-          <Query
-            query={query}
-            variables={{
-              id: this.props.query.id
-            }}
-          >
-            {({ data, loading, error }) => {
-              if (loading) {
-                return <Layout title="Loading">Loading...</Layout>
-              }
-              if (error) {
-                return <Layout title="Error">Error...</Layout>
-              }
-              console.log(data)
-              const { getUserById: { name, photoURL, bio } } = data
-              return (
-                <Layout title={`${name}'s profile`}>
-                  <Card>
-                    <Description>
-                      List of featured repos and other information here
-                    </Description>
-
-                    <ExtrasArea>
-                      <InfoContainer>
-                        <img
-                          src={photoURL}
-                          alt={`${name}'s profile picture`}
-                          width="100%"
-                        />
-                        <h3>{name}</h3>
-                        <h4>user icon - Username here</h4>
-                        <h4>mail icon - email here</h4>
-                        <div>{bio || 'No bio available'}</div>
-                        <GitBtn
-                          href="https://www.google.com"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <GitIcon
-                            style={{
-                              fill: '#fff',
-                              height: 'auto',
-                              width: '1.7rem'
-                            }}
-                          />&nbsp; Go to Github profile
-                        </GitBtn>
-                      </InfoContainer>
-                    </ExtrasArea>
-                  </Card>
-                </Layout>
-              )
-            }}
-          </Query>
-        </Fragment>
-      )
-    }
+class ProfilePage extends Component {
+  static getInitialProps = ({ query }) => {
+    return { query }
   }
-)
+  render () {
+    return (
+      <Fragment>
+        <Query
+          query={query}
+          variables={{
+            id: this.props.query.id
+          }}
+        >
+          {({ data, loading, error }) => {
+            if (loading) {
+              return <Layout title="Loading">Loading...</Layout>
+            }
+            if (error) {
+              return <Layout title="Error">Error...</Layout>
+            }
+            console.log(data)
+            const { getUserById: { name, photoURL, bio } } = data
+            return (
+              <Layout title={`${name}'s profile`}>
+                <Card>
+                  <Description>
+                    List of featured repos and other information here
+                  </Description>
+
+                  <ExtrasArea>
+                    <InfoContainer>
+                      <img
+                        src={photoURL}
+                        alt={`${name}'s profile picture`}
+                        width="100%"
+                      />
+                      <h3>{name}</h3>
+                      <h4>user icon - Username here</h4>
+                      <h4>mail icon - email here</h4>
+                      <div>{bio || 'No bio available'}</div>
+                      <GitBtn
+                        href="https://www.google.com"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <GitIcon
+                          style={{
+                            fill: '#fff',
+                            height: 'auto',
+                            width: '1.7rem'
+                          }}
+                        />&nbsp; Go to Github profile
+                      </GitBtn>
+                    </InfoContainer>
+                  </ExtrasArea>
+                </Card>
+              </Layout>
+            )
+          }}
+        </Query>
+      </Fragment>
+    )
+  }
+}
+
+export default withData(ProfilePage)
