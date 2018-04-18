@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Layout from '../components/UserLayout'
 
 class Jobs extends Component {
-  render () {
+  render() {
     const links = [
       {
         name: 'Front-end',

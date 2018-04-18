@@ -5,7 +5,7 @@ import withAuth from '../components/withAuth'
 import IndexPage from '../components/IndexPage'
 
 class Index extends Component {
-  render () {
+  render() {
     return this.props.loggedIn ? <HomePage /> : <IndexPage />
   }
 }
