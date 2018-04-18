@@ -34,7 +34,8 @@ const SpinContainer = styled.div`
 `
 
 const RepoCardContainer = styled.div`
-  display: grid;
+  display: ${props => (props.grid ? 'grid' : 'flex')};
+  flex-direction: column;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   grid-gap: 1rem;
 `
@@ -103,7 +104,7 @@ class Index extends Component {
             Router.push('/publish/post')
           }}
         />
-        <RepoCardContainer>
+        <RepoCardContainer grid={false}>
           <Query query={ReposQuery}>
             {result => {
               if (result.loading) return <h1>Loading</h1>
