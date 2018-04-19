@@ -23,7 +23,7 @@ const Card = styled.div`
   background: #fff;
   display: grid;
   grid-gap: 0.5rem;
-  grid-template-columns: 75% 1fr;
+  grid-template-columns: 85% 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:
     'heading heading'
@@ -63,11 +63,29 @@ const GitBtn = LinkBtn.extend`
   justify-content: center;
   align-items: center;
   word-break: break-all;
+  margin-top: 0.5rem;
 `
 
 const InfoContainer = styled.div`
   width: 100%;
   margin: 1rem 0rem;
+  & > img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  & > h3 {
+    font-size: 1.75rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  & > h4 {
+    font-size: 1.25rem;
+    margin: 0.25rem 0;
+  }
+  & > p {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+  }
 `
 
 class ProfilePage extends Component {
@@ -90,7 +108,6 @@ class ProfilePage extends Component {
             if (error) {
               return <Layout title="Error">Error...</Layout>
             }
-            console.log(data)
             const {
               getUserById: { name, photoURL, bio }
             } = data
@@ -101,11 +118,11 @@ class ProfilePage extends Component {
 
                   <ExtrasArea>
                     <InfoContainer>
-                      <img src={photoURL} alt={`${name}'s profile picture`} width="100%" />
+                      <img src={photoURL} alt={`${name}'s profile picture`} />
                       <h3>{name}</h3>
-                      <h4>user icon - Username here</h4>
-                      <h4>mail icon - email here</h4>
-                      <div>{bio || 'No bio available'}</div>
+                      <h4>icon - Username here</h4>
+                      <h4>icon - email here</h4>
+                      <p>{bio || 'No bio available'}</p>
                       <GitBtn href="https://www.google.com" target="_blank" rel="noopener">
                         <GitIcon
                           style={{

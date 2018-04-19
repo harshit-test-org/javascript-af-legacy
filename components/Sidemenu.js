@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import Sidebar, { NavA, NavIcon } from './styles/Sidebar'
+import Sidebar, { NavIcon } from './styles/Sidebar'
 import HomeIcon from '../assets/icons/home'
 import StarIcon from '../assets/icons/star'
 import SearchIcon from '../assets/icons/search'
@@ -31,41 +31,43 @@ const query = gql`
 
 class Sidemenu extends Component {
   render() {
-    const Loading = (
-      <NavA>
-        <span style={{ color: '#fff', fontSize: '24px' }}>...</span>
-      </NavA>
-    )
     return (
       <Sidebar>
         <Logo>
           <img src="/static/logo.png" alt="" />
         </Logo>
-        <NavIcon href="/" active={this.props.pathname === '/'}>
+        <NavIcon href="/">
           <HomeIcon />
         </NavIcon>
-        <NavIcon href="/social" active={this.props.pathname === '/social'}>
+        <NavIcon href="/social">
           <TrendingIcon />
         </NavIcon>
-        <NavIcon href="/starred" active={this.props.pathname === '/starred'}>
+        <NavIcon href="/starred">
           <StarIcon />
         </NavIcon>
-        <NavIcon href="/search" active={this.props.pathname === '/search'}>
+        <NavIcon href="/search">
           <SearchIcon />
         </NavIcon>
         <Query query={query} skip={typeof window === 'undefined'}>
-          {result => {
-            if (result.loading) return Loading
-            if (result.error) return Loading
-            console.log('sidemenu querydata: ', result)
+          {({ data: { user }, loading, error }) => {
+            if (loading) {
+              return (
+                <NavIcon href="/">
+                  <AccountIcon />
+                </NavIcon>
+              )
+            }
+            if (error) {
+              return (
+                <NavIcon href="/">
+                  <AccountIcon fill="#ff0000" />
+                </NavIcon>
+              )
+            }
             return (
               <Fragment>
                 {
-                  <NavIcon
-                    as={`/user/${result.data.user._id}`}
-                    href={`/user?id=${result.data.user._id}`}
-                    active={this.props.pathname === '/profile'}
-                  >
+                  <NavIcon as={`/user/${user._id}`} href={`/user?id=${user._id}`}>
                     <AccountIcon />
                   </NavIcon>
                 }
