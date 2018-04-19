@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import Link from 'next/link'
 import { InstantSearch, PoweredBy, Highlight } from 'react-instantsearch/dom'
-import {
-  connectSearchBox,
-  connectInfiniteHits
-} from 'react-instantsearch/connectors'
+import { connectSearchBox, connectInfiniteHits } from 'react-instantsearch/connectors'
 import Layout from '../components/UserLayout'
 import styled from 'styled-components'
 import getConfig from 'next/config'
+import withData from '../apollo/wihData'
+import withAuth from '../components/withAuth'
 const {
   publicRuntimeConfig: { ALGOLIA_API_KEY, ALGOLIA_APP_ID, ALGOLIA_INDEX_NAME }
 } = getConfig()
@@ -36,7 +35,7 @@ const SearchInput = styled.input`
   }
 `
 
-function SearchBox ({ currentRefinement, refine }) {
+function SearchBox({ currentRefinement, refine }) {
   return (
     <SearchInput
       value={currentRefinement}
@@ -53,7 +52,7 @@ function SearchBox ({ currentRefinement, refine }) {
 
 const ConnectedSearch = connectSearchBox(SearchBox)
 
-function CustomHits ({ hits, hasMore, refine }) {
+function CustomHits({ hits, hasMore, refine }) {
   return (
     <Fragment>
       {hits.map(hit => <Hit item={hit} key={hit.objectID} />)}
@@ -137,22 +136,22 @@ const ResultCard = styled.div`
   }
 `
 
-export default class Search extends Component {
-  render () {
-    return (
-      <Layout title="Search">
-        <SearchContainer>
-          <InstantSearch
-            appId={ALGOLIA_APP_ID}
-            apiKey={ALGOLIA_API_KEY}
-            indexName={ALGOLIA_INDEX_NAME}
-          >
-            <ConnectedSearch />
-            <ConnectedHits />
-            <PoweredBy />
-          </InstantSearch>
-        </SearchContainer>
-      </Layout>
-    )
-  }
-}
+export default withData(
+  withAuth(
+    class Search extends Component {
+      render() {
+        return (
+          <Layout title="Search">
+            <SearchContainer>
+              <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName={ALGOLIA_INDEX_NAME}>
+                <ConnectedSearch />
+                <ConnectedHits />
+                <PoweredBy />
+              </InstantSearch>
+            </SearchContainer>
+          </Layout>
+        )
+      }
+    }
+  )
+)

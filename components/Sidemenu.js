@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import Sidebar, { NavIcon } from './styles/Sidebar'
+import Sidebar, { NavA, NavIcon } from './styles/Sidebar'
 import HomeIcon from '../assets/icons/home'
 import StarIcon from '../assets/icons/star'
 import SearchIcon from '../assets/icons/search'
@@ -30,7 +30,12 @@ const query = gql`
 `
 
 class Sidemenu extends Component {
-  render () {
+  render() {
+    const Loading = (
+      <NavA>
+        <span style={{ color: '#fff', fontSize: '24px' }}>...</span>
+      </NavA>
+    )
     return (
       <Sidebar>
         <Logo>
@@ -50,8 +55,8 @@ class Sidemenu extends Component {
         </NavIcon>
         <Query query={query} skip={typeof window === 'undefined'}>
           {result => {
-            if (result.loading) return <h1>Loading</h1>
-            if (result.error) return <h1>AWWW Error</h1>
+            if (result.loading) return Loading
+            if (result.error) return Loading
             console.log('sidemenu querydata: ', result)
             return (
               <Fragment>
