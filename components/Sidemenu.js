@@ -57,6 +57,7 @@ class Sidemenu extends Component {
               <Fragment>
                 {
                   <NavIcon
+                    as={`/user/${result.data.user._id}`}
                     href={`/user?id=${result.data.user._id}`}
                     active={this.props.pathname === '/profile'}
                   >
