@@ -34,7 +34,8 @@ const SpinContainer = styled.div`
 `
 
 const RepoCardContainer = styled.div`
-  display: grid;
+  display: ${props => (props.grid ? 'grid' : 'flex')};
+  flex-direction: column;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   grid-gap: 1rem;
 `
@@ -46,7 +47,7 @@ class Index extends Component {
     page: 1
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Router.prefetch('/publish/post')
     // Set up intersection observer
     const options = {
@@ -91,11 +92,11 @@ class Index extends Component {
       })
     }
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.observer.disconnect()
   }
 
-  render () {
+  render() {
     return (
       <Layout title="Discover">
         <FabButton
@@ -103,12 +104,14 @@ class Index extends Component {
             Router.push('/publish/post')
           }}
         />
-        <RepoCardContainer>
+        <RepoCardContainer grid={false}>
           <Query query={ReposQuery}>
             {result => {
               if (result.loading) return <h1>Loading</h1>
               if (result.error) return <h1>AWWW Error</h1>
-              const { data: { getRepos } } = result
+              const {
+                data: { getRepos }
+              } = result
               this.fetchMore = result.fetchMore
               return (
                 <Fragment>
@@ -134,13 +137,7 @@ class Index extends Component {
             this.loadTrigger = el
           }}
         >
-          <h3
-            style={
-              this.state.loading
-                ? { visibility: 'visible' }
-                : { visibility: 'hidden' }
-            }
-          >
+          <h3 style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }}>
             Loading more awesome repos 😎...
           </h3>
         </SpinContainer>

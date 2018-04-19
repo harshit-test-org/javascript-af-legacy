@@ -135,10 +135,8 @@ const Content = styled.div`
 `
 
 class Layout extends Component {
-  render () {
-    const title = this.props.title
-      ? `${this.props.title} | Javascript.af`
-      : 'Javascript.af'
+  render() {
+    const title = this.props.title ? `${this.props.title} | Javascript.af` : 'Javascript.af'
     return (
       <ThemeProvider theme={theme}>
         <Fragment>

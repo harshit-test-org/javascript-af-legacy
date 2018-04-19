@@ -44,6 +44,7 @@
     "react-instantsearch": "^5.0.0-beta.1",
     "react-loadable": "^5.3.1",
     "react-masonry-component": "^6.0.2",
+    "react-sparklines": "^1.7.0",
     "styled-components": "^3.1.4",
     "subscriptions-transport-ws": "^0.9.5",
     "uuid": "^3.2.1"
@@ -53,35 +54,35 @@
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server.js",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test":
-      "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
+    "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
     "testwatch": "react-scripts test --env=jsdom --watch",
     "cm": "git-cz",
-    "deploy": "now && now alias",
+    "deploy": "now --regions bru1 && now alias",
     "precommit": "lint-staged"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "^8.2.3",
     "commitizen": "^2.9.6",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^4.12.1",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.6.1",
-    "eslint-plugin-standard": "^3.0.0",
+    "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
     "jest-enzyme": "^4.1.1",
     "lint-staged": "^6.1.0",
-    "prettier": "^1.10.2"
+    "prettier": "^1.12.1"
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write --single-quote --no-semi",
       "eslint --fix",
       "git add"
     ]

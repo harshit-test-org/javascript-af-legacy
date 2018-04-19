@@ -24,13 +24,7 @@ const Hero = styled.div`
 grid-column:1/5;
 grid-row:1/3;
   background-image: ${props =>
-    'linear-gradient(141deg,' +
-    theme.primary +
-    ',' +
-    theme.secondary +
-    ' 71%,' +
-    theme.primaryDark +
-    ')'};
+    'linear-gradient(141deg,' + theme.primary + ',' + theme.secondary + ' 71%,' + theme.primaryDark + ')'};
 height:100%;
   clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
   z-index:5;
@@ -174,7 +168,9 @@ const HeaderButton = Button.extend`
   }
 `
 
-const { publicRuntimeConfig: { BACKEND } } = getConfig()
+const {
+  publicRuntimeConfig: { BACKEND }
+} = getConfig()
 
 class Index extends Component {
   state = {
@@ -186,10 +182,8 @@ class Index extends Component {
     window.location.href = `${BACKEND}/auth/github/start`
   }
 
-  render () {
-    const title = this.props.title
-      ? `${this.props.title} | Javascript.af`
-      : 'Javascript.af'
+  render() {
+    const title = this.props.title ? `${this.props.title} | Javascript.af` : 'Javascript.af'
     const links = [
       {
         name: 'About',
@@ -248,16 +242,12 @@ class Index extends Component {
             <Left>
               <h1>JavaScript... always fun</h1>
               <p>
-                Showcasing unique and interesting JavaScript projects. Login
-                with GitHub to add or browse repositories.
+                Showcasing unique and interesting JavaScript projects. Login with GitHub to add or browse repositories.
               </p>
               <Button onClick={this.handleLogin}>Sign in</Button>
             </Left>
             <Right>
-              <img
-                src="./static/landing_image.png"
-                alt="JavaScript... always fun"
-              />
+              <img src="./static/landing_image.png" alt="JavaScript... always fun" />
             </Right>
             <Links>
               {links.map(item => (
