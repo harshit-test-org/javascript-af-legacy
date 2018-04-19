@@ -8,6 +8,7 @@ import gql from 'graphql-tag'
 import Head from 'next/head'
 import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
+import { Sparklines, SparklinesLine } from 'react-sparklines'
 
 const query = gql`
   query getRepo($id: ID!) {
@@ -17,6 +18,10 @@ const query = gql`
       url
       name
       nameWithOwner
+      activity
+      starCount
+      posted
+      pushedAt
     }
   }
 `
@@ -80,6 +85,13 @@ const BtnContainer = styled.div`
   margin: 1rem 0rem;
   display: flex;
 `
+const SideContainer = styled.div`
+  margin: 0.5rem 0;
+  border-bottom: 1px solid #cbcbcb;
+  h2 i {
+    font-size: 1rem;
+  }
+`
 
 export default withData(
   withAuth(
@@ -87,7 +99,7 @@ export default withData(
       static getInitialProps = ({ query }) => {
         return { query }
       }
-      render () {
+      render() {
         return (
           <Fragment>
             <Head>
@@ -107,7 +119,7 @@ export default withData(
                   return <Layout title="Error">Error...</Layout>
                 }
                 let {
-                  getRepo: { description, readme, name, url, nameWithOwner }
+                  getRepo: { description, readme, name, url, nameWithOwner, activity, starCount, posted, pushedAt }
                 } = data
                 if (!readme) {
                   readme = `
@@ -118,27 +130,36 @@ export default withData(
                   <Layout title={name}>
                     <Card>
                       <Description>{description}</Description>
-                      <ReadmeArea
-                        className="markdown-body"
-                        dangerouslySetInnerHTML={{ __html: readme }}
-                      />
+                      <ReadmeArea className="markdown-body" dangerouslySetInnerHTML={{ __html: readme }} />
                       <ExtrasArea>
-                        <BtnContainer>
-                          <GitBtn href={url} target="_blank" rel="noopener">
-                            <GitIcon
-                              style={{
-                                fill: '#fff',
-                                height: 'auto',
-                                width: '1.7rem'
-                              }}
-                            />&nbsp; {nameWithOwner}
-                          </GitBtn>
-                        </BtnContainer>
-                        <BtnContainer>
-                          <InvBtn href={url} target="_blank" rel="noopener">
-                            Visit
-                          </InvBtn>
-                        </BtnContainer>
+                        <SideContainer>
+                          <BtnContainer>
+                            <GitBtn href={url} target="_blank" rel="noopener">
+                              <GitIcon style={{ fill: '#fff', height: 'auto', width: '1.7rem' }} />&nbsp;{' '}
+                              {nameWithOwner}
+                            </GitBtn>
+                          </BtnContainer>
+                          <BtnContainer>
+                            <InvBtn href={url} target="_blank" rel="noopener">
+                              Visit
+                            </InvBtn>
+                          </BtnContainer>
+                        </SideContainer>
+                        <SideContainer>
+                          <h2>
+                            Activity <i>(Past 1 year)</i>
+                          </h2>
+                          <a href={`${url}/graphs/commit-activity`} target="_blank" rel="noopener">
+                            <Sparklines data={activity} height={90}>
+                              <SparklinesLine color="#3031b4" />
+                            </Sparklines>
+                          </a>
+                        </SideContainer>
+                        <SideContainer>
+                          <h3>Github Stars {starCount}</h3>
+                          <h3>Posted {posted}</h3>
+                          <h3>Last Pushed At {pushedAt}</h3>
+                        </SideContainer>
                       </ExtrasArea>
                     </Card>
                   </Layout>
