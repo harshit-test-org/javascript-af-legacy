@@ -8,7 +8,6 @@ import AccountIcon from '../assets/icons/account'
 import styled from 'styled-components'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
-import withData from '../apollo/wihData'
 
 const Logo = styled.div`
   display: flex;
@@ -49,7 +48,7 @@ class Sidemenu extends Component {
         <NavIcon href="/search" active={this.props.pathname === '/search'}>
           <SearchIcon />
         </NavIcon>
-        <Query query={query}>
+        <Query query={query} skip={typeof window === 'undefined'}>
           {result => {
             if (result.loading) return <h1>Loading</h1>
             if (result.error) return <h1>AWWW Error</h1>
@@ -58,7 +57,7 @@ class Sidemenu extends Component {
               <Fragment>
                 {
                   <NavIcon
-                    href={`/user/${result.data._id}`}
+                    href={`/user?id=${result.data.user._id}`}
                     active={this.props.pathname === '/profile'}
                   >
                     <AccountIcon />
@@ -73,4 +72,4 @@ class Sidemenu extends Component {
   }
 }
 
-export default withData(Sidemenu)
+export default Sidemenu
