@@ -75,7 +75,7 @@ class RepoCard extends Component {
     Router.push(`/template?id=${id}`, `/repo/${id}`)
   }
   handleAuthorClick = id => {
-    Router.push(`/user?id=${id}`, `/user/usernamehere`)
+    Router.push(`/user?id=${id}`, `/user/${id}`)
   }
   handleIconClick = url => {
     window.location.href = url

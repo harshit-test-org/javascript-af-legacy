@@ -10,7 +10,7 @@ import withData from '../apollo/wihData'
 const query = gql`
   query profileQuery($id: ID!) {
     getUserById(id: $id) {
-      # username
+      # username #not using until this works for every user
       name
       photoURL
       bio
@@ -44,10 +44,6 @@ const Description = styled.p`
   grid-area: heading;
 `
 
-// const RepoArea = styled.div`
-//   grid-area: repos;
-// `
-
 const ExtrasArea = styled.div`
   grid-area: extras;
   padding: 1.5rem 0.7rem 0.7rem 0.7rem;
@@ -68,11 +64,6 @@ const GitBtn = LinkBtn.extend`
   align-items: center;
   word-break: break-all;
 `
-
-// const InvBtn = InvertedButton.extend`
-//   width: 100%;
-//   text-align: center;
-// `
 
 const InfoContainer = styled.div`
   width: 100%;
@@ -100,7 +91,9 @@ class ProfilePage extends Component {
               return <Layout title="Error">Error...</Layout>
             }
             console.log(data)
-            const { getUserById: { name, photoURL, bio } } = data
+            const {
+              getUserById: { name, photoURL, bio }
+            } = data
             return (
               <Layout title={`${name}'s profile`}>
                 <Card>
