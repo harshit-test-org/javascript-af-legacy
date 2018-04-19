@@ -1,9 +1,9 @@
 import React from 'react'
 
-const AccountIcon = () => {
+const AccountIcon = ({ fill = '#fff' }) => {
   return (
     <svg
-      fill="#ffffff"
+      fill={fill}
       height="50"
       viewBox="0 0 24 24"
       width="50"
