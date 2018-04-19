@@ -6,6 +6,7 @@ import { LinkBtn } from '../components/Button'
 import styled from 'styled-components'
 import gql from 'graphql-tag'
 import withData from '../apollo/wihData'
+import withAuth from '../components/withAuth'
 
 const query = gql`
   query profileQuery($id: ID!) {
@@ -144,4 +145,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default withData(ProfilePage)
+export default withData(withAuth(ProfilePage))
