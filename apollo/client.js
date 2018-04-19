@@ -8,7 +8,9 @@ import { setContext } from 'apollo-link-context'
 import getConfig from 'next/config'
 import fetch from 'isomorphic-unfetch'
 import resolvers from './resolvers'
-const { publicRuntimeConfig: { BACKEND } } = getConfig()
+const {
+  publicRuntimeConfig: { BACKEND }
+} = getConfig()
 
 // import { WebSocketLink } from 'apollo-link-ws'
 // import { getMainDefinition } from 'apollo-utilities'
@@ -50,9 +52,7 @@ if (process.browser) {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
+        console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
       )
     }
     if (networkError) console.log(`[Network error]: ${networkError}`)
@@ -68,7 +68,7 @@ if (!process.browser) {
   global.fetch = fetch
 }
 
-function create (initialState, cookie = null) {
+function create(initialState, cookie = null) {
   const authLink = setContext((_, { headers }) => {
     return {
       headers: {
@@ -85,7 +85,7 @@ function create (initialState, cookie = null) {
   })
 }
 
-export default function initApollo (initialState, cookie) {
+export default function initApollo(initialState, cookie) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {

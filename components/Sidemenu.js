@@ -30,7 +30,7 @@ const query = gql`
 `
 
 class Sidemenu extends Component {
-  render () {
+  render() {
     return (
       <Sidebar>
         <Logo>
@@ -67,10 +67,7 @@ class Sidemenu extends Component {
             return (
               <Fragment>
                 {
-                  <NavIcon
-                    as={`/user/${user._id}`}
-                    href={`/user?id=${user._id}`}
-                  >
+                  <NavIcon as={`/user/${user._id}`} href={`/user?id=${user._id}`}>
                     <AccountIcon />
                   </NavIcon>
                 }

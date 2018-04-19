@@ -92,7 +92,7 @@ class ProfilePage extends Component {
   static getInitialProps = ({ query }) => {
     return { query }
   }
-  render () {
+  render() {
     return (
       <Fragment>
         <Query
@@ -114,9 +114,7 @@ class ProfilePage extends Component {
             return (
               <Layout title={`${name}'s profile`}>
                 <Card>
-                  <Description>
-                    List of featured repos and other information here
-                  </Description>
+                  <Description>List of featured repos and other information here</Description>
 
                   <ExtrasArea>
                     <InfoContainer>
@@ -125,11 +123,7 @@ class ProfilePage extends Component {
                       <h4>icon - Username here</h4>
                       <h4>icon - email here</h4>
                       <p>{bio || 'No bio available'}</p>
-                      <GitBtn
-                        href="https://www.google.com"
-                        target="_blank"
-                        rel="noopener"
-                      >
+                      <GitBtn href="https://www.google.com" target="_blank" rel="noopener">
                         <GitIcon
                           style={{
                             fill: '#fff',
