@@ -7,6 +7,8 @@ import styled from 'styled-components'
 import gql from 'graphql-tag'
 import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
+import MailIcon from '../assets/icons/envelope'
+import UserIcon from '../assets/icons/account'
 
 const query = gql`
   query profileQuery($id: ID!) {
@@ -80,8 +82,16 @@ const InfoContainer = styled.div`
     margin-bottom: 0.25rem;
   }
   & > h4 {
+    display: flex;
+    align-items: center;
     font-size: 1.25rem;
     margin: 0.25rem 0;
+    svg {
+      fill: ${props => props.theme.primaryDark};
+      width: 24px;
+      height: auto;
+      margin-right: 0.25rem;
+    }
   }
   & > p {
     font-size: 1rem;
@@ -121,8 +131,12 @@ class ProfilePage extends Component {
                     <InfoContainer>
                       <img src={photoURL} alt={`${name}'s profile picture`} />
                       <h3>{name}</h3>
-                      <h4>icon - Username here</h4>
-                      <h4>icon - email here</h4>
+                      <h4>
+                        <UserIcon /> - Username here
+                      </h4>
+                      <h4>
+                        <MailIcon /> - email here
+                      </h4>
                       <p>{bio || 'No bio available'}</p>
                       <GitBtn href="https://www.google.com" target="_blank" rel="noopener">
                         <GitIcon
