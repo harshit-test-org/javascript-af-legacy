@@ -4,7 +4,9 @@ import Router from 'next/router'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-const { publicRuntimeConfig: { BACKEND } } = getConfig()
+const {
+  publicRuntimeConfig: { BACKEND }
+} = getConfig()
 const setUserMutation = gql`
   mutation setUser($user: User!) {
     setUser(user: $user) @client
@@ -14,8 +16,13 @@ const setUserMutation = gql`
 export default (ComposedComponent, redirect = true) =>
   graphql(setUserMutation)(
     class AuthComposed extends React.Component {
-      static async getInitialProps ({ req, res, url, ...rest }) {
+      static async getInitialProps(ctx) {
+        const { req, res, ...rest } = ctx
         let headers = {}
+        let gprops = {}
+        if (ComposedComponent.getInitialProps) {
+          gprops = await ComposedComponent.getInitialProps(ctx)
+        }
         if (req) {
           headers.cookie = req.headers.cookie
         }
@@ -29,7 +36,7 @@ export default (ComposedComponent, redirect = true) =>
             if (!req) {
               window.__NEXT_DATA__.props.loggedIn = true
             }
-            return { loggedIn: true, user: data, ...rest }
+            return { loggedIn: true, user: data, ...rest, ...gprops }
           } else {
             console.log(redirect)
             if (redirect) {
@@ -43,16 +50,17 @@ export default (ComposedComponent, redirect = true) =>
                 Router.replace('/')
               }
             }
-            return { loggedIn: false, user: null, ...rest }
+            return { loggedIn: false, user: null, ...rest, ...gprops }
           }
         }
         return {
           loggedIn: window.__NEXT_DATA__.props.loggedIn,
           user: window.__NEXT_DATA__.props.user,
-          ...rest
+          ...rest,
+          ...gprops
         }
       }
-      componentDidMount () {
+      componentDidMount() {
         if (this.props.user) {
           this.props.mutate({
             variables: {
@@ -64,7 +72,7 @@ export default (ComposedComponent, redirect = true) =>
           })
         }
       }
-      render () {
+      render() {
         return <ComposedComponent {...this.props} />
       }
     }

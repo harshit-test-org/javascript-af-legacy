@@ -26,7 +26,7 @@ const Sidebar = styled.div`
 `
 export default Sidebar
 
-const NavA = styled.a`
+export const NavA = styled.a`
   display: flex;
   padding: 20% 0 20% 0;
   justify-content: center;
