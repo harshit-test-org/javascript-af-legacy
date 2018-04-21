@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { Fragment, Component } from 'react'
 import Sidebar, { NavIcon } from './styles/Sidebar'
 import HomeIcon from '../assets/icons/home'
 import StarIcon from '../assets/icons/star'
 import SearchIcon from '../assets/icons/search'
 import TrendingIcon from '../assets/icons/trending'
-// import ChatIcon from '../assets/icons/chat'
 import AccountIcon from '../assets/icons/account'
 import styled from 'styled-components'
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
 
 const Logo = styled.div`
   display: flex;
@@ -20,29 +21,60 @@ const Logo = styled.div`
     display: none;
   }
 `
+const query = gql`
+  query LocalUser {
+    user @client {
+      _id
+    }
+  }
+`
 
-class Sidemenu extends React.Component {
-  render () {
+class Sidemenu extends Component {
+  render() {
     return (
       <Sidebar>
         <Logo>
           <img src="/static/logo.png" alt="" />
         </Logo>
-        <NavIcon href="/" active={this.props.pathname === '/'}>
+        <NavIcon href="/">
           <HomeIcon />
         </NavIcon>
-        <NavIcon href="/social" active={this.props.pathname === '/social'}>
+        <NavIcon href="/social">
           <TrendingIcon />
         </NavIcon>
-        <NavIcon href="/starred" active={this.props.pathname === '/starred'}>
+        <NavIcon href="/starred">
           <StarIcon />
         </NavIcon>
-        <NavIcon href="/search" active={this.props.pathname === '/search'}>
+        <NavIcon href="/search">
           <SearchIcon />
         </NavIcon>
-        <NavIcon href="/profile" active={this.props.pathname === '/profile'}>
-          <AccountIcon />
-        </NavIcon>
+        <Query query={query} skip={typeof window === 'undefined'}>
+          {({ data: { user }, loading, error }) => {
+            if (loading) {
+              return (
+                <NavIcon href="/">
+                  <AccountIcon />
+                </NavIcon>
+              )
+            }
+            if (error) {
+              return (
+                <NavIcon href="/">
+                  <AccountIcon fill="#ff0000" />
+                </NavIcon>
+              )
+            }
+            return (
+              <Fragment>
+                {
+                  <NavIcon as={`/user/${user._id}`} href={`/user?id=${user._id}`}>
+                    <AccountIcon />
+                  </NavIcon>
+                }
+              </Fragment>
+            )
+          }}
+        </Query>
       </Sidebar>
     )
   }

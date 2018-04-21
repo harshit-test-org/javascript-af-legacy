@@ -6,6 +6,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Button from '../../components/Button'
 import withData from '../../apollo/wihData'
+import withAuth from '../../components/withAuth'
 
 const Container = styled.div`
   background: #ffffff;
@@ -81,7 +82,7 @@ class PostRepo extends Component {
       '/publish/new'
     )
   }
-  render () {
+  render() {
     return (
       <Layout title="Post a Repo">
         <Container>
@@ -93,15 +94,9 @@ class PostRepo extends Component {
               return data.getUserGithubRepos.map(repo => (
                 <RepoCard key={repo._id}>
                   <a href="">{repo.nameWithOwner}</a>
-                  <p>
-                    {repo.description || (
-                      <i>(No description provided on Github)</i>
-                    )}
-                  </p>
+                  <p>{repo.description || <i>(No description provided on Github)</i>}</p>
                   <RepoCardActions>
-                    <Button onClick={() => this.handleNavigation(repo)}>
-                      Select
-                    </Button>
+                    <Button onClick={() => this.handleNavigation(repo)}>Select</Button>
                   </RepoCardActions>
                 </RepoCard>
               ))
@@ -113,4 +108,4 @@ class PostRepo extends Component {
   }
 }
 
-export default withData(PostRepo)
+export default withData(withAuth(PostRepo))
