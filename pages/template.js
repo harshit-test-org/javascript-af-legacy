@@ -18,6 +18,7 @@ const query = gql`
       url
       name
       nameWithOwner
+      homepage
       activity
       starCount
       posted
@@ -141,6 +142,7 @@ export default withData(
                   getRepo: {
                     description,
                     readme,
+                    homepage,
                     name,
                     url,
                     nameWithOwner,
@@ -169,20 +171,24 @@ export default withData(
                               {nameWithOwner}
                             </GitBtn>
                           </BtnContainer>
-                          <BtnContainer>
-                            <InvBtn href={url} target="_blank" rel="noopener">
-                              Visit
-                            </InvBtn>
-                          </BtnContainer>
+                          {homepage && (
+                            <BtnContainer>
+                              <InvBtn href={homepage} target="_blank" rel="noopener">
+                                Visit
+                              </InvBtn>
+                            </BtnContainer>
+                          )}
                         </SideContainer>
                         <SideContainer>
                           <h2>
                             Activity <i>(Past 1 year)</i>
                           </h2>
                           <a href={`${url}/graphs/commit-activity`} target="_blank" rel="noopener">
-                            <Sparklines data={activity} height={90}>
-                              <SparklinesLine color="#3031b4" />
-                            </Sparklines>
+                            {activity && (
+                              <Sparklines data={activity} height={90}>
+                                <SparklinesLine color="#3031b4" />
+                              </Sparklines>
+                            )}
                           </a>
                         </SideContainer>
                         <SideContainer>
