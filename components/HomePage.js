@@ -104,7 +104,7 @@ class Index extends Component {
             Router.push('/publish/post')
           }}
         />
-        <RepoCardContainer grid={false}>
+        <RepoCardContainer grid={true}>
           <Query query={ReposQuery}>
             {result => {
               if (result.loading) return <h1>Loading</h1>

@@ -22,6 +22,7 @@ const query = gql`
       starCount
       posted
       pushedAt
+      license
     }
   }
 `
@@ -93,6 +94,24 @@ const SideContainer = styled.div`
   }
 `
 
+const Info = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.3rem;
+  &:not(:last-child) {
+    border-bottom: 1px solid #cbcbcb;
+  }
+  padding: 0.1rem;
+  h3 {
+    flex: 2;
+  }
+  h4 {
+    flex: 1;
+    color: #111;
+  }
+`
+
 export default withData(
   withAuth(
     class RepoDetailsTemplate extends Component {
@@ -119,7 +138,18 @@ export default withData(
                   return <Layout title="Error">Error...</Layout>
                 }
                 let {
-                  getRepo: { description, readme, name, url, nameWithOwner, activity, starCount, posted, pushedAt }
+                  getRepo: {
+                    description,
+                    readme,
+                    name,
+                    url,
+                    nameWithOwner,
+                    activity,
+                    starCount,
+                    posted,
+                    pushedAt,
+                    license
+                  }
                 } = data
                 if (!readme) {
                   readme = `
@@ -156,9 +186,23 @@ export default withData(
                           </a>
                         </SideContainer>
                         <SideContainer>
-                          <h3>Github Stars {starCount}</h3>
-                          <h3>Posted {posted}</h3>
-                          <h3>Last Pushed At {pushedAt}</h3>
+                          <h2>Stats</h2>
+                          <Info>
+                            <h4>Github Stars</h4>
+                            <h4>{starCount}</h4>
+                          </Info>
+                          <Info>
+                            <h4>Posted on JSaf</h4>
+                            <h4>{posted}</h4>
+                          </Info>
+                          <Info>
+                            <h4>Last Pushed</h4>
+                            <h4>{pushedAt}</h4>
+                          </Info>
+                          <Info>
+                            <h4>License</h4>
+                            <h4>{license || 'n/a'}</h4>
+                          </Info>
                         </SideContainer>
                       </ExtrasArea>
                     </Card>
