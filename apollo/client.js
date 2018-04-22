@@ -1,13 +1,11 @@
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { withClientState } from 'apollo-link-state'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloLink } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 import { setContext } from 'apollo-link-context'
 import getConfig from 'next/config'
 import fetch from 'isomorphic-unfetch'
-import resolvers from './resolvers'
 const {
   publicRuntimeConfig: { BACKEND }
 } = getConfig()
@@ -41,14 +39,6 @@ if (process.browser) {
   //   httpLink
   // )
 
-  const stateLink = withClientState({
-    cache,
-    resolvers,
-    defaults: {
-      user: null
-    }
-  })
-
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.map(({ message, locations, path }) =>
@@ -58,7 +48,7 @@ if (process.browser) {
     if (networkError) console.log(`[Network error]: ${networkError}`)
   })
 
-  link = ApolloLink.from([errorLink, stateLink, httpLink])
+  link = ApolloLink.from([errorLink, httpLink])
 }
 
 let apolloClient = null

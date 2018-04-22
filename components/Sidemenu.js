@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import Sidebar, { NavIcon } from './styles/Sidebar'
 import HomeIcon from '../assets/icons/home'
 import StarIcon from '../assets/icons/star'
@@ -6,8 +6,7 @@ import SearchIcon from '../assets/icons/search'
 import TrendingIcon from '../assets/icons/trending'
 import AccountIcon from '../assets/icons/account'
 import styled from 'styled-components'
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import { Consumer } from './withAuth'
 
 const Logo = styled.div`
   display: flex;
@@ -19,13 +18,6 @@ const Logo = styled.div`
   }
   @media all and (max-width: 570px) {
     display: none;
-  }
-`
-const query = gql`
-  query LocalUser {
-    user @client {
-      _id
-    }
   }
 `
 
@@ -48,33 +40,13 @@ class Sidemenu extends Component {
         <NavIcon href="/search">
           <SearchIcon />
         </NavIcon>
-        <Query query={query} skip={typeof window === 'undefined'}>
-          {({ data: { user }, loading, error }) => {
-            if (loading) {
-              return (
-                <NavIcon href="/">
-                  <AccountIcon />
-                </NavIcon>
-              )
-            }
-            if (error) {
-              return (
-                <NavIcon href="/">
-                  <AccountIcon fill="#ff0000" />
-                </NavIcon>
-              )
-            }
-            return (
-              <Fragment>
-                {
-                  <NavIcon as={`/user/${user._id}`} href={`/user?id=${user._id}`}>
-                    <AccountIcon />
-                  </NavIcon>
-                }
-              </Fragment>
-            )
-          }}
-        </Query>
+        <Consumer>
+          {user => (
+            <NavIcon as={`/user/${user._id}`} href={`/user?id=${user._id}`}>
+              <AccountIcon />
+            </NavIcon>
+          )}
+        </Consumer>
       </Sidebar>
     )
   }
