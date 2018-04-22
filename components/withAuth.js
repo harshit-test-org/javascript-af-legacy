@@ -34,7 +34,6 @@ export default (ComposedComponent, redirect = true) =>
           }
           return { loggedIn: true, user: data, ...rest, ...gprops }
         } else {
-          console.log(redirect)
           if (redirect) {
             if (res) {
               res.writeHead(302, {
