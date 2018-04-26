@@ -1,6 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import Downshift from 'downshift'
+import getConfig from 'next/config'
 import SearchIcon from '../../assets/icons/search'
+import { InstantSearch, Highlight } from 'react-instantsearch/dom'
+import { connectAutoComplete } from 'react-instantsearch/connectors'
+const {
+  publicRuntimeConfig: { ALGOLIA_API_KEY, ALGOLIA_APP_ID }
+} = getConfig()
 
 const Nav = styled.div`
   z-index: 120;
@@ -45,34 +52,63 @@ const Search = styled.input`
   margin-left: 0.25rem;
 `
 
-const SearchContainer = styled.div`
-  background: rgb(240, 240, 240);
-  transition: all 0.3s ease;
-  border-radius: 30px;
-  grid-column: 2 / 3;
-  padding: 0.5rem;
-  &:focus-within {
-    border-radius: 0;
-  }
-  @media all and (max-width: 990px) {
-    display: none;
-  }
-  margin-right: 1rem;
-  display: inline-flex;
-  svg {
-    width: 26px;
-    height: 26px;
-    fill: rgba(0, 0, 0, 0.67);
-  }
+const SearchItemsDisplay = styled.div`
+  position: absolute;
+  top: 150%;
 `
+
+function RawAutoComplete({ refine, hits }) {
+  return (
+    <Downshift
+      itemToString={i => (i ? i.name : i)}
+      defaultIsOpen={true}
+      onChange={item => alert(JSON.stringify(item))}
+      render={({ getInputProps, getItemProps, selectedItem, highlightedIndex, isOpen }) => (
+        <div>
+          <Search
+            {...getInputProps({
+              onChange(e) {
+                refine(e.target.value)
+              }
+            })}
+            placeholder="Search...."
+          />
+          {isOpen && (
+            <SearchItemsDisplay>
+              {hits.map((item, index) => (
+                <div
+                  key={item.objectID}
+                  {...getItemProps({
+                    item,
+                    style: {
+                      backgroundColor: highlightedIndex === index ? 'gray' : 'white',
+                      fontWeight: selectedItem === item ? 'bold' : 'normal'
+                    }
+                  })}
+                >
+                  <Highlight attribute="name" hit={item} tagName="mark" />
+                </div>
+              ))}
+            </SearchItemsDisplay>
+          )}
+        </div>
+      )}
+    />
+  )
+}
+
+const AutoCompleteWithData = connectAutoComplete(RawAutoComplete)
 
 const Navbar = ({ title }) => (
   <Nav>
     <h1>{title}</h1>
-    <SearchContainer>
-      <Search autoCapitalize="off" spellCheck="false" autoCorrect="off" placeholder="Search" autoComplete="off" />
+
+    <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName="repos">
+      <AutoCompleteWithData />
       <SearchIcon />
-    </SearchContainer>
+    </InstantSearch>
+    {/* <Search autoCapitalize="off" spellCheck="false" autoCorrect="off" placeholder="Search" autoComplete="off" />
+       */}
   </Nav>
 )
 

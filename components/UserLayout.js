@@ -96,6 +96,35 @@ html, body {
 h1, h2, h3, h4, h5, h6{
   font-family: 'Quicksand', Segoe UI, Tahoma,Verdana, sans-serif;
 }
+.ais-InstantSearch__root{
+
+ background: rgb(240, 240, 240);
+  transition: all 0.3s ease;
+  border-radius: 30px;
+  grid-column: 2 / 3;
+  padding: 0.5rem; 
+  margin-right: 1rem;
+  display: inline-flex;
+  width: 100%;
+}
+  .ais-InstantSearch__root:focus-within {
+    border-radius: 0;
+  }
+  @media all and (max-width: 990px) {
+    .ais-InstantSearch__root{
+    display: none;
+    }
+  }
+ 
+  .ais-InstantSearch__root svg {
+    width: 26px;
+    height: 26px;
+    fill: rgba(0, 0, 0, 0.67);
+  }
+  .ais-InstantSearch__root > div{
+    width: 100%;
+    position: relative;
+  }
 @media all and (max-width: 570px){
   body, html{
     font-size: 14px;
