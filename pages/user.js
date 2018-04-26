@@ -15,6 +15,9 @@ const profileQuery = gql`
   query profileQuery($id: ID!) {
     getUserById(id: $id) {
       name
+      username
+      githubURL
+      email
       photoURL
       bio
     }
@@ -126,7 +129,7 @@ class ProfilePage extends Component {
               return <Layout title="Error">Error...</Layout>
             }
             const {
-              getUserById: { name, photoURL, bio },
+              getUserById: { name, username, email, githubURL, photoURL, bio },
               getReposByUser
             } = data
             return (
@@ -140,9 +143,6 @@ class ProfilePage extends Component {
                         repoId={item._id}
                         title={item.name}
                         text={item.description}
-                        image={photoURL + '&s=50'}
-                        userId={this.props.query.id}
-                        author={name}
                         posted={item.posted}
                       />
                     ))}
@@ -151,13 +151,13 @@ class ProfilePage extends Component {
                     <img src={photoURL} alt={`${name}'s profile picture`} />
                     <h3>{name}</h3>
                     <h4>
-                      <UserIcon /> - Username here
+                      <UserIcon /> - {username}
                     </h4>
                     <h4>
-                      <MailIcon /> - email here
+                      <MailIcon /> - {email}
                     </h4>
                     <p>{bio || 'No bio available'}</p>
-                    <GitBtn href="https://www.google.com" target="_blank" rel="noopener">
+                    <GitBtn href={githubURL} target="_blank" rel="noopener">
                       <GitIcon
                         style={{
                           fill: '#fff',
