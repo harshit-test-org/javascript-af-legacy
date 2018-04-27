@@ -34,13 +34,15 @@ const profileQuery = gql`
 const Container = styled.div`
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: 80% 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto;
   grid-template-areas:
-    'heading heading'
-    'main extras';
+    'main extras'
+    'main extras'
+    'main extras'
+    'main .';
   @media all and (max-width: 1024px) {
-    grid-template-columns: 65% 1fr;
+    grid-template-columns: 2fr 1fr;
   }
   @media all and (max-width: 790px) {
     display: flex;
@@ -48,27 +50,17 @@ const Container = styled.div`
   }
 `
 
-const Heading = styled.p`
-  color: ${props => props.theme.secondary};
-  font-size: 24px;
-  font-family: Roboto;
-  grid-area: heading;
-  background: #fff;
-  padding: 1rem;
-`
-
 const UserContainer = styled.div`
   grid-area: extras;
   padding: 0.7rem;
   @media all and (max-width: 790px) {
-    border-left: none;
-    border-top: 1px solid #cbcbcb;
-    padding: 0.7rem;
-    margin-top: 0.7rem;
+    margin: 0 0 1rem 0;
   }
   width: 100%;
   & > img {
-    width: 100%;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
     border-radius: 5px;
   }
   & > h3 {
@@ -85,7 +77,7 @@ const UserContainer = styled.div`
       fill: ${props => props.theme.primaryDark};
       width: 24px;
       height: auto;
-      margin-right: 0.25rem;
+      margin-right: 0.5rem;
     }
   }
   & > p {
@@ -135,26 +127,14 @@ class ProfilePage extends Component {
             return (
               <Layout title={`${name}'s profile`}>
                 <Container>
-                  <Heading>Posted repos</Heading>
-                  <ContentContainer>
-                    {getReposByUser.map(item => (
-                      <RepoCard
-                        key={item._id}
-                        repoId={item._id}
-                        title={item.name}
-                        text={item.description}
-                        posted={item.posted}
-                      />
-                    ))}
-                  </ContentContainer>
                   <UserContainer>
                     <img src={photoURL} alt={`${name}'s profile picture`} />
                     <h3>{name}</h3>
                     <h4>
-                      <UserIcon /> - {username}
+                      <UserIcon /> {username}
                     </h4>
                     <h4>
-                      <MailIcon /> - {email}
+                      <MailIcon /> {email}
                     </h4>
                     <p>{bio || 'No bio available'}</p>
                     <GitBtn href={githubURL} target="_blank" rel="noopener">
@@ -167,6 +147,17 @@ class ProfilePage extends Component {
                       />&nbsp; Go to Github profile
                     </GitBtn>
                   </UserContainer>
+                  <ContentContainer>
+                    {getReposByUser.map(item => (
+                      <RepoCard
+                        key={item._id}
+                        repoId={item._id}
+                        title={item.name}
+                        text={item.description}
+                        posted={item.posted}
+                      />
+                    ))}
+                  </ContentContainer>
                 </Container>
               </Layout>
             )
