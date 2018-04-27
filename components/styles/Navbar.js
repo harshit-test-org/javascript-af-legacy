@@ -4,7 +4,7 @@ import Downshift from 'downshift'
 import getConfig from 'next/config'
 import Router from 'next/router'
 import SearchIcon from '../../assets/icons/search'
-import { InstantSearch, Highlight } from 'react-instantsearch/dom'
+import { InstantSearch, Highlight, Index, Configure } from 'react-instantsearch/dom'
 import { connectAutoComplete } from 'react-instantsearch/connectors'
 const {
   publicRuntimeConfig: { ALGOLIA_API_KEY, ALGOLIA_APP_ID }
@@ -82,13 +82,30 @@ const Author = styled.div`
     color: ${props => props.theme.secondary};
   }
 `
+const Repo = styled(Author)`
+  .ais-Highlight {
+    color: #000;
+    margin-left: 0;
+  }
+`
+
+const TextContainer = styled.div`
+  display: flex;
+  margin-left: 8px;
+  flex-direction: column;
+  p {
+    font-size: 18px;
+    color: ${props => props.theme.secondary};
+  }
+`
 
 function RawAutoComplete({ refine, hits }) {
   return (
     <Downshift
       itemToString={i => (i ? i.name : i)}
       onChange={item => {
-        Router.push(`/user/${item._id || item.objectID}`)
+        if (item.email) Router.push(`/user/${item._id || item.objectID}`, `/user?id=${item._id || item.objectID}`)
+        else Router.push(`/repo/${item.objectID}`, `/template?id=${item.objectID}`)
       }}
       render={({ getInputProps, getItemProps, selectedItem, highlightedIndex, isOpen }) => (
         <div>
@@ -101,15 +118,57 @@ function RawAutoComplete({ refine, hits }) {
             })}
             placeholder="Search...."
           />
+
           {isOpen && (
             <SearchItemsDisplay>
-              {hits.map((item, index) => (
+              <SearchItem
+                style={{
+                  border: 'none'
+                }}
+              >
+                <h3>Repos</h3>
+              </SearchItem>
+              {hits[0].hits.map((item, index) => (
                 <SearchItem
                   key={item.objectID}
                   {...getItemProps({
                     item,
                     style: {
                       backgroundColor: highlightedIndex === index ? 'rgb(240, 240, 240)' : 'rgb(255, 255, 255)',
+                      fontWeight: selectedItem === item ? 'bold' : 'normal'
+                    }
+                  })}
+                >
+                  <Repo>
+                    <img src={`${item.photoURL}&s=40`} alt="" />
+                    <TextContainer>
+                      <Highlight attribute="name" hit={item} tagName="mark" />
+                      <p>
+                        {item.description &&
+                          item.description
+                            .split(' ')
+                            .slice(0, 6)
+                            .join(' ') + '...'}
+                      </p>
+                    </TextContainer>
+                  </Repo>
+                </SearchItem>
+              ))}
+              <SearchItem
+                style={{
+                  border: 'none'
+                }}
+              >
+                <h3>Users</h3>
+              </SearchItem>
+              {hits[1].hits.map((item, index) => (
+                <SearchItem
+                  key={item.objectID}
+                  {...getItemProps({
+                    item,
+                    style: {
+                      backgroundColor:
+                        highlightedIndex === index + hits[0].hits.length ? 'rgb(240, 240, 240)' : 'rgb(255, 255, 255)',
                       fontWeight: selectedItem === item ? 'bold' : 'normal'
                     }
                   })}
@@ -134,8 +193,10 @@ const Navbar = ({ title }) => (
   <Nav>
     <h1>{title}</h1>
 
-    <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName="users">
+    <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName="repos">
+      <Index indexName="users" />
       <AutoCompleteWithData />
+      <Configure hitsPerPage={5} />
       <SearchIcon />
     </InstantSearch>
     {/* <Search autoCapitalize="off" spellCheck="false" autoCorrect="off" placeholder="Search" autoComplete="off" />
