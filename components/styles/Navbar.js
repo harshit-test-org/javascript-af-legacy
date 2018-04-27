@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Downshift from 'downshift'
 import getConfig from 'next/config'
+import Router from 'next/router'
 import SearchIcon from '../../assets/icons/search'
 import { InstantSearch, Highlight } from 'react-instantsearch/dom'
 import { connectAutoComplete } from 'react-instantsearch/connectors'
@@ -55,18 +56,45 @@ const Search = styled.input`
 const SearchItemsDisplay = styled.div`
   position: absolute;
   top: 150%;
+  width: 100%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24), inset 0 4px 6px -4px rgba(0, 0, 0, 0.24);
+`
+
+const SearchItem = styled.div`
+  background: #fff;
+  padding: 0.3rem;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+`
+const Author = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  img {
+    border-radius: 50%;
+    height: 32px;
+    filter: grayscale(60%);
+  }
+  .ais-Highlight {
+    margin-left: 8px;
+    padding: 0;
+    font-size: 18px;
+    color: ${props => props.theme.secondary};
+  }
 `
 
 function RawAutoComplete({ refine, hits }) {
   return (
     <Downshift
       itemToString={i => (i ? i.name : i)}
-      defaultIsOpen={true}
-      onChange={item => alert(JSON.stringify(item))}
+      onChange={item => {
+        Router.push(`/user/${item._id || item.objectID}`)
+      }}
       render={({ getInputProps, getItemProps, selectedItem, highlightedIndex, isOpen }) => (
         <div>
           <Search
             {...getInputProps({
+              id: 'autocomplete-input',
               onChange(e) {
                 refine(e.target.value)
               }
@@ -76,18 +104,21 @@ function RawAutoComplete({ refine, hits }) {
           {isOpen && (
             <SearchItemsDisplay>
               {hits.map((item, index) => (
-                <div
+                <SearchItem
                   key={item.objectID}
                   {...getItemProps({
                     item,
                     style: {
-                      backgroundColor: highlightedIndex === index ? 'gray' : 'white',
+                      backgroundColor: highlightedIndex === index ? 'rgb(240, 240, 240)' : 'rgb(255, 255, 255)',
                       fontWeight: selectedItem === item ? 'bold' : 'normal'
                     }
                   })}
                 >
-                  <Highlight attribute="name" hit={item} tagName="mark" />
-                </div>
+                  <Author>
+                    <img src={`${item.photoURL}&s=40`} alt="" />
+                    <Highlight attribute="name" hit={item} tagName="mark" />
+                  </Author>
+                </SearchItem>
               ))}
             </SearchItemsDisplay>
           )}
@@ -103,7 +134,7 @@ const Navbar = ({ title }) => (
   <Nav>
     <h1>{title}</h1>
 
-    <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName="repos">
+    <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName="users">
       <AutoCompleteWithData />
       <SearchIcon />
     </InstantSearch>
