@@ -12,6 +12,9 @@ const Container = styled.div`
   background: #ffffff;
   padding: 1.2rem;
   min-height: 100%;
+  @media all and (max-width: 790px) {
+    margin-bottom: 75px;
+  }
 `
 const RepoCard = styled.div`
   width: 100%;
