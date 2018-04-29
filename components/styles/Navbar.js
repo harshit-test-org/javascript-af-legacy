@@ -104,8 +104,8 @@ function RawAutoComplete({ refine, hits }) {
     <Downshift
       itemToString={i => (i ? i.name : i)}
       onChange={item => {
-        if (item.email) Router.push(`/user/${item._id || item.objectID}`, `/user?id=${item._id || item.objectID}`)
-        else Router.push(`/repo/${item.objectID}`, `/template?id=${item.objectID}`)
+        if (item.email) Router.push(`/user?id=${item._id || item.objectID}`, `/user/${item._id || item.objectID}`)
+        else Router.push(`/template?id=${item.objectID}`, `/repo/${item.objectID}`)
       }}
       render={({ getInputProps, getItemProps, selectedItem, highlightedIndex, isOpen }) => (
         <div>

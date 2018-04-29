@@ -31,6 +31,9 @@ const SpinContainer = styled.div`
   justify-content: center;
   z-index: 9750;
   height: 90px;
+  @media all and (max-width: 790px) {
+    margin-bottom: 45px;
+  }
 `
 
 const RepoCardContainer = styled.div`
@@ -53,7 +56,7 @@ class Index extends Component {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5
+      threshold: 0.1
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)

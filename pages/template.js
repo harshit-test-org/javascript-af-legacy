@@ -44,6 +44,7 @@ const Card = styled.div`
   @media all and (max-width: 790px) {
     display: flex;
     flex-direction: column;
+    margin-bottom: 75px;
   }
 `
 
