@@ -8,12 +8,18 @@ const styles = `
   font-size: 18px;
   padding: 0.8rem;
   border-radius: 50px;
+  border: none;
   cursor: pointer;
+  
 `
 
-const Button = styled.div`
+const Button = styled.button`
   ${styles};
   background-color: ${props => props.theme.primary};
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${props => props.theme.secondary};
+  }
 `
 export default Button
 

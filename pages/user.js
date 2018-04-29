@@ -108,6 +108,7 @@ class ProfilePage extends Component {
     return (
       <Fragment>
         <Query
+          fetchPolicy="network-only"
           query={profileQuery}
           variables={{
             id: this.props.query.id

@@ -112,9 +112,6 @@ class PostRepo extends Component {
                 {this.state.hasMore && (
                   <Button
                     disabled={this.state.loading}
-                    style={{
-                      width: '14%'
-                    }}
                     onClick={() => {
                       this.setState({ loading: true })
                       fetchMore({
