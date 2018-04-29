@@ -58,8 +58,8 @@ const RepoCardActions = styled.div`
 `
 
 const UserReposQuery = gql`
-  {
-    getUserGithubRepos {
+  query getUserGithubRepos($page: Int) {
+    getUserGithubRepos(page: $page) {
       _id
       name
       url
@@ -71,6 +71,11 @@ const UserReposQuery = gql`
 `
 
 class PostRepo extends Component {
+  state = {
+    page: 2,
+    loading: false,
+    hasMore: true
+  }
   handleNavigation = repo => {
     Router.push(
       {
@@ -85,24 +90,64 @@ class PostRepo extends Component {
   render() {
     return (
       <Layout title="Post a Repo">
-        <Container>
-          <h1>Your Repositories</h1>
-          <Query query={UserReposQuery}>
-            {({ loading, error, data }) => {
-              if (loading) return <h4>Loading...</h4>
-              if (error) return null
-              return data.getUserGithubRepos.map(repo => (
-                <RepoCard key={repo._id}>
-                  <a href="">{repo.nameWithOwner}</a>
-                  <p>{repo.description || <i>(No description provided on Github)</i>}</p>
-                  <RepoCardActions>
-                    <Button onClick={() => this.handleNavigation(repo)}>Select</Button>
-                  </RepoCardActions>
-                </RepoCard>
-              ))
-            }}
-          </Query>
-        </Container>
+        <Query query={UserReposQuery}>
+          {({ loading, error, data, fetchMore }) => {
+            if (loading) return <h4>Loading...</h4>
+            if (error) return null
+            return (
+              <Container>
+                <h1>Your Repositories</h1>
+                {data.getUserGithubRepos.map(repo => (
+                  <RepoCard key={repo._id}>
+                    <a href={repo.url} target="_blank" rel="noopener">
+                      {repo.nameWithOwner}
+                    </a>
+                    <p>{repo.description || <i>(No description provided on Github)</i>}</p>
+                    <RepoCardActions>
+                      <Button onClick={() => this.handleNavigation(repo)}>Select</Button>
+                    </RepoCardActions>
+                  </RepoCard>
+                ))}
+                <br />
+                {this.state.hasMore && (
+                  <Button
+                    disabled={this.state.loading}
+                    style={{
+                      width: '14%'
+                    }}
+                    onClick={() => {
+                      this.setState({ loading: true })
+                      fetchMore({
+                        variables: {
+                          page: this.state.page
+                        },
+                        updateQuery: (prev, { fetchMoreResult }) => {
+                          if (!fetchMoreResult) return prev
+                          if (fetchMoreResult.getUserGithubRepos.length === 0) {
+                            this.setState({
+                              hasMore: false
+                            })
+                            return prev
+                          }
+                          return Object.assign({}, prev, {
+                            getUserGithubRepos: [...prev.getUserGithubRepos, ...fetchMoreResult.getUserGithubRepos]
+                          })
+                        }
+                      }).then(() => {
+                        this.setState(state => ({
+                          page: state.page + 1,
+                          loading: false
+                        }))
+                      })
+                    }}
+                  >
+                    {this.state.loading ? 'Loading...' : 'Fetch More'}
+                  </Button>
+                )}
+              </Container>
+            )
+          }}
+        </Query>
       </Layout>
     )
   }
