@@ -31,10 +31,10 @@ class Sidemenu extends Component {
         <NavIcon href="/">
           <HomeIcon />
         </NavIcon>
-        <NavIcon href="/social">
+        <NavIcon href="/trending">
           <TrendingIcon />
         </NavIcon>
-        <NavIcon href="/starred">
+        <NavIcon href="/editors-choice">
           <StarIcon />
         </NavIcon>
         <NavIcon href="/search">

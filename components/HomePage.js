@@ -15,6 +15,7 @@ const ReposQuery = gql`
       posted
       name
       description
+      url
       owner {
         _id
         name
@@ -122,6 +123,7 @@ class Index extends Component {
                     <RepoCard
                       key={item._id}
                       repoId={item._id}
+                      url={item.url}
                       title={item.name}
                       text={item.description}
                       image={item.owner.photoURL + '&s=50'}

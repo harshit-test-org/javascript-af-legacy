@@ -80,9 +80,8 @@ class RepoCard extends Component {
   handleIconClick = url => {
     window.location.href = url
   }
-  render () {
-    const { repoId, userId, title, text, author, image, posted } = this.props
-    const url = 'https://www.google.com'
+  render() {
+    const { repoId, userId, title, text, author, image, posted, url } = this.props
     return (
       <Fragment>
         <Card>
@@ -92,11 +91,7 @@ class RepoCard extends Component {
           </CardTop>
           <CardBottom>
             <Info>
-              <GitHubIcon
-                className={'icon'}
-                style={{ cursor: 'pointer' }}
-                onClick={() => this.handleIconClick(url)}
-              />
+              <GitHubIcon className={'icon'} style={{ cursor: 'pointer' }} onClick={() => this.handleIconClick(url)} />
               <p>{posted}</p>
             </Info>
             <Author onClick={() => this.handleAuthorClick(userId)}>
