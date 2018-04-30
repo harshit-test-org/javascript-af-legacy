@@ -54,10 +54,21 @@ const Search = styled.input`
 `
 
 const SearchItemsDisplay = styled.div`
+  animation: slideInUp 0.3s ease;
   position: absolute;
   top: 150%;
   width: 100%;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24), inset 0 4px 6px -4px rgba(0, 0, 0, 0.24);
+  @keyframes slideInUp {
+    from {
+      transform: translate3d(0, 100%, 0);
+      visibility: visible;
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
 `
 
 const SearchItem = styled.div`

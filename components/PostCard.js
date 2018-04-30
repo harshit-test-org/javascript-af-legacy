@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import Router, { withRouter } from 'next/router'
 import GitHubIcon from '../assets/icons/github'
@@ -11,6 +11,17 @@ const Card = styled.div`
   background: #ffffff;
   margin-bottom: 15px;
   padding: 16px;
+  animation: zoomIn 0.5s ease-in;
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
 `
 
 const CardTop = styled.div`
@@ -83,24 +94,22 @@ class RepoCard extends Component {
   render() {
     const { repoId, userId, title, text, author, image, posted, url } = this.props
     return (
-      <Fragment>
-        <Card>
-          <CardTop>
-            <h2 onClick={() => this.handleCardClick(repoId)}>{title}</h2>
-            <p>{text}</p>
-          </CardTop>
-          <CardBottom>
-            <Info>
-              <GitHubIcon className={'icon'} style={{ cursor: 'pointer' }} onClick={() => this.handleIconClick(url)} />
-              <p>{posted}</p>
-            </Info>
-            <Author onClick={() => this.handleAuthorClick(userId)}>
-              <img src={image} />
-              <p>{author}</p>
-            </Author>
-          </CardBottom>
-        </Card>
-      </Fragment>
+      <Card>
+        <CardTop>
+          <h2 onClick={() => this.handleCardClick(repoId)}>{title}</h2>
+          <p>{text}</p>
+        </CardTop>
+        <CardBottom>
+          <Info>
+            <GitHubIcon className={'icon'} style={{ cursor: 'pointer' }} onClick={() => this.handleIconClick(url)} />
+            <p>{posted}</p>
+          </Info>
+          <Author onClick={() => this.handleAuthorClick(userId)}>
+            <img src={image} />
+            <p>{author}</p>
+          </Author>
+        </CardBottom>
+      </Card>
     )
   }
 }
