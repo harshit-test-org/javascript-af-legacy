@@ -156,6 +156,7 @@ class ProfilePage extends Component {
                         title={item.name}
                         text={item.description}
                         posted={item.posted}
+                        url={item.url}
                       />
                     ))}
                   </ContentContainer>
