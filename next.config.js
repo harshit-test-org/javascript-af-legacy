@@ -5,7 +5,7 @@ const prodVars = require('./.env.prod.js')
 
 module.exports = withSourceMaps({
   publicRuntimeConfig: !prod ? devVars : prodVars,
-  webpack: function (cfg) {
+  webpack: function(cfg) {
     const originalEntry = cfg.entry
     cfg.entry = async () => {
       const entries = await originalEntry()

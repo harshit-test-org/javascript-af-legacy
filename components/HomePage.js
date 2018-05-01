@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Router from 'next/router'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
@@ -118,7 +118,7 @@ class Index extends Component {
               } = result
               this.fetchMore = result.fetchMore
               return (
-                <Fragment>
+                <>
                   {getRepos.map(item => (
                     <RepoCard
                       key={item._id}
@@ -132,7 +132,7 @@ class Index extends Component {
                       posted={item.posted}
                     />
                   ))}
-                </Fragment>
+                </>
               )
             }}
           </Query>

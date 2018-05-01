@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import Layout from '../components/UserLayout'
 import GitIcon from '../assets/icons/github'
@@ -122,7 +122,7 @@ export default withData(
       }
       render() {
         return (
-          <Fragment>
+          <>
             <Head>
               <link rel="stylesheet" href="/static/gfm.css" />
             </Head>
@@ -217,7 +217,7 @@ export default withData(
                 )
               }}
             </Query>
-          </Fragment>
+          </>
         )
       }
     }

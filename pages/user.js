@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import Layout from '../components/UserLayout'
 import GitIcon from '../assets/icons/github'
@@ -106,7 +106,7 @@ class ProfilePage extends Component {
   }
   render() {
     return (
-      <Fragment>
+      <>
         <Query
           fetchPolicy="network-only"
           query={profileQuery}
@@ -165,7 +165,7 @@ class ProfilePage extends Component {
             )
           }}
         </Query>
-      </Fragment>
+      </>
     )
   }
 }

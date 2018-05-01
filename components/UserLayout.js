@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Head from 'next/head'
 import Navbar from './styles/Navbar'
 import Sidemenu from './Sidemenu'
@@ -168,14 +168,14 @@ class Layout extends Component {
     const title = this.props.title ? `${this.props.title} | Javascript.af` : 'Javascript.af'
     return (
       <ThemeProvider theme={theme}>
-        <Fragment>
+        <>
           <Head>
             <title>{title}</title>
           </Head>
           <Sidemenu />
           <Navbar title={this.props.title} />
           <Content>{this.props.children}</Content>
-        </Fragment>
+        </>
       </ThemeProvider>
     )
   }
