@@ -22,7 +22,7 @@ export default (ComposedComponent, redirect = true) =>
       if (req) {
         headers.cookie = req.headers.cookie
       }
-      if (req || (!req && !window.__NEXT_DATA__.props.loggedIn)) {
+      if (req || (!req && !window.__NEXT_DATA__.props.pageProps.loggedIn)) {
         const getJson = await fetch(`${BACKEND}/me`, {
           credentials: 'include',
           headers
@@ -30,7 +30,7 @@ export default (ComposedComponent, redirect = true) =>
         if (getJson.status >= 200 && getJson.status < 400) {
           const data = await getJson.json()
           if (!req) {
-            window.__NEXT_DATA__.props.loggedIn = true
+            window.__NEXT_DATA__.props.pageProps.loggedIn = true
           }
           return { loggedIn: true, user: data, ...rest, ...gprops }
         } else {
@@ -49,8 +49,8 @@ export default (ComposedComponent, redirect = true) =>
         }
       }
       return {
-        loggedIn: window.__NEXT_DATA__.props.loggedIn,
-        user: window.__NEXT_DATA__.props.user,
+        loggedIn: window.__NEXT_DATA__.props.pageProps.loggedIn,
+        user: window.__NEXT_DATA__.props.pageProps.user,
         ...rest,
         ...gprops
       }
