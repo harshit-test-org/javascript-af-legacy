@@ -4,6 +4,7 @@ import withAuth, { Consumer } from '../../components/withAuth'
 import { Mutation } from 'react-apollo'
 import styled from 'styled-components'
 import Layout from '../../components/UserLayout'
+import { ErrorConsumer } from '../../components/Error'
 import Input, { InputGroup } from '../../components/Input'
 import Router from 'next/router'
 import gql from 'graphql-tag'
@@ -78,54 +79,76 @@ export default withData(
           <Layout title="New Repository">
             <Consumer>
               {user => (
-                <Mutation mutation={RepoMutation}>
-                  {(mutate, { loading, error }) => {
-                    return (
-                      <Container
-                        onSubmit={e => {
-                          e.preventDefault()
-                          mutate({
-                            variables: this.state
-                          }).then(() => {
-                            this.setState({ transition: true })
-                            Router.replace(`/user?id=${user._id}`, `/user/${user._id}`)
-                          })
-                        }}
-                      >
-                        <InputGroup>
-                          <label>Repo Name</label>
-                          <Input
-                            onChange={this.handleChange}
-                            name="name"
-                            full
-                            value={this.state.name}
-                            placeholder="Repo name goes here"
-                          />
-                        </InputGroup>
-                        <InputGroup>
-                          <label>Description</label>
-                          <Input
-                            full
-                            onChange={this.handleChange}
-                            name="description"
-                            value={this.state.description || ''}
-                            placeholder="Description name goes here"
-                          />
-                        </InputGroup>
-                        <InputGroup>
-                          <label>Github URL</label>
-                          <Input onChange={this.handleChange} full disabled value={this.state.url} />
-                        </InputGroup>
-                        <InputSubmit
-                          type="submit"
-                          value={loading ? 'Loading' : 'Submit'}
-                          disabled={this.state.transition || loading}
-                        />
-                        {error && <p>Error :( Please try again</p>}
-                      </Container>
-                    )
-                  }}
-                </Mutation>
+                <ErrorConsumer>
+                  {({ pushError, errors }) => (
+                    <Mutation
+                      mutation={RepoMutation}
+                      onError={error => {
+                        pushError(error.graphQLErrors)
+
+                        Router.replace('/publish/post')
+                      }}
+                      onCompleted={data => {
+                        console.log('oc', data)
+                        this.setState({ transition: true })
+                        Router.replace(
+                          `/template?id=${data.createRepository._id}`,
+                          `/repo/${data.createRepository._id}`
+                        )
+                      }}
+                    >
+                      {(mutate, { loading, error }) => {
+                        if (error) {
+                          return (
+                            <Container>
+                              <h3>Redirecting....</h3>
+                            </Container>
+                          )
+                        }
+                        return (
+                          <Container
+                            onSubmit={e => {
+                              e.preventDefault()
+                              mutate({
+                                variables: this.state
+                              })
+                            }}
+                          >
+                            <InputGroup>
+                              <label>Repo Name</label>
+                              <Input
+                                onChange={this.handleChange}
+                                name="name"
+                                full
+                                value={this.state.name}
+                                placeholder="Repo name goes here"
+                              />
+                            </InputGroup>
+                            <InputGroup>
+                              <label>Description</label>
+                              <Input
+                                full
+                                onChange={this.handleChange}
+                                name="description"
+                                value={this.state.description || ''}
+                                placeholder="Description name goes here"
+                              />
+                            </InputGroup>
+                            <InputGroup>
+                              <label>Github URL</label>
+                              <Input onChange={this.handleChange} full disabled value={this.state.url} />
+                            </InputGroup>
+                            <InputSubmit
+                              type="submit"
+                              value={loading ? 'Loading' : 'Submit'}
+                              disabled={this.state.transition || loading}
+                            />
+                          </Container>
+                        )
+                      }}
+                    </Mutation>
+                  )}
+                </ErrorConsumer>
               )}
             </Consumer>
           </Layout>

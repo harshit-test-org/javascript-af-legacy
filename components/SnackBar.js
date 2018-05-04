@@ -1,23 +1,24 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-const Container = styled.div`
-  bottom: 0%;
+export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  opacity: ${props => (props.show ? '1' : '0')};
   position: fixed;
-  transition: all 0.4s ease-in-out;
-  transform: ${props => (props.show ? 'translateY(0)' : 'translateY(100%)')};
+  top: 13%;
+  align-items: flex-end;
+  right: 2%;
   width: 100vw;
   z-index: 1000;
+  flex-direction: column;
 `
 
 const Toast = styled.div`
   background-color: #323232;
+  margin-bottom: 10px;
+  transition: all 0.4s ease-in-out;
   border-radius: 2px;
-  display: flex;
+  display: ${props => (props.show ? 'flex' : 'none')};
   justify-content: space-between;
   max-width: 568px;
   min-width: 288px;
@@ -41,12 +42,12 @@ class SnackBar extends Component {
     show: false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({ show: true }, () => {
       if (this.props.actionText) return
       setTimeout(() => {
         this.setState({ show: false })
-      }, this.props.timeout || 2750)
+      }, this.props.timeout || 4000)
     })
   }
 
@@ -55,18 +56,14 @@ class SnackBar extends Component {
     this.setState({ show: false })
   }
 
-  render () {
+  render() {
     const { message, actionText } = this.props
     const { show } = this.state
     return (
-      <Container show={show}>
-        <Toast>
-          <Message>{message}</Message>
-          {actionText && (
-            <Action onClick={this.clickHandler}>{actionText}</Action>
-          )}
-        </Toast>
-      </Container>
+      <Toast show={show}>
+        <Message>{message}</Message>
+        {actionText && <Action onClick={this.clickHandler}>{actionText}</Action>}
+      </Toast>
     )
   }
 }

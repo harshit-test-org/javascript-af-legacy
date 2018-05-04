@@ -106,66 +106,63 @@ class ProfilePage extends Component {
   }
   render() {
     return (
-      <>
-        <Query
-          fetchPolicy="network-only"
-          query={profileQuery}
-          variables={{
-            id: this.props.query.id
-          }}
-        >
-          {({ data, loading, error }) => {
-            if (loading) {
-              return <Layout title="Loading">Loading...</Layout>
-            }
-            if (error) {
-              return <Layout title="Error">Error...</Layout>
-            }
-            const {
-              getUserById: { name, username, email, githubURL, photoURL, bio },
-              getReposByUser
-            } = data
-            return (
-              <Layout title={`${name}'s profile`}>
-                <Container>
-                  <UserContainer>
-                    <img src={photoURL} alt={`${name}'s profile picture`} />
-                    <h3>{name}</h3>
-                    <h4>
-                      <UserIcon /> {username}
-                    </h4>
-                    <h4>
-                      <MailIcon /> {email}
-                    </h4>
-                    <p>{bio || 'No bio available'}</p>
-                    <GitBtn href={githubURL} target="_blank" rel="noopener">
-                      <GitIcon
-                        style={{
-                          fill: '#fff',
-                          height: 'auto',
-                          width: '1.7rem'
-                        }}
-                      />&nbsp; Go to Github profile
-                    </GitBtn>
-                  </UserContainer>
-                  <ContentContainer>
-                    {getReposByUser.map(item => (
-                      <RepoCard
-                        key={item._id}
-                        repoId={item._id}
-                        title={item.name}
-                        text={item.description}
-                        posted={item.posted}
-                        url={item.url}
-                      />
-                    ))}
-                  </ContentContainer>
-                </Container>
-              </Layout>
-            )
-          }}
-        </Query>
-      </>
+      <Query
+        query={profileQuery}
+        variables={{
+          id: this.props.query.id
+        }}
+      >
+        {({ data, loading, error }) => {
+          if (loading) {
+            return <Layout title="Loading">Loading...</Layout>
+          }
+          if (error) {
+            return <Layout title="Error">Error...</Layout>
+          }
+          const {
+            getUserById: { name, username, email, githubURL, photoURL, bio },
+            getReposByUser
+          } = data
+          return (
+            <Layout title={`${name}'s profile`}>
+              <Container>
+                <UserContainer>
+                  <img src={photoURL} alt={`${name}'s profile picture`} />
+                  <h3>{name}</h3>
+                  <h4>
+                    <UserIcon /> {username}
+                  </h4>
+                  <h4>
+                    <MailIcon /> {email}
+                  </h4>
+                  <p>{bio || 'No bio available'}</p>
+                  <GitBtn href={githubURL} target="_blank" rel="noopener">
+                    <GitIcon
+                      style={{
+                        fill: '#fff',
+                        height: 'auto',
+                        width: '1.7rem'
+                      }}
+                    />&nbsp; Go to Github profile
+                  </GitBtn>
+                </UserContainer>
+                <ContentContainer>
+                  {getReposByUser.map(item => (
+                    <RepoCard
+                      key={item._id}
+                      repoId={item._id}
+                      title={item.name}
+                      text={item.description}
+                      posted={item.posted}
+                      url={item.url}
+                    />
+                  ))}
+                </ContentContainer>
+              </Container>
+            </Layout>
+          )
+        }}
+      </Query>
     )
   }
 }
