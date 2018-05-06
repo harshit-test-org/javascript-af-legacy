@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Sidebar, { NavIcon } from './styles/Sidebar'
 import HomeIcon from '../assets/icons/home'
 import StarIcon from '../assets/icons/star'
-import SearchIcon from '../assets/icons/search'
 import TrendingIcon from '../assets/icons/trending'
 import AccountIcon from '../assets/icons/account'
 import styled from 'styled-components'
@@ -36,9 +35,6 @@ class Sidemenu extends Component {
         </NavIcon>
         <NavIcon href="/editors-choice">
           <StarIcon />
-        </NavIcon>
-        <NavIcon href="/search">
-          <SearchIcon />
         </NavIcon>
         <Consumer>
           {user => (

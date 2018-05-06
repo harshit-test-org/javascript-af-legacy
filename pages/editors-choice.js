@@ -1,24 +1,35 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import gql from 'graphql-tag'
+import RepoMasonry from '../components/RepoMasonry'
 import UserLayout from '../components/UserLayout'
 import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
 
-const Card = styled.div`
-  padding: 1rem;
-  background: #fff;
+const ReposQuery = gql`
+  query getEditorsChoiceRepos($page: Int) {
+    getEditorsChoiceRepos(page: $page) {
+      _id
+      posted
+      name
+      description
+      url
+      owner {
+        _id
+        name
+        photoURL
+      }
+    }
+  }
 `
 
-class Trending extends Component {
+class EditorsChoice extends Component {
   render() {
     return (
       <UserLayout title="Editors Choice">
-        <Card>
-          <h1>WIP</h1>
-        </Card>
+        <RepoMasonry query={ReposQuery} gKey="getEditorsChoiceRepos" />
       </UserLayout>
     )
   }
 }
 
-export default withData(withAuth(Trending))
+export default withData(withAuth(EditorsChoice))
