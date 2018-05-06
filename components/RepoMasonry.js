@@ -28,6 +28,10 @@ export default class RepoMasonry extends Component {
     loading: false,
     page: 1
   }
+  static defaultProps = {
+    grid: true
+  }
+
   componentDidMount() {
     // Set up intersection observer
     const options = {
@@ -78,8 +82,8 @@ export default class RepoMasonry extends Component {
   render() {
     return (
       <>
-        <RepoCardContainer grid={true}>
-          <Query query={this.props.query}>
+        <RepoCardContainer grid={this.props.grid}>
+          <Query query={this.props.query} variables={this.props.vars}>
             {result => {
               if (result.loading) return <h1>Loading</h1>
               if (result.error) return <h1>AWWW Error</h1>

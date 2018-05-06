@@ -7,9 +7,8 @@ import styled from 'styled-components'
 import gql from 'graphql-tag'
 import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
-import MailIcon from '../assets/icons/envelope'
 import UserIcon from '../assets/icons/account'
-import RepoCard from '../components/PostCard'
+import RepoMasonry from '../components/RepoMasonry'
 
 const profileQuery = gql`
   query profileQuery($id: ID!) {
@@ -17,32 +16,36 @@ const profileQuery = gql`
       name
       username
       githubURL
-      email
       photoURL
       bio
     }
-    getReposByUser(id: $id) {
+  }
+`
+
+const userRepos = gql`
+  query profileQuery($id: ID!, $page: Int) {
+    getReposByUser(id: $id, page: $page) {
       _id
+      posted
       name
       description
       url
-      posted
+      owner {
+        _id
+        name
+        photoURL
+      }
     }
   }
 `
 
 const Container = styled.div`
   display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas:
-    'main extras'
-    'main extras'
-    'main extras'
-    'main .';
+  grid-column-gap: 2rem;
+  grid-template-columns: 1fr 3fr;
+  grid-auto-rows: 180px;
   @media all and (max-width: 1024px) {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
   }
   @media all and (max-width: 790px) {
     display: flex;
@@ -51,24 +54,34 @@ const Container = styled.div`
 `
 
 const UserContainer = styled.div`
-  grid-area: extras;
-  padding: 0.7rem;
-  @media all and (max-width: 790px) {
-    margin: 0 0 1rem 0;
-  }
+  grid-column: 1 / 2;
+  grid-row: 1 / span 3;
   width: 100%;
+  @media all and (max-width: 790px) {
+    & > img {
+      height: 360px;
+      width: 360px !important;
+    }
+  }
+  @media all and (max-width: 570px) {
+    & > img {
+      height: auto;
+      width: 100% !important;
+    }
+  }
+  .info {
+    padding: 0.7rem;
+  }
   & > img {
-    display: block;
-    margin: 0 auto;
-    width: 80%;
+    width: 100%;
     border-radius: 5px;
   }
-  & > h3 {
+  & .info > h3 {
     font-size: 1.75rem;
     margin-top: 0.75rem;
     margin-bottom: 0.25rem;
   }
-  & > h4 {
+  & .info > h4 {
     display: flex;
     align-items: center;
     font-size: 1.25rem;
@@ -80,14 +93,13 @@ const UserContainer = styled.div`
       margin-right: 0.5rem;
     }
   }
-  & > p {
+  & .info > p {
     font-size: 1rem;
     margin: 0.25rem 0;
   }
   background: #fff;
 `
 const GitBtn = LinkBtn.extend`
-  width: 100%;
   text-align: center;
   display: inline-flex;
   justify-content: center;
@@ -97,7 +109,7 @@ const GitBtn = LinkBtn.extend`
 `
 
 const ContentContainer = styled.div`
-  grid-area: main;
+  grid-column: 2 / 3;
 `
 
 class ProfilePage extends Component {
@@ -120,43 +132,39 @@ class ProfilePage extends Component {
             return <Layout title="Error">Error...</Layout>
           }
           const {
-            getUserById: { name, username, email, githubURL, photoURL, bio },
-            getReposByUser
+            getUserById: { name, username, githubURL, photoURL, bio }
           } = data
           return (
             <Layout title={`${name}'s profile`}>
               <Container>
                 <UserContainer>
                   <img src={photoURL} alt={`${name}'s profile picture`} />
-                  <h3>{name}</h3>
-                  <h4>
-                    <UserIcon /> {username}
-                  </h4>
-                  <h4>
-                    <MailIcon /> {email}
-                  </h4>
-                  <p>{bio || 'No bio available'}</p>
-                  <GitBtn href={githubURL} target="_blank" rel="noopener">
-                    <GitIcon
-                      style={{
-                        fill: '#fff',
-                        height: 'auto',
-                        width: '1.7rem'
-                      }}
-                    />&nbsp; Go to Github profile
-                  </GitBtn>
+                  <div className="info">
+                    <h3>{name}</h3>
+                    <h4>
+                      <UserIcon /> {username}
+                    </h4>
+                    <p>{bio || 'No bio available'}</p>
+                    <GitBtn href={githubURL} target="_blank" rel="noopener">
+                      <GitIcon
+                        style={{
+                          fill: '#fff',
+                          height: 'auto',
+                          width: '1.7rem'
+                        }}
+                      />&nbsp; Go to Github profile
+                    </GitBtn>
+                  </div>
                 </UserContainer>
                 <ContentContainer>
-                  {getReposByUser.map(item => (
-                    <RepoCard
-                      key={item._id}
-                      repoId={item._id}
-                      title={item.name}
-                      text={item.description}
-                      posted={item.posted}
-                      url={item.url}
-                    />
-                  ))}
+                  <RepoMasonry
+                    grid={false}
+                    query={userRepos}
+                    gKey="getReposByUser"
+                    vars={{
+                      id: this.props.query.id
+                    }}
+                  />
                 </ContentContainer>
               </Container>
             </Layout>
