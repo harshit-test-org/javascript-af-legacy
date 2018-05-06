@@ -26,7 +26,6 @@ const Nav = styled.div`
   box-shadow: 17px 0px 10px 9px rgba(0, 0, 0, 0.2);
   @media all and (max-width: 570px) {
     padding-left: 1rem;
-    position: absolute;
     margin-left: auto;
     height: 50px;
   }
@@ -35,10 +34,7 @@ const Nav = styled.div`
     font-size: x-large;
   }
   @media all and (max-width: 990px) {
-    grid-template-columns: 1fr;
-    h1 {
-      font-size: 32px;
-    }
+    display: flex;
   }
 `
 

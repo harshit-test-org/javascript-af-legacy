@@ -23,6 +23,7 @@ const FabButton = styled.button`
   @media all and (max-width: 768px) {
     position: fixed;
     bottom: 80px;
+    right: 20px;
   }
 `
 const Fab = props => {

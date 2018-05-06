@@ -17,8 +17,8 @@ const Sidebar = styled.div`
     flex-direction: row;
     justify-content: center;
     bottom: 0;
-    top: auto;
-    left: auto;
+    top: unset;
+    left: unset;
     height: 50px;
     z-index: 60;
     width: 100%;
@@ -53,6 +53,10 @@ export const NavA = styled.a`
     flex: 1;
     align-items: center;
     & > svg {
+      height: 30px;
+    }
+    &:hover > svg {
+      width: 30px;
       height: 30px;
     }
   }
