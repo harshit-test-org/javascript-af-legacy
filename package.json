@@ -16,8 +16,7 @@
       ".babelrc",
       "next.config.js",
       "yarn.lock",
-      "server.js",
-      "raven.js"
+      "server.js"
     ],
     "name": "jsui",
     "alias": "jsui",

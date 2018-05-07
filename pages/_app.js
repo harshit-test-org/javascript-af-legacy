@@ -2,7 +2,7 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { ErrorProvider, ErrorConsumer } from '../components/Error'
 import Snack, { Container as C } from '../components/SnackBar'
-import '../raven'
+import '../lib/raven'
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
