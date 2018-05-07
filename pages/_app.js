@@ -2,6 +2,7 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { ErrorProvider, ErrorConsumer } from '../components/Error'
 import Snack, { Container as C } from '../components/SnackBar'
+import '../raven'
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
@@ -10,7 +11,6 @@ export default class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
-
     return { pageProps }
   }
 

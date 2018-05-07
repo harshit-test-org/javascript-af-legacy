@@ -16,7 +16,8 @@
       ".babelrc",
       "next.config.js",
       "yarn.lock",
-      "server.js"
+      "server.js",
+      "raven.js"
     ],
     "name": "jsui",
     "alias": "jsui",
@@ -36,6 +37,7 @@
     "isomorphic-unfetch": "^2.0.0",
     "next": "^6.0.0",
     "nprogress": "^0.2.0",
+    "raven-js": "^3.24.2",
     "react": "^16.3.2",
     "react-apollo": "^2.1.3",
     "react-dom": "^16.3.2",
