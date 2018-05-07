@@ -68,17 +68,17 @@ npm --add-python-to-path install --global windows-build-tools
 1.  Add the main repository as the upstream remote to your local repository
 
 ```sh
-> git remote add upstream https://github.com/JesseRWeigel/javascript-af.git
+git remote add upstream https://github.com/javascript-af/javascript-af.git
 ```
 
-2.  Simply pull the changes to your branch
+2.  Pull the changes to your branch
 
 ```sh
-> git pull upstream master
+git pull upstream master
 ```
 
 3.  Push your repository to your remote
 
 ```sh
-> git push origin master
+git push origin master
 ```
