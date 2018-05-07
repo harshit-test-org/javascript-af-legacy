@@ -64,6 +64,7 @@ const UserContainer = styled.div`
     }
   }
   @media all and (max-width: 570px) {
+    margin-bottom: 1rem;
     & > img {
       height: auto;
       width: 100% !important;
