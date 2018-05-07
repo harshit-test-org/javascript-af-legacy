@@ -12,6 +12,16 @@ Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
 injectGlobal`
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
