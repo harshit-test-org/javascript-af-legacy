@@ -1,6 +1,7 @@
 {
     "name": "Javascript AF",
-    "short_name": "Javascript AF",
+    "short_name": "JsAf",
+    "start_url": ".",
     "icons": [
         {
             "src": "/static/android-chrome-192x192.png",
