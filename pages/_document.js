@@ -19,6 +19,7 @@ export default class MyDocument extends Document {
           <link rel="prefetch" href="/static/gfm.css" />
           <meta property="og:title" content="Share Your Repos | Javascript AF" />
           <meta property="og:description" content="Share you repos with the dev community" />
+          <meta name="description" content="Share you repos with the dev community" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta property="og:site_name" content="Javascript AF, Inc." />
           <meta name="twitter:site" content="@theharshitpant" />

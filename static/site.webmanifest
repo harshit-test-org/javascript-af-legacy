@@ -1,7 +1,7 @@
 {
     "name": "Javascript AF",
     "short_name": "JsAf",
-    "start_url": ".",
+    "start_url": "/?utm_source=homescreen",
     "icons": [
         {
             "src": "/static/android-chrome-192x192.png",
