@@ -92,7 +92,7 @@ class PostRepo extends Component {
   }
   render() {
     return (
-      <Layout title="Post a Repo">
+      <Layout title="Post a Repo" noFab>
         <Query query={UserReposQuery}>
           {({ loading, error, data, fetchMore }) => {
             if (loading) return <h4>Loading...</h4>
