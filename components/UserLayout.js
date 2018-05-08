@@ -6,6 +6,7 @@ import theme from '../lib/theme'
 import styled, { injectGlobal, ThemeProvider } from 'styled-components'
 import NProgress from 'nprogress'
 import Router from 'next/router'
+import FabButton from '../components/FabButton'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -184,6 +185,14 @@ class Layout extends Component {
           </Head>
           <Sidemenu />
           <Navbar title={this.props.title} />
+          {!this.props.noFab && (
+            <FabButton
+              onClick={() => {
+                Router.push('/publish/post')
+              }}
+            />
+          )}
+
           <Content>{this.props.children}</Content>
         </>
       </ThemeProvider>

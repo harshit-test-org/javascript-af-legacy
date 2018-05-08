@@ -76,7 +76,7 @@ export default withData(
       }
       render() {
         return (
-          <Layout title="New Repository">
+          <Layout title="New Repository" noFab>
             <Consumer>
               {user => (
                 <ErrorConsumer>
