@@ -6,9 +6,13 @@ import theme from '../lib/theme'
 import styled, { injectGlobal, ThemeProvider } from 'styled-components'
 import NProgress from 'nprogress'
 import Router from 'next/router'
+import { pageView } from '../lib/track'
 
 Router.onRouteChangeStart = () => NProgress.start()
-Router.onRouteChangeComplete = () => NProgress.done()
+Router.onRouteChangeComplete = url => {
+  pageView(url)
+  NProgress.done()
+}
 Router.onRouteChangeError = () => NProgress.done()
 
 injectGlobal`
