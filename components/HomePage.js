@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import gql from 'graphql-tag'
-import FabButton from '../components/FabButton'
+
 import RepoMasonry from './RepoMasonry'
 
 import Layout from '../components/UserLayout'
@@ -31,11 +31,6 @@ class Index extends Component {
   render() {
     return (
       <Layout title="Discover">
-        <FabButton
-          onClick={() => {
-            Router.push('/publish/post')
-          }}
-        />
         <RepoMasonry query={ReposQuery} gKey="getRepos" />
       </Layout>
     )
