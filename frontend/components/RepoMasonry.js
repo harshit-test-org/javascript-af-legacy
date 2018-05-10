@@ -36,8 +36,8 @@ export default class RepoMasonry extends Component {
     // Set up intersection observer
     const options = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.1
+      rootMargin: '250px 0px',
+      threshold: 0.01
     }
     this.observer = new IntersectionObserver(this.handleObserver, options)
     this.observer.observe(this.loadTrigger)
