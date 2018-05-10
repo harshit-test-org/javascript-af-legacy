@@ -1,6 +1,6 @@
 {
   "name": "javascript-af-api",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "main": "start.js",
   "now": {
     "name": "jsapi",
