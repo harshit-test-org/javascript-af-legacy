@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import Router, { withRouter } from 'next/router'
+import Router from 'next/router'
 import GitHubIcon from '../assets/icons/github'
 
 const Card = styled.div`
@@ -89,7 +89,7 @@ class RepoCard extends Component {
     Router.push(`/user?id=${id}`, `/user/${id}`)
   }
   handleIconClick = url => {
-    window.location.href = url
+    window.location.assign(url)
   }
   render() {
     const { repoId, userId, title, text, author, image, posted, url } = this.props
@@ -101,7 +101,12 @@ class RepoCard extends Component {
         </CardTop>
         <CardBottom>
           <Info>
-            <GitHubIcon className={'icon'} style={{ cursor: 'pointer' }} onClick={() => this.handleIconClick(url)} />
+            <GitHubIcon
+              data-testid="github"
+              className={'icon'}
+              style={{ cursor: 'pointer' }}
+              onClick={() => this.handleIconClick(url)}
+            />
             <p>{posted}</p>
           </Info>
           <Author onClick={() => this.handleAuthorClick(userId)}>
@@ -114,4 +119,4 @@ class RepoCard extends Component {
   }
 }
 
-export default withRouter(RepoCard)
+export default RepoCard

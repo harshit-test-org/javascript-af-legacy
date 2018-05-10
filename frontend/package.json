@@ -54,6 +54,7 @@
     "react-dom": "^16.3.2",
     "react-instantsearch": "^5.0.3",
     "react-sparklines": "^1.7.0",
+    "sinon": "^5.0.7",
     "styled-components": "^3.2.6"
   },
   "scripts": {
@@ -68,7 +69,9 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
     "commitizen": "^2.9.6",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
@@ -84,8 +87,11 @@
     "eslint-plugin-react": "^7.6.1",
     "eslint-plugin-standard": "^3.1.0",
     "husky": "^0.14.3",
+    "jest": "^22.4.3",
     "jest-enzyme": "^6.0.0",
     "lint-staged": "^7.0.5",
-    "prettier": "^1.12.1"
+    "prettier": "^1.12.1",
+    "react-testing-library": "^3.0.2",
+    "waait": "^1.0.2"
   }
 }

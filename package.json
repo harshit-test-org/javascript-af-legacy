@@ -8,6 +8,7 @@
     "ui:dev": "node frontend/server.js",
     "ui:build": "NODE_ENV=production next build frontend",
     "ui:start": "NODE_ENV=production node frontend/server.js",
+    "ui:test": "jest frontend",
     "cm": "git-cz",
     "api:start": "NODE_ENV=production node backend/dist/start.js",
     "api:dev": "nodemon --exec babel-node backend/src/start.js",
