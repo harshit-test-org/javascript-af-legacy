@@ -20,15 +20,11 @@
     // Minimal polyfill for Edge 15's lack of `isIntersecting`
     // See: https://github.com/w3c/IntersectionObserver/issues/211
     if (!('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
-      Object.defineProperty(
-        window.IntersectionObserverEntry.prototype,
-        'isIntersecting',
-        {
-          get: function() {
-            return this.intersectionRatio > 0
-          }
+      Object.defineProperty(window.IntersectionObserverEntry.prototype, 'isIntersecting', {
+        get: function() {
+          return this.intersectionRatio > 0
         }
-      )
+      })
     }
     return
   }
@@ -82,7 +78,7 @@
   function IntersectionObserver(callback, opt_options) {
     var options = opt_options || {}
 
-    if (typeof callback != 'function') {
+    if (typeof callback !== 'function') {
       throw new Error('callback must be a function')
     }
 
@@ -91,10 +87,7 @@
     }
 
     // Binds and throttles `this._checkForIntersections`.
-    this._checkForIntersections = throttle(
-      this._checkForIntersections.bind(this),
-      this.THROTTLE_TIMEOUT
-    )
+    this._checkForIntersections = throttle(this._checkForIntersections.bind(this), this.THROTTLE_TIMEOUT)
 
     // Private properties.
     this._callback = callback
@@ -204,10 +197,8 @@
     if (!Array.isArray(threshold)) threshold = [threshold]
 
     return threshold.sort().filter(function(t, i, a) {
-      if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
-        throw new Error(
-          'threshold must be a number between 0 and 1 inclusively'
-        )
+      if (typeof t !== 'number' || isNaN(t) || t < 0 || t > 1) {
+        throw new Error('threshold must be a number between 0 and 1 inclusively')
       }
       return t !== a[i - 1]
     })
@@ -254,10 +245,7 @@
       // If a poll interval is set, use polling instead of listening to
       // resize and scroll events or DOM mutations.
       if (this.POLL_INTERVAL) {
-        this._monitoringInterval = setInterval(
-          this._checkForIntersections,
-          this.POLL_INTERVAL
-        )
+        this._monitoringInterval = setInterval(this._checkForIntersections, this.POLL_INTERVAL)
       } else {
         addEvent(window, 'resize', this._checkForIntersections, true)
         addEvent(document, 'scroll', this._checkForIntersections, true)
@@ -312,9 +300,7 @@
       var rootContainsTarget = this._rootContainsTarget(target)
       var oldEntry = item.entry
       var intersectionRect =
-        rootIsInDom &&
-        rootContainsTarget &&
-        this._computeTargetAndRootIntersection(target, rootRect)
+        rootIsInDom && rootContainsTarget && this._computeTargetAndRootIntersection(target, rootRect)
 
       var newEntry = (item.entry = new IntersectionObserverEntry({
         time: now(),
@@ -359,10 +345,7 @@
    *     intersection is found.
    * @private
    */
-  IntersectionObserver.prototype._computeTargetAndRootIntersection = function(
-    target,
-    rootRect
-  ) {
+  IntersectionObserver.prototype._computeTargetAndRootIntersection = function(target, rootRect) {
     // If the element isn't displayed, an intersection can't happen.
     if (window.getComputedStyle(target).display == 'none') return
 
@@ -373,8 +356,7 @@
 
     while (!atRoot) {
       var parentRect = null
-      var parentComputedStyle =
-        parent.nodeType == 1 ? window.getComputedStyle(parent) : {}
+      var parentComputedStyle = parent.nodeType == 1 ? window.getComputedStyle(parent) : {}
 
       // If the parent isn't displayed, an intersection can't happen.
       if (parentComputedStyle.display == 'none') return
@@ -441,9 +423,7 @@
    */
   IntersectionObserver.prototype._expandRectByRootMargin = function(rect) {
     var margins = this._rootMarginValues.map(function(margin, i) {
-      return margin.unit == 'px'
-        ? margin.value
-        : margin.value * (i % 2 ? rect.width : rect.height) / 100
+      return margin.unit == 'px' ? margin.value : margin.value * (i % 2 ? rect.width : rect.height) / 100
     })
     var newRect = {
       top: rect.top - margins[0],
@@ -467,17 +447,11 @@
    * @return {boolean} Returns true if a any threshold has been crossed.
    * @private
    */
-  IntersectionObserver.prototype._hasCrossedThreshold = function(
-    oldEntry,
-    newEntry
-  ) {
+  IntersectionObserver.prototype._hasCrossedThreshold = function(oldEntry, newEntry) {
     // To make comparing easier, an entry that has a ratio of 0
     // but does not actually intersect is given a value of -1
-    var oldRatio =
-      oldEntry && oldEntry.isIntersecting ? oldEntry.intersectionRatio || 0 : -1
-    var newRatio = newEntry.isIntersecting
-      ? newEntry.intersectionRatio || 0
-      : -1
+    var oldRatio = oldEntry && oldEntry.isIntersecting ? oldEntry.intersectionRatio || 0 : -1
+    var newRatio = newEntry.isIntersecting ? newEntry.intersectionRatio || 0 : -1
 
     // Ignore unchanged ratios
     if (oldRatio === newRatio) return
@@ -487,11 +461,7 @@
 
       // Return true if an entry matches a threshold or if the new ratio
       // and the old ratio are on the opposite sides of a threshold.
-      if (
-        threshold == oldRatio ||
-        threshold == newRatio ||
-        threshold < oldRatio !== threshold < newRatio
-      ) {
+      if (threshold == oldRatio || threshold == newRatio || threshold < oldRatio !== threshold < newRatio) {
         return true
       }
     }
@@ -574,9 +544,9 @@
    *     phase. Note: this only works in modern browsers.
    */
   function addEvent(node, event, fn, opt_useCapture) {
-    if (typeof node.addEventListener == 'function') {
+    if (typeof node.addEventListener === 'function') {
       node.addEventListener(event, fn, opt_useCapture || false)
-    } else if (typeof node.attachEvent == 'function') {
+    } else if (typeof node.attachEvent === 'function') {
       node.attachEvent('on' + event, fn)
     }
   }
@@ -590,9 +560,9 @@
    *     flag set to true, it should be set to true here in order to remove it.
    */
   function removeEvent(node, event, fn, opt_useCapture) {
-    if (typeof node.removeEventListener == 'function') {
+    if (typeof node.removeEventListener === 'function') {
       node.removeEventListener(event, fn, opt_useCapture || false)
-    } else if (typeof node.detatchEvent == 'function') {
+    } else if (typeof node.detatchEvent === 'function') {
       node.detatchEvent('on' + event, fn)
     }
   }

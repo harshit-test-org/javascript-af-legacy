@@ -46,26 +46,18 @@ const Arc = styled.div`
     border-width: 2px;
     border-right-color: transparent;
     border-left-color: transparent;
-    -webkit-animation: ball-clip-rotate-pulse-rotate 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-    -moz-animation: ball-clip-rotate-pulse-rotate 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-    -o-animation: ball-clip-rotate-pulse-rotate 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-    animation: ball-clip-rotate-pulse-rotate 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    -webkit-animation: ball-clip-rotate-pulse-rotate 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    -moz-animation: ball-clip-rotate-pulse-rotate 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    -o-animation: ball-clip-rotate-pulse-rotate 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    animation: ball-clip-rotate-pulse-rotate 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
   }
   & > div:last-child {
     width: 16px;
     height: 16px;
-    -webkit-animation: ball-clip-rotate-pulse-scale 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-    -moz-animation: ball-clip-rotate-pulse-scale 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-    -o-animation: ball-clip-rotate-pulse-scale 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-    animation: ball-clip-rotate-pulse-scale 1s
-      cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    -webkit-animation: ball-clip-rotate-pulse-scale 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    -moz-animation: ball-clip-rotate-pulse-scale 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    -o-animation: ball-clip-rotate-pulse-scale 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+    animation: ball-clip-rotate-pulse-scale 1s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
   }
   &.la-sm {
     width: 16px;

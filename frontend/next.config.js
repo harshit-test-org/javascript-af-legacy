@@ -1,6 +1,7 @@
 const withSourceMaps = require('@zeit/next-source-maps')
 const composePlugins = require('next-compose-plugins')
 const offline = require('next-offline')
+const { join } = require('path')
 const progess = require('next-progressbar')
 const prod = process.env.NODE_ENV === 'production'
 const devVars = require('./.env.js')
@@ -14,7 +15,7 @@ const nextConfig = {
       const entries = await originalEntry()
 
       if (entries['main.js']) {
-        entries['main.js'].unshift('./client/polyfills.js')
+        entries['main.js'].unshift(join(__dirname, 'client', 'polyfills.js'))
       }
 
       return entries

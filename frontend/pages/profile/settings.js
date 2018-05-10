@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import getConfig from 'next/config'
-const { publicRuntimeConfig: { BACKEND } } = getConfig()
+const {
+  publicRuntimeConfig: { BACKEND }
+} = getConfig()
 
 const Setting = styled.div`
   border-radius: 6px;
@@ -110,10 +112,10 @@ const Setting = styled.div`
 `
 
 export default class Settings extends Component {
-  handleLogout () {
+  handleLogout() {
     window.location.href = `${BACKEND}/logout`
   }
-  render () {
+  render() {
     return (
       <Setting>
         <ul>
