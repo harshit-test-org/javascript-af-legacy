@@ -30,7 +30,7 @@ This repository uses the monorepo method to mange several part of the applicatio
 
 2. Install all of the dependencies
 
-    __Note__: Windows user are required to download build tools to compile native node modules
+    __Note__: Windows user are required to download build tools to compile native node modules. Run this command in __powershell__, it will error out in others
       ```sh
       npm --add-python-to-path install --global windows-build-tools
       ```
