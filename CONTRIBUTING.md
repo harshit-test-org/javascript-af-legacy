@@ -1,45 +1,5 @@
 ## Contribution
 
-Require node version > 8
-
----
-
-### Getting started
-
-#### Backend
-
-1.  Fork [the backend for this project](https://github.com/javascript-af/javascript-af-api)
-2.  Clone that fork and prepare it.
-    * Add the necessary keys in `.env`
-
-```sh
-> git clone https://github.com/YOUR_USERNAME/YOUR_FORK_NAME.git
-> cd YOUR_FORK_NAME
-> yarn install
-> yarn dev
-```
-
-Note for Windows users: first install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) globally. Also make sure Python is added to your path. You can achieve both these things by running the command below in Powershell as administrator.
-
-```powershell
-npm --add-python-to-path install --global windows-build-tools
-```
-
-#### Frontend
-
-1.  Fork this project
-2.  Clone that fork and prepare it.
-    * Add the necessary keys in `.env.js` and `.prod.env.js`
-
-```sh
-> git clone https://github.com/YOUR_USERNAME/YOUR_FORK_NAME.git
-> cd YOUR_FORK_NAME
-> yarn install
-> yarn dev
-```
-
----
-
 ## Rules
 
 1.  Use `yarn` package manager as we have used yarn to scaffold the app. See
