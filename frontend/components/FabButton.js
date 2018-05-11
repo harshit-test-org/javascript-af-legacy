@@ -28,7 +28,7 @@ const FabButton = styled.button`
 `
 const Fab = props => {
   return (
-    <FabButton className="uploadbtn" {...props}>
+    <FabButton {...props}>
       <PencilIcon />
     </FabButton>
   )

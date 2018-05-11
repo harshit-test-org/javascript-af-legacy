@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
 import Router from 'next/router'
-import wait from 'waait'
 import { render, Simulate } from 'react-testing-library'
 import PostCard from '../components/PostCard'
 
@@ -25,14 +24,13 @@ describe('PostCard', () => {
     />
   )
   test('should render properly (Snapshot)', () => {
-    expect(render(comp).container).toMatchSnapshot()
+    expect(render(comp).container.firstChild).toMatchSnapshot()
   })
 
   test('should navigate to correct repo', async () => {
     const spy = jest.spyOn(Router, 'push')
     const { getByText } = render(comp)
     Simulate.click(getByText('My Repo'))
-    await wait()
     expect(spy).toHaveBeenCalledWith('/template?id=5dsfdf54d6', '/repo/5dsfdf54d6')
   })
 
@@ -40,7 +38,6 @@ describe('PostCard', () => {
     const spy = jest.spyOn(Router, 'push')
     const { getByText } = render(comp)
     Simulate.click(getByText('Harshit'))
-    await wait()
     expect(spy).toHaveBeenCalledWith('/user?id=ds5645', '/user/ds5645')
   })
 
@@ -48,7 +45,6 @@ describe('PostCard', () => {
     const { getByTestId } = render(comp)
     window.location.assign = jest.fn()
     Simulate.click(getByTestId('github'))
-    await wait()
     expect(window.location.assign).toBeCalledWith('https://github.com/pantharshit00/graphcool')
   })
 })
