@@ -30,7 +30,7 @@ class Sidemenu extends Component {
         <NavIcon href="/">
           <HomeIcon />
         </NavIcon>
-        <NavIcon href="/trending">
+        <NavIcon testId="tren" href="/trending">
           <TrendingIcon />
         </NavIcon>
         <NavIcon href="/editors-choice">

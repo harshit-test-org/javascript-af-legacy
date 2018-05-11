@@ -8,7 +8,7 @@ const {
 
 const { Provider, Consumer } = React.createContext()
 
-export { Consumer }
+export { Consumer, Provider }
 
 export default (ComposedComponent, redirect = true) =>
   class AuthComposed extends React.Component {

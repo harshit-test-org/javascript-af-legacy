@@ -62,9 +62,9 @@ export const NavA = styled.a`
   }
 `
 
-export const NavIcon = ({ children, active, ...props }) => (
+export const NavIcon = ({ children, active, testId, ...props }) => (
   <ActiveLink prefetch {...props} passHref activeClassName>
-    <NavA>{children}</NavA>
+    <NavA data-testid={testId}>{children}</NavA>
   </ActiveLink>
 )
 
