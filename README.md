@@ -20,7 +20,7 @@ Javascript af is a platform for developers to share their great work.
 
 ## Getting started
 
-This repository uses the monorepo method to mange several part of the application. You need [yarn](https://yarnpkg.com) installed as it manages the monorepo structure. Nothing else special needed.
+This repository uses the monorepo method to manage several parts of the application. You need [yarn](https://yarnpkg.com) installed. It manages the monorepo structure.
 
 1. Fork and Clone the repo
     ```sh
@@ -39,11 +39,9 @@ This repository uses the monorepo method to mange several part of the applicatio
     $ ~/projects/javascript-af> yarn
     ```
 
-    Do the exact same step as this is a monorepo
-
 4. Replace env files and add keys
 
-    Rename `.env` file on backend and frontend folders. Remove `.example` on each of the file. DO NOT DELETE any of them. You will not able to work if you do so. Then enter the required information
+    Copy the example `.env` files on backend and frontend folders. Use the same file names for the copies, but remove `.example` on each of the files. DO NOT DELETE any of the example files. Then enter the required information
 
     There are these env files :
 
@@ -57,7 +55,7 @@ This repository uses the monorepo method to mange several part of the applicatio
     ```
     PS: You do need to change anything in `.env.prod.js` during development as it is not used. But the file should exist.
 
-    Additional info that may be required wile filling the env file:
+    Additional info that may be required while filling the env file:
         
         1. You need to have mongodb installed or have a cloud hosted one on mlab or mongodb atlas
         2. You need to have github application credentials that can be easily obtained from your github settings
@@ -74,7 +72,7 @@ This repository uses the monorepo method to mange several part of the applicatio
 
 5. Access the site and other tools
 
-      After running `yarn dev` you can access the local development server on http://localhost:3000 . You can access graphiql at http://localhost:8080/api/graphiql if you are working on the server. These URL are also been printed on the console for your convenience.
+      After running `yarn dev` you can access the local development server on http://localhost:3000 . You can access graphiql at http://localhost:8080/api/graphiql if you are working on the server. These URLs are also printed out in the console for your convenience.
 
 ## License
 
