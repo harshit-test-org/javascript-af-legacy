@@ -1,4 +1,6 @@
 # Javascript.af
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/javascript-af/javascript-af.svg)](https://greenkeeper.io/)
  
 [![Build Status](https://travis-ci.org/JesseRWeigel/javascript-af.svg?branch=master)](https://travis-ci.org/JesseRWeigel/javascript-af)
 [![Coverage Status](https://coveralls.io/repos/github/JesseRWeigel/javascript-af/badge.svg?branch=master)](https://coveralls.io/github/JesseRWeigel/javascript-af?branch=master)
