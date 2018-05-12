@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnackBar should render with text and action (Snapshot) 1`] = `
+<div
+  class="SnackBar__Toast-g1j844-1 cSPTBW"
+>
+  <p
+    class="SnackBar__Message-g1j844-2 lgIjyS"
+  >
+    test message
+  </p>
+  <a
+    class="SnackBar__Action-g1j844-3 egiDpc"
+  >
+    action
+  </a>
+</div>
+`;
