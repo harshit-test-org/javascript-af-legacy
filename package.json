@@ -17,7 +17,7 @@
     "api:start": "NODE_ENV=production node backend/dist/start.js",
     "api:dev": "nodemon --exec babel-node backend/src/start.js",
     "api:build": "rm -rf backend/dist/ && babel backend/src/ -d backend/dist/ --source-maps",
-    "precommit": "lint-staged"
+    "precommit": "./check-env-files.sh && lint-staged"
   },
   "workspaces": [
     "frontend",
