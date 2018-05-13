@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
-import RepoCard from './PostCard'
+import RepoCard, { Card } from './PostCard'
+import Loader from './Loaders'
 
 const SpinContainer = styled.div`
   display: flex;
@@ -109,16 +110,20 @@ export default class RepoMasonry extends Component {
               )
             }}
           </Query>
+          {this.state.loading &&
+            Array.from({ length: 5 })
+              .map((n, i) => `loader-${i}`)
+              .map(i => (
+                <Card key={i}>
+                  <Loader />
+                </Card>
+              ))}
         </RepoCardContainer>
         <SpinContainer
           innerRef={el => {
             this.loadTrigger = el
           }}
-        >
-          <h3 style={this.state.loading ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-            Loading more awesome repos 😎...
-          </h3>
-        </SpinContainer>
+        />
       </>
     )
   }

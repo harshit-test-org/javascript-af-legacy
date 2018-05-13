@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Router from 'next/router'
 import GitHubIcon from '../assets/icons/github'
 
-const Card = styled.div`
+export const Card = styled.div`
   position: relative;
   z-index: 55;
   display: flex;

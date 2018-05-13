@@ -6,6 +6,7 @@ import Router from 'next/router'
 import SearchIcon from '../../assets/icons/search'
 import { InstantSearch, Highlight, Index, Configure } from 'react-instantsearch/dom'
 import { connectAutoComplete } from 'react-instantsearch/connectors'
+import { LayoutLoader } from '../Loaders'
 const {
   publicRuntimeConfig: { ALGOLIA_API_KEY, ALGOLIA_APP_ID }
 } = getConfig()
@@ -196,9 +197,15 @@ function RawAutoComplete({ refine, hits }) {
 
 const AutoCompleteWithData = connectAutoComplete(RawAutoComplete)
 
-const Navbar = ({ title }) => (
+const Navbar = ({ title, loading }) => (
   <Nav>
-    <h1>{title}</h1>
+    {loading ? (
+      <div style={{ gridColumn: '1 / 2', width: '210px' }}>
+        <LayoutLoader />
+      </div>
+    ) : (
+      <h1>{title}</h1>
+    )}
 
     <InstantSearch appId={ALGOLIA_APP_ID} apiKey={ALGOLIA_API_KEY} indexName="repos">
       <Index indexName="users" />

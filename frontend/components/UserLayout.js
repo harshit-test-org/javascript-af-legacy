@@ -179,6 +179,9 @@ const Content = styled.div`
 `
 
 class Layout extends Component {
+  static defaultProps = {
+    loading: false
+  }
   render() {
     const title = this.props.title ? `${this.props.title} | Javascript.af` : 'Javascript.af'
     return (
@@ -188,7 +191,7 @@ class Layout extends Component {
             <title>{title}</title>
           </Head>
           <Sidemenu />
-          <Navbar title={this.props.title} />
+          <Navbar title={this.props.title} loading={this.props.loading} />
           {!this.props.noFab && (
             <FabButton
               onClick={() => {

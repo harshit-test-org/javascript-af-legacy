@@ -8,6 +8,7 @@ import gql from 'graphql-tag'
 import Head from 'next/head'
 import withAuth from '../components/withAuth'
 import { Sparklines, SparklinesLine } from 'react-sparklines'
+import { Code } from 'react-content-loader'
 
 const query = gql`
   query getRepo($id: ID!) {
@@ -132,7 +133,13 @@ export default withAuth(
           >
             {({ data, loading, error }) => {
               if (loading) {
-                return <Layout title="Loading">Loading...</Layout>
+                return (
+                  <Layout title="Loading" loading>
+                    <Card>
+                      <Code />
+                    </Card>
+                  </Layout>
+                )
               }
               if (error) {
                 return <Layout title="Error">Error...</Layout>
