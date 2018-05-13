@@ -11,7 +11,7 @@
     "ui:test": "jest frontend",
     "test": "jest",
     "ci": "jest",
-    "preci": "mv frontend/.env.example.js frontend/.env.js && mv frontend/.env.prod.example.js frontend/.env.prod.js",
+    "preci": "./check-env-files.sh && cp frontend/.env.example.js frontend/.env.js && cp frontend/.env.prod.example.js frontend/.env.prod.js",
     "build": "npm run ui:build && npm run api:build",
     "cm": "git-cz",
     "api:start": "NODE_ENV=production node backend/dist/start.js",
