@@ -6,7 +6,6 @@ import { InvertedButton, LinkBtn } from '../components/Button'
 import styled from 'styled-components'
 import gql from 'graphql-tag'
 import Head from 'next/head'
-import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
 import { Sparklines, SparklinesLine } from 'react-sparklines'
 
@@ -114,112 +113,109 @@ const Info = styled.div`
   }
 `
 
-export default withData(
-  withAuth(
-    class RepoDetailsTemplate extends Component {
-      static getInitialProps = ({ query }) => {
-        return { query }
-      }
-      render() {
-        return (
-          <>
-            <Head>
-              <link rel="stylesheet" href="/static/gfm.css" />
-            </Head>
-            <Query
-              query={query}
-              variables={{
-                id: this.props.query.id
-              }}
-            >
-              {({ data, loading, error }) => {
-                if (loading) {
-                  return <Layout title="Loading">Loading...</Layout>
+export default withAuth(
+  class RepoDetailsTemplate extends Component {
+    static getInitialProps = ({ query }) => {
+      return { query }
+    }
+    render() {
+      return (
+        <>
+          <Head>
+            <link rel="stylesheet" href="/static/gfm.css" />
+          </Head>
+          <Query
+            query={query}
+            variables={{
+              id: this.props.query.id
+            }}
+          >
+            {({ data, loading, error }) => {
+              if (loading) {
+                return <Layout title="Loading">Loading...</Layout>
+              }
+              if (error) {
+                return <Layout title="Error">Error...</Layout>
+              }
+              let {
+                getRepo: {
+                  description,
+                  readme,
+                  homepage,
+                  name,
+                  url,
+                  nameWithOwner,
+                  activity,
+                  starCount,
+                  posted,
+                  pushedAt,
+                  license
                 }
-                if (error) {
-                  return <Layout title="Error">Error...</Layout>
-                }
-                let {
-                  getRepo: {
-                    description,
-                    readme,
-                    homepage,
-                    name,
-                    url,
-                    nameWithOwner,
-                    activity,
-                    starCount,
-                    posted,
-                    pushedAt,
-                    license
-                  }
-                } = data
-                if (!readme) {
-                  readme = `
+              } = data
+              if (!readme) {
+                readme = `
                 <i>(No readme found on github. Add one on github)</i>
               `
-                }
-                return (
-                  <Layout title={name}>
-                    <Card>
-                      <Description>{description}</Description>
-                      <ReadmeArea className="markdown-body" dangerouslySetInnerHTML={{ __html: readme }} />
-                      <ExtrasArea>
-                        <SideContainer>
+              }
+              return (
+                <Layout title={name}>
+                  <Card>
+                    <Description>{description}</Description>
+                    <ReadmeArea className="markdown-body" dangerouslySetInnerHTML={{ __html: readme }} />
+                    <ExtrasArea>
+                      <SideContainer>
+                        <BtnContainer>
+                          <GitBtn href={url} target="_blank" rel="noopener">
+                            <GitIcon style={{ fill: '#fff', height: 'auto', width: '1.7rem' }} />&nbsp; {nameWithOwner}
+                          </GitBtn>
+                        </BtnContainer>
+                        {homepage && (
                           <BtnContainer>
-                            <GitBtn href={url} target="_blank" rel="noopener">
-                              <GitIcon style={{ fill: '#fff', height: 'auto', width: '1.7rem' }} />&nbsp;{' '}
-                              {nameWithOwner}
-                            </GitBtn>
+                            <InvBtn href={homepage} target="_blank" rel="noopener">
+                              Visit
+                            </InvBtn>
                           </BtnContainer>
-                          {homepage && (
-                            <BtnContainer>
-                              <InvBtn href={homepage} target="_blank" rel="noopener">
-                                Visit
-                              </InvBtn>
-                            </BtnContainer>
+                        )}
+                      </SideContainer>
+                      <SideContainer>
+                        <h2>
+                          Activity <i>(Past 1 year)</i>
+                        </h2>
+                        <a href={`${url}/graphs/commit-activity`} target="_blank" rel="noopener">
+                          {activity && (
+                            <Sparklines data={activity} height={90}>
+                              <SparklinesLine color="#3031b4" />
+                            </Sparklines>
                           )}
-                        </SideContainer>
-                        <SideContainer>
-                          <h2>
-                            Activity <i>(Past 1 year)</i>
-                          </h2>
-                          <a href={`${url}/graphs/commit-activity`} target="_blank" rel="noopener">
-                            {activity && (
-                              <Sparklines data={activity} height={90}>
-                                <SparklinesLine color="#3031b4" />
-                              </Sparklines>
-                            )}
-                          </a>
-                        </SideContainer>
-                        <SideContainer>
-                          <h2>Stats</h2>
-                          <Info>
-                            <h4>Github Stars</h4>
-                            <h4>{starCount}</h4>
-                          </Info>
-                          <Info>
-                            <h4>Posted on JSaf</h4>
-                            <h4>{posted}</h4>
-                          </Info>
-                          <Info>
-                            <h4>Last Pushed</h4>
-                            <h4>{pushedAt}</h4>
-                          </Info>
-                          <Info>
-                            <h4>License</h4>
-                            <h4>{license || 'n/a'}</h4>
-                          </Info>
-                        </SideContainer>
-                      </ExtrasArea>
-                    </Card>
-                  </Layout>
-                )
-              }}
-            </Query>
-          </>
-        )
-      }
+                        </a>
+                      </SideContainer>
+                      <SideContainer>
+                        <h2>Stats</h2>
+                        <Info>
+                          <h4>Github Stars</h4>
+                          <h4>{starCount}</h4>
+                        </Info>
+                        <Info>
+                          <h4>Posted on JSaf</h4>
+                          <h4>{posted}</h4>
+                        </Info>
+                        <Info>
+                          <h4>Last Pushed</h4>
+                          <h4>{pushedAt}</h4>
+                        </Info>
+                        <Info>
+                          <h4>License</h4>
+                          <h4>{license || 'n/a'}</h4>
+                        </Info>
+                      </SideContainer>
+                    </ExtrasArea>
+                  </Card>
+                </Layout>
+              )
+            }}
+          </Query>
+        </>
+      )
     }
-  )
+  }
 )

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import withData from '../apollo/wihData'
 import HomePage from '../components/HomePage'
 import withAuth from '../components/withAuth'
 import IndexPage from '../components/IndexPage'
@@ -10,4 +9,4 @@ class Index extends Component {
   }
 }
 
-export default withData(withAuth(Index, false))
+export default withAuth(Index, false)

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import gql from 'graphql-tag'
 import RepoMasonry from '../components/RepoMasonry'
 import UserLayout from '../components/UserLayout'
-import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
 
 const ReposQuery = gql`
@@ -32,4 +31,4 @@ class EditorsChoice extends Component {
   }
 }
 
-export default withData(withAuth(EditorsChoice))
+export default withAuth(EditorsChoice)

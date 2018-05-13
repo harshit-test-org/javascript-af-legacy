@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import UserLayout from '../components/UserLayout'
-import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
 
 const Card = styled.div`
@@ -28,4 +27,4 @@ class Trending extends Component {
   }
 }
 
-export default withData(withAuth(Trending))
+export default withAuth(Trending)

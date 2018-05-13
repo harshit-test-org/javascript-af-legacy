@@ -5,7 +5,6 @@ import GitIcon from '../assets/icons/github'
 import { LinkBtn } from '../components/Button'
 import styled from 'styled-components'
 import gql from 'graphql-tag'
-import withData from '../apollo/wihData'
 import withAuth from '../components/withAuth'
 import UserIcon from '../assets/icons/account'
 import RepoMasonry from '../components/RepoMasonry'
@@ -176,4 +175,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default withData(withAuth(ProfilePage))
+export default withAuth(ProfilePage)
