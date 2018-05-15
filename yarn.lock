@@ -3566,9 +3566,9 @@ eslint-plugin-promise@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-3.7.0.tgz#f4bde5c2c77cdd69557a8f69a24d1ad3cfc9e67e"
 
-eslint-plugin-react@^7.8.1:
-  version "7.8.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.8.1.tgz#6bfb5288227645eb7ca3ba8810b87024e0d6c993"
+eslint-plugin-react@^7.8.2:
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.8.2.tgz#e95c9c47fece55d2303d1a67c9d01b930b88a51d"
   dependencies:
     doctrine "^2.0.2"
     has "^1.0.1"
@@ -6631,9 +6631,9 @@ mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
-mongoose@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.1.0.tgz#5002b9e4af8ea3f131b443756a01c979d22decb3"
+mongoose@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.1.1.tgz#a7e925607e76032e5ef20b3035a357bc8581b45e"
   dependencies:
     async "2.1.4"
     bson "~1.0.5"
@@ -6778,9 +6778,9 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-next@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/next/-/next-6.0.1.tgz#dc560b32cc3cc1cfe1ed4eba8e52fc368d021564"
+next@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/next/-/next-6.0.2.tgz#d72525eb725ed1aa85129bd2c1e67226e2690d5c"
   dependencies:
     "@babel/core" "7.0.0-beta.42"
     "@babel/plugin-proposal-class-properties" "7.0.0-beta.42"
@@ -7893,9 +7893,9 @@ react-test-renderer@^16.0.0-0:
     prop-types "^15.6.0"
     react-is "^16.3.2"
 
-react-testing-library@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-3.0.2.tgz#03ffe4b8c1b408e7c010ce910a63edefbe843f28"
+react-testing-library@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-3.1.0.tgz#f7bf3b5e718144aac968a2209600aa200e1329cf"
   dependencies:
     dom-testing-library "^2.0.0"
     wait-for-expect "^0.5.0"
