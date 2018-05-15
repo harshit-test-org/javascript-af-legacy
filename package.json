@@ -6,15 +6,15 @@
   "scripts": {
     "dev": "npm-run-all -p --print-label ui:dev api:dev",
     "ui:dev": "node frontend/server.js",
-    "ui:build": "NODE_ENV=production next build frontend",
-    "ui:start": "NODE_ENV=production node frontend/server.js",
+    "ui:build": "cross-env NODE_ENV=production next build frontend",
+    "ui:start": "cross-env NODE_ENV=production node frontend/server.js",
     "ui:test": "jest frontend",
     "test": "jest",
     "ci": "jest",
     "preci": "./check-env-files.sh && cp frontend/.env.example.js frontend/.env.js && cp frontend/.env.prod.example.js frontend/.env.prod.js",
     "build": "npm run ui:build && npm run api:build",
     "cm": "git-cz",
-    "api:start": "NODE_ENV=production node backend/dist/start.js",
+    "api:start": "cross-env NODE_ENV=production node backend/dist/start.js",
     "api:dev": "nodemon --watch backend --exec babel-node backend/src/start.js",
     "api:build": "rm -rf backend/dist/ && babel backend/src/ -d backend/dist/ --source-maps",
     "precommit": "lint-staged"
@@ -24,6 +24,7 @@
     "backend"
   ],
   "devDependencies": {
+    "cross-env": "^5.1.5",
     "npm-run-all": "^4.1.3"
   },
   "lint-staged": {
