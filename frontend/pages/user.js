@@ -42,6 +42,7 @@ const Container = styled.div`
   display: flex;
   align-items: flex-start;
   @media all and (max-width: 790px) {
+    margin-bottom: 2rem;
     flex-direction: column;
   }
 `
@@ -50,6 +51,8 @@ const UserContainer = styled.div`
   width: 100%;
   flex: 1;
   margin-right: 2rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   @media all and (max-width: 790px) {
     & > img {
       height: 360px;
