@@ -39,23 +39,17 @@ const userRepos = gql`
 `
 
 const Container = styled.div`
-  display: grid;
-  grid-column-gap: 2rem;
-  grid-template-columns: 1fr 3fr;
-  grid-auto-rows: 180px;
-  @media all and (max-width: 1024px) {
-    grid-template-columns: 1fr 2fr;
-  }
+  display: flex;
+  align-items: flex-start;
   @media all and (max-width: 790px) {
-    display: flex;
     flex-direction: column;
   }
 `
 
 const UserContainer = styled.div`
-  grid-column: 1 / 2;
-  grid-row: 1 / span 3;
   width: 100%;
+  flex: 1;
+  margin-right: 2rem;
   @media all and (max-width: 790px) {
     & > img {
       height: 360px;
@@ -109,7 +103,10 @@ const GitBtn = LinkBtn.extend`
 `
 
 const ContentContainer = styled.div`
-  grid-column: 2 / 3;
+  flex: 3;
+  @media all and (max-width: 1024px) {
+    flex: 2;
+  }
 `
 
 class ProfilePage extends Component {
