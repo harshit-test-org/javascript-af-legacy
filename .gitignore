@@ -2,11 +2,8 @@ node_modules
 coverage
 build
 .DS_Store
-.env.example.js
 .env.js
-.env.prod.example.js
 .env.prod.js
-.env.example
 .env
 .env.now
 npm-debug.log*
