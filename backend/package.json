@@ -25,7 +25,7 @@
     "deploy": "now && now alias",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "precommit": "lint-staged && mocha",
-    "test": "mocha "
+    "test": "jest"
   },
   "dependencies": {
     "algoliasearch": "^3.27.0",
@@ -55,7 +55,6 @@
     "babel-eslint": "^8.2.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
@@ -66,16 +65,19 @@
     "eslint-plugin-standard": "^3.0.0",
     "flightplan": "^0.6.17",
     "husky": "^0.14.3",
+    "jest": "^22.4.4",
     "lint-staged": "^7.0.4",
-    "mocha": "^5.1.1",
     "nodemon": "^1.17.3",
     "prettier": "^1.12.1"
   },
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
       "git add"
     ]
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-node"
   }
 }
