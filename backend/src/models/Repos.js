@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { distanceInWordsToNow } from 'date-fns'
+import slug from 'slug'
 const Schema = mongoose.Schema
 
 const RepoSchema = new Schema(
@@ -23,6 +24,9 @@ const RepoSchema = new Schema(
       type: String,
       required: 'Description of repo cant be null'
     },
+    slug: {
+      type: String
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -40,6 +44,22 @@ const RepoSchema = new Schema(
 
 RepoSchema.pre('find', function() {
   this.populate('owner')
+})
+
+RepoSchema.pre('save', async function(next) {
+  if (!this.isModified('name')) {
+    next() // skip it
+    return // stop this function from running
+  }
+  this.slug = slug(this.name)
+  // find other stores that have a slug of wes, wes-1, wes-2
+  const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i')
+  const storesWithSlug = await this.constructor.find({ slug: slugRegEx })
+  if (storesWithSlug.length) {
+    this.slug = `${this.slug}-${storesWithSlug.length + 1}`
+  }
+  next()
+  // TODO make more resiliant so slugs are unique
 })
 
 RepoSchema.virtual('posted').get(function() {
