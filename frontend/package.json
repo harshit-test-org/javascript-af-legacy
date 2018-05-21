@@ -63,8 +63,8 @@
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server.js",
     "format": "prettier es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/registerServiceWorker.js --collectCoverageFrom=!src/index.js",
-    "testwatch": "react-scripts test --env=jsdom --watch",
+    "test": "jest --coverage",
+    "testwatch": "jest --watch",
     "cm": "git-cz",
     "deploy": "now && now alias",
     "precommit": "lint-staged"
