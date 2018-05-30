@@ -1,5 +1,4 @@
 import React from 'react'
-import wait from 'waait'
 import { render, Simulate } from 'react-testing-library'
 import SnackBar from '../components/SnackBar'
 
@@ -19,9 +18,10 @@ describe('SnackBar', () => {
     const { container } = render(noActionComp)
     expect(container.firstChild.querySelector('a')).toBeNull()
   })
+  jest.useFakeTimers()
   test('should display none after timeout', async () => {
     const { container } = render(<SnackBar message="test message" timeout={2000} />)
-    await wait(2100)
+    jest.runAllTimers()
     const dProp = document.defaultView.getComputedStyle(container.firstChild, null).getPropertyValue('display')
     expect(dProp).toBe('none')
   })
