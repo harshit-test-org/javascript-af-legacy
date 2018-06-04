@@ -4,5 +4,6 @@ node_js:
   - "8"
 cache: yarn
 script:
-  - yarn ci
-  - yarn build
+  - yarn run ci
+  - yarn run build
+  - yarn run test:e2e:ci
