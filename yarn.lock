@@ -3077,9 +3077,9 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
 
-cypress-testing-library@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cypress-testing-library/-/cypress-testing-library-2.0.0.tgz#b38c4d299cca59f17df00c14fd1b7630843d40df"
+cypress-testing-library@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/cypress-testing-library/-/cypress-testing-library-2.1.0.tgz#f9d567c55b923ea0c5a4a8afb460a32e22a36675"
   dependencies:
     dom-testing-library "^2.0.0"
 
