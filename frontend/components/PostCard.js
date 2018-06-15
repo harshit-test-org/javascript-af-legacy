@@ -1,16 +1,9 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Router from 'next/router'
 import GitHubIcon from '../assets/icons/github'
 
-export const Card = styled.div`
-  position: relative;
-  z-index: 55;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  margin-bottom: 15px;
-  padding: 16px;
+const animationCSS = css`
   animation: zoomIn 0.5s ease-in;
   @keyframes zoomIn {
     from {
@@ -22,6 +15,17 @@ export const Card = styled.div`
       opacity: 1;
     }
   }
+`
+
+export const Card = styled.div`
+  position: relative;
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  margin-bottom: 15px;
+  padding: 16px;
+  ${props => (props.animate ? animationCSS : null)};
 `
 
 const CardTop = styled.div`
@@ -92,9 +96,9 @@ class RepoCard extends Component {
     window.location.assign(url)
   }
   render() {
-    const { repoId, userId, title, text, author, image, posted, url } = this.props
+    const { repoId, userId, title, text, author, image, posted, url, animate } = this.props
     return (
-      <Card>
+      <Card animate={animate}>
         <CardTop>
           <h2 onClick={() => this.handleCardClick(repoId)}>{title}</h2>
           <p>{text}</p>

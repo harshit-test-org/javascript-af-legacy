@@ -114,7 +114,7 @@ export default class RepoMasonry extends Component {
             Array.from({ length: 5 })
               .map((n, i) => `loader-${i}`)
               .map(i => (
-                <Card key={i}>
+                <Card key={i} animate>
                   <Loader />
                 </Card>
               ))}
