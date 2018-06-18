@@ -2,7 +2,7 @@ import React from 'react'
 import ContentLoader from 'react-content-loader'
 
 const RepoCardLoader = props => (
-  <ContentLoader height={250} width={250} speed={1} primaryColor="#f3f3f3" secondaryColor="#ecebeb" {...props}>
+  <ContentLoader height={'100%'} width={'100%'} speed={1} primaryColor="#f3f3f3" secondaryColor="#ecebeb" {...props}>
     <rect x="14.5" y="17.27" rx="0" ry="0" width="190" height="21" />
     <rect x="14.5" y="55.27" rx="0" ry="0" width="220" height="8" />
     <rect x="14.5" y="76.27" rx="0" ry="0" width="220" height="8" />
