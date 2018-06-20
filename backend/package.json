@@ -47,7 +47,7 @@
     "merge-graphql-schemas": "^1.5.1",
     "mongoose": "^5.1.1",
     "morgan": "^1.9.0",
-    "raven": "^2.6.2",
+    "raven": "^2.6.3",
     "slug": "^0.9.1"
   },
   "devDependencies": {
